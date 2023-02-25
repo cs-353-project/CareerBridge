@@ -1,0 +1,14 @@
+exclude_dirs:
+  [
+    "test_*.py",
+    "./venv/",
+    "./env/",
+    "./node_modules/",
+    "./cacheback/",
+    "./.env",
+    "./.venv",
+  ]
+skips: ["B101", "B105", "B311"]
+# B101: assert
+# B105: hard-coded password
+# B311: random

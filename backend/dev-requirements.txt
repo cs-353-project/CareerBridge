@@ -1,0 +1,10 @@
+bandit==1.7.4
+black==23.1.0
+flake8==3.8.4
+isort==5.10.1
+mypy==1.0.1
+django-stubs[compatible-mypy]==1.15.0
+djangorestframework-stubs[compatible-mypy]==1.9.1
+pylint-django==2.5.3
+prospector[with_vulture]==1.7.7
+safety==2.1.1

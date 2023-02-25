@@ -1,0 +1,66 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/venv/bin/python3",
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--config",
+    "${workspaceFolder}/backend/.flake8"
+  ],
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyArgs": [
+    "--config-file",
+    "${workspaceFolder}/backend/mypy.ini"
+  ],
+  "python.linting.banditEnabled": true,
+  "python.linting.banditArgs": ["-c", "${workspaceFolder}/backend/bandit.yaml"],
+  "python.linting.prospectorEnabled": true,
+  "python.linting.prospectorArgs": [
+    "--profile",
+    "${workspaceFolder}/backend/.prospector.yaml"
+  ],
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": [
+    "--config",
+    "${workspaceFolder}/backend/pyproject.toml"
+  ],
+  "isort.args": [
+    "--profile",
+    "black",
+    "--settings-path",
+    "${workspaceFolder}/backend/.isort.cfg"
+  ],
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "editor.formatOnType": false,
+  "editor.formatOnSaveMode": "file",
+  "files.autoSave": "off",
+  "eslint.workingDirectories": ["${workspaceFolder}/frontend"],
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "json.format.enable": false,
+  "prettier.ignorePath": "${workspaceFolder}/frontend/.prettierignore"
+}

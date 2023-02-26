@@ -58,7 +58,7 @@ filename =
 ########## Environment ##########
 
 # Provide a custom list of builtin functions, objects, names, etc.
-builtins =
+builtins = reveal_type, reveal_locals, _
 
 ########## Options ##########
 

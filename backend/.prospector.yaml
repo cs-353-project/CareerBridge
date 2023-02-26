@@ -23,10 +23,6 @@ pep8:
   options:
     max-line-length: 100
 
-pyflakes:
-  disable:
-    - F999
-
 ignore-paths:
   - node_modules
   - venv
@@ -39,6 +35,12 @@ ignore-patterns:
   - .+/settings/.+
 
 allow-shorthand: false
+
+pyflakes:
+  run: false
+
+pycodestyle:
+  run: false
 
 pylint:
   run: false

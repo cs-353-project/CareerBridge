@@ -14,9 +14,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { PolicyDialogComponent } from './signup/policy-dialog/policy-dialog.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignupComponent],
+  declarations: [AppComponent, LoginComponent, SignupComponent, PolicyDialogComponent, ForgotPasswordComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,7 +32,9 @@ import { SignupComponent } from './signup/signup.component';
     MatCheckboxModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidatorFn } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PolicyDialogComponent } from './policy-dialog/policy-dialog.component';
 
 @Component({
   selector: 'app-signup',
@@ -16,6 +18,7 @@ export class SignupComponent implements OnInit {
   constructor(    
     private router: Router,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog
     ) {    this.buildForm();
     }
 
@@ -65,5 +68,14 @@ export class SignupComponent implements OnInit {
   
   goLogin() {
     this.router.navigate(['/login']);
+  }
+
+
+  openPolicy() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = null;
+    const dialogRef = this.dialog.open(PolicyDialogComponent, dialogConfig);
   }
 }

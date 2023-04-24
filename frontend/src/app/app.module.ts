@@ -18,9 +18,23 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PolicyDialogComponent } from './signup/policy-dialog/policy-dialog.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignupComponent, PolicyDialogComponent, ForgotPasswordComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignupComponent,
+    PolicyDialogComponent,
+    ForgotPasswordComponent,
+    NavigationComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,7 +49,13 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatSidenavModule,
+    MatListModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

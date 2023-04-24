@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+.toolbar-item-spacer {
+  flex: 1 1 auto;
+}
+
+.app-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificationUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-sidenav-container{
+  height: calc(100vh - 65px);
+}

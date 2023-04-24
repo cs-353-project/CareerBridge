@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   requiredForm: FormGroup;
   loading = false;
   hidePassword = true;
+  rememberMe = false;
 
   constructor(
     private router: Router
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    console.log(this.rememberMe)
     console.log('login');
   }
 
@@ -36,5 +38,9 @@ export class LoginComponent implements OnInit {
 
   goSignUp() {
     this.router.navigate(['/signup']);
+  }
+
+  rememberMeToggle(){
+    this.rememberMe = !this.rememberMe;
   }
 }

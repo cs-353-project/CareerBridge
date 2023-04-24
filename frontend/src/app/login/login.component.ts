@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   goForgotPassword() {
-    // this.currentScene = AppScene.ForgotPassword;
-    // this.currentSceneChange.emit(this.currentScene);
+    this.router.navigate(['/forgot-password']);
   }
 
   goSignUp() {

@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PolicyDialogComponent } from './signup/policy-dialog/policy-dialog.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+
 @NgModule({
   declarations: [AppComponent, LoginComponent, SignupComponent, PolicyDialogComponent, ForgotPasswordComponent],
   imports: [

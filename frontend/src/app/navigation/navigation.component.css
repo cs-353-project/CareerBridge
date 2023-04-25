@@ -22,3 +22,26 @@
 mat-sidenav-container{
   height: calc(100vh - 65px);
 }
+
+.active-list-item {
+  background-color: #e8e8e8;
+}
+
+.active-button{
+  color: #0143ad;
+}
+
+.username{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.username span{
+  margin: 0px !important;
+  height: 25px;
+  padding: 0px !important;
+}

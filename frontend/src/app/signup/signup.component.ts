@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidatorFn } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+  AbstractControl,
+  ValidatorFn
+} from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PolicyDialogComponent } from './policy-dialog/policy-dialog.component';
@@ -10,20 +17,19 @@ import { PolicyDialogComponent } from './policy-dialog/policy-dialog.component';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
   requiredForm: FormGroup;
   hidePassword = true;
   hidePasswordConfirm: boolean = true;
 
-  constructor(    
+  constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private dialog: MatDialog
-    ) {    this.buildForm();
-    }
-
-  ngOnInit(): void {
+  ) {
+    this.buildForm();
   }
+
+  ngOnInit(): void {}
 
   signUp() {
     /*
@@ -65,11 +71,10 @@ export class SignupComponent implements OnInit {
         : { notMatching: true };
     };
   }
-  
+
   goLogin() {
     this.router.navigate(['/login']);
   }
-
 
   openPolicy() {
     const dialogConfig = new MatDialogConfig();

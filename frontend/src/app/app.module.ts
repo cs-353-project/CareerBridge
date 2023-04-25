@@ -25,7 +25,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FeedComponent } from './feed/feed.component';
+import { MatTreeModule } from '@angular/material/tree';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     SignupComponent,
     PolicyDialogComponent,
     ForgotPasswordComponent,
-    NavigationComponent
+    NavigationComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatDividerModule,
     MatSidenavModule,
     MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

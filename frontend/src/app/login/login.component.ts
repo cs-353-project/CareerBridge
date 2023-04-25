@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -13,9 +13,7 @@ export class LoginComponent implements OnInit {
   hidePassword = true;
   rememberMe = false;
 
-  constructor(
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
   ngOnInit(): void {
     this.buildForm();
   }
@@ -28,8 +26,9 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.rememberMe)
+    console.log(this.rememberMe);
     console.log('login');
+    this.router.navigate(['/feed']);
   }
 
   goForgotPassword() {
@@ -40,7 +39,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/signup']);
   }
 
-  rememberMeToggle(){
+  rememberMeToggle() {
     this.rememberMe = !this.rememberMe;
   }
 }

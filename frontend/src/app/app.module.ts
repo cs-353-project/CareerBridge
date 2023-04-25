@@ -29,6 +29,7 @@ import { FeedComponent } from './feed/feed.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AdsComponent } from './ads/ads.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AdsComponent } from './ads/ads.component';
     ForgotPasswordComponent,
     NavigationComponent,
     FeedComponent,
-    AdsComponent
+    AdsComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FeedComponent } from './feed/feed.component';
+import { AdsComponent } from './ads/ads.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -13,7 +14,10 @@ const routes: Routes = [
   {
     path: '',
     component: NavigationComponent,
-    children: [{ path: 'feed', component: FeedComponent }]
+    children: [
+      { path: 'feed', component: FeedComponent },
+      { path: 'ads', component: AdsComponent }
+    ]
   }
 ];
 

@@ -27,6 +27,9 @@ import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
 import { FeedComponent } from './feed/feed.component';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatTabsModule } from '@angular/material/tabs';
+import { AdsComponent } from './ads/ads.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,8 @@ import { MatTreeModule } from '@angular/material/tree';
     PolicyDialogComponent,
     ForgotPasswordComponent,
     NavigationComponent,
-    FeedComponent
+    FeedComponent,
+    AdsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,8 @@ import { MatTreeModule } from '@angular/material/tree';
     MatSidenavModule,
     MatListModule,
     HttpClientModule,
-    MatTreeModule
+    MatTreeModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

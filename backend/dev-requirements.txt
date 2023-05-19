@@ -3,8 +3,5 @@ black==22.12.0
 flake8==5.0.4
 isort==5.12.0
 mypy==1.0.1
-django-stubs[compatible-mypy]==1.15.0
-djangorestframework-stubs[compatible-mypy]==1.9.1
-pylint-django==2.5.3
 prospector[with_vulture]==1.9.0
 safety==2.3.5

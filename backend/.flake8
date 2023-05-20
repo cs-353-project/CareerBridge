@@ -11,6 +11,7 @@ jobs = auto
 
 # Increase the verbosity of Flake8’s output.
 verbose = 0
+
 # Decrease the verbosity of Flake8’s output.
 quiet = 0
 
@@ -21,8 +22,10 @@ format = default
 
 # Print the total number of errors.
 count = True
+
 # Print the source code generating the error/warning in question.
 show-source = True
+
 # Count the number of occurrences of each error/warning code and print a report.
 statistics = True
 
@@ -49,6 +52,7 @@ exclude =
     .vscode,
     # docs
     docs
+
 # Provide a comma-separate list of glob patterns to include for checks.
 filename =
     *.py
@@ -67,8 +71,10 @@ disable-noqa = False
 
 # Set the maximum length that any line (with some exceptions) may be.
 max-line-length = 120
+
 # Set the maximum allowed McCabe complexity value for a block of code.
 max-complexity = 10
+
 # Toggle whether pycodestyle should enforce matching the indentation of the opening bracket’s line.
 # incluences E131 and E133
 hang-closing = True
@@ -92,7 +98,9 @@ hang-closing = True
 ignore =
     E133,
     E203,
-    W503
+    W503,
+    F401
+
 # Specify the list of error codes you wish Flake8 to report.
 select =
     B,
@@ -103,6 +111,7 @@ select =
     C,
     T4,
     B9
+
 # Specify a list of mappings of files and the codes that should be ignored for the entirety of the
 # file.
 per-file-ignores =
@@ -118,5 +127,6 @@ doctests = True
 
 # Specify which files are checked by PyFlakes for doctest syntax.
 include-in-doctest =
+
 # Specify which files are not to be checked by PyFlakes for doctest syntax.
 exclude-in-doctest =

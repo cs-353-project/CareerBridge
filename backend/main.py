@@ -1,5 +1,24 @@
-from profile.models import ProfileResponseModel, ProfileUpdateRequestModel
-from profile.profile import get_profile_by_user_id_main, update_profile_base
+from profile.models import (
+    EducationalExperienceRequestModel,
+    EducationalExperienceResponseModel,
+    ProfileResponseModel,
+    ProfileUpdateRequestModel,
+    VoluntaryExperienceRequestModel,
+    VoluntaryExperienceResponseModel,
+    WorkExperienceRequestModel,
+    WorkExperienceResponseModel,
+)
+from profile.profile import (
+    add_educational_experience,
+    add_voluntary_experience,
+    add_work_experience,
+    delete_experience,
+    get_edu_exp_by_profile_id,
+    get_profile_by_user_id_main,
+    get_vol_exp_by_profile_id,
+    get_work_exp_by_profile_id,
+    update_profile_base,
+)
 
 from fastapi import FastAPI, HTTPException, Security
 from fastapi.encoders import jsonable_encoder
@@ -147,6 +166,94 @@ def update_profile_base_api(profile_id: int, profile_details: ProfileUpdateReque
         raise HTTPException(status_code=404, detail="Profile not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(profile))
+
+
+@app.post("/api/profile/educational-experience", response_model=EducationalExperienceResponseModel)
+def add_educational_experience_api(educational_experience_details: EducationalExperienceRequestModel):
+    """
+    This educational experience add API allow you to add educational experience data.
+    """
+    educational_experience = add_educational_experience(educational_experience_details)
+
+    # if len(educational_experience) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding educational experience")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(educational_experience))
+
+
+@app.delete("/api/profile/experience")
+def delete_experience_api(experience_id: int):
+    """
+    This experience delete API allow you to delete experience data.
+    """
+    delete_experience(experience_id)
+
+    return JSONResponse(status_code=200, content={"message": "Experience deleted successfully"})
+
+
+@app.post("/api/profile/work-experience", response_model=WorkExperienceResponseModel)
+def add_work_experience_api(work_experience_details: WorkExperienceRequestModel):
+    """
+    This work experience add API allow you to add work experience data.
+    """
+    work_experience = add_work_experience(work_experience_details)
+
+    # if len(work_experience) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding work experience")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(work_experience))
+
+
+@app.post("/api/profile/voluntary-experience", response_model=VoluntaryExperienceResponseModel)
+def add_voluntary_experience_api(voluntary_experience_details: VoluntaryExperienceRequestModel):
+    """
+    This voluntary experience add API allow you to add voluntary experience data.
+    """
+    voluntary_experience = add_voluntary_experience(voluntary_experience_details)
+
+    # if len(voluntary_experience) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding voluntary experience")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(voluntary_experience))
+
+
+@app.get("/api/profile/educational-experience/{profile_id}", response_model=list[EducationalExperienceResponseModel])
+def get_educational_experience_api(profile_id: int):
+    """
+    This educational experience API allow you to fetch specific educational experience data.
+    """
+    educational_experience = get_edu_exp_by_profile_id(profile_id)
+
+    if len(educational_experience) == 0:
+        raise HTTPException(status_code=404, detail="Educational experience not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(educational_experience))
+
+
+@app.get("/api/profile/work-experience/{profile_id}", response_model=list[WorkExperienceResponseModel])
+def get_work_experience_api(profile_id: int):
+    """
+    This work experience API allow you to fetch specific work experience data.
+    """
+    work_experience = get_work_exp_by_profile_id(profile_id)
+
+    if len(work_experience) == 0:
+        raise HTTPException(status_code=404, detail="Work experience not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(work_experience))
+
+
+@app.get("/api/profile/voluntary-experience/{profile_id}", response_model=list[VoluntaryExperienceResponseModel])
+def get_voluntary_experience_api(profile_id: int):
+    """
+    This voluntary experience API allow you to fetch specific voluntary experience data.
+    """
+    voluntary_experience = get_vol_exp_by_profile_id(profile_id)
+
+    if len(voluntary_experience) == 0:
+        raise HTTPException(status_code=404, detail="Voluntary experience not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(voluntary_experience))
 
 
 # Test Endpoints

@@ -1,3 +1,5 @@
+import profile.profile
+
 from fastapi import HTTPException
 
 from database.query import query_get, query_put, query_update
@@ -35,6 +37,9 @@ def register_user(user_model: RegisterUpdateRequestModel):
         """,
         (user[0]["user_id"]),
     )
+
+    # Also create a profile for the user
+    profile.create_profile(user[0]["user_id"])
 
     user = get_user_by_email_hide_password(user_model.email)
 

@@ -1,3 +1,6 @@
+from profile.models import ProfileResponseModel, ProfileUpdateRequestModel
+from profile.profile import get_profile_by_user_id_main, update_profile_base
+
 from fastapi import FastAPI, HTTPException, Security
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -97,6 +100,10 @@ def get_user_by_id_api(user_id: int):
     This user API allow you to fetch specific user data.
     """
     user = get_user_by_id(user_id)
+
+    if len(user) == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+
     return JSONResponse(status_code=200, content=jsonable_encoder(user))
 
 
@@ -106,7 +113,40 @@ def update_user_api(user_id: int, user_details: UserUpdateRequestModel):
     This user update API allow you to update user data.
     """
     user = update_user(user_details, user_id)
+
+    if len(user) == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+
     return JSONResponse(status_code=200, content=jsonable_encoder(user))
+
+
+# Profile Endpoints
+
+
+@app.get("/api/profile/{user_id}", response_model=ProfileResponseModel)
+def get_profile_main_api(user_id: int):
+    """
+    This profile API allow you to fetch specific profile data.
+    """
+    profile = get_profile_by_user_id_main(user_id)
+
+    if len(profile) == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(profile))
+
+
+@app.patch("/api/profile/update", response_model=ProfileResponseModel)
+def update_profile_base_api(profile_id: int, profile_details: ProfileUpdateRequestModel):
+    """
+    This profile update API allow you to update profile data.
+    """
+    profile = update_profile_base(profile_details, profile_id)
+
+    if len(profile) == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(profile))
 
 
 # Test Endpoints

@@ -132,3 +132,24 @@ class PublicationRequestModel(BaseModel):
     publication_date: str
     publisher: str
     publication_url: str
+
+class CertificationResponseModel(BaseModel):
+    certification_id: int
+    profile_id: int
+    certification_name: str
+    description: str
+    credential_url: str
+    issue_date: str 
+    issuer: str 
+    expiration_date: str
+
+class CertificationRequestModel(BaseModel):
+    profile_id: int
+    certification_name: str
+    description: str
+    credential_url: str
+    issue_date: str 
+    issuer: str 
+    expiration_date: str
+
+    

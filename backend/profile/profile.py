@@ -17,6 +17,8 @@ from .models import (
     TestScoreResponseModel,
     PublicationRequestModel,
     PublicationResponseModel,
+    CertificationRequestModel,
+    CertificationResponseModel,
 )
 
 
@@ -287,6 +289,31 @@ def add_publication(publication_request: PublicationRequestModel):
 
     return response
 
+def add_certification(certification_request: CertificationRequestModel):
+
+    certification_id = query_put(
+        """
+            INSERT INTO Certification (profile_id, certification_name, description, credential_url, issue_date, issuer, expiration_date)
+            VALUES (%s, %s, %s, %s, %s, %s, %s);
+                
+            """,
+        (certification_request.profile_id, certification_request.certification_name, certification_request.description, certification_request.credential_url, certification_request.issue_date, certification_request.issuer, certification_request.expiration_date)
+    )
+
+    #consrtuct response
+    response: CertificationResponseModel = CertificationResponseModel(
+        certification_id=certification_id,
+        profile_id=certification_request.profile_id,
+        certification_name=certification_request.certification_name,
+        description=certification_request.description,
+        credential_url=certification_request.credential_url,
+        issue_date=certification_request.issue_date,
+        issuer=certification_request.issuer,
+        expiration_date=certification_request.expiration_date,
+    )
+
+    return response
+
 def delete_test_score(test_score_id: int):
     # See if the experience exists
     test_score = query_get(
@@ -342,6 +369,25 @@ def delete_publication(publication_id: int):
             DELETE FROM Publication WHERE publication_id = %s;
             """,
         (publication_id),
+    )
+
+def delete_certification(certification_id: int):
+    # See if the experience exists
+    certification = query_get(
+        """
+            SELECT * FROM Certification WHERE certification_id = %s;
+            """,
+        (certification_id),
+    )
+
+    if len(certification) == 0:
+        raise HTTPException(status_code=404, detail="Certification not found")
+
+    return query_put(
+        """
+            DELETE FROM Certification WHERE certification_id = %s;
+            """,
+        (certification_id),
     )
 
 
@@ -438,3 +484,16 @@ def get_publication_by_profile_id(profile_id: int):
         raise HTTPException(status_code=404, detail="Publication not found")
 
     return publication
+
+def get_certification_by_profile_id(profile_id: int):
+    certification = query_get(
+        """
+            SELECT * FROM Certification WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    if len(certification) == 0:
+        raise HTTPException(status_code=404, detail="Certification not found")
+
+    return certification

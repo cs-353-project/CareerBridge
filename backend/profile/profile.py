@@ -14,7 +14,9 @@ from .models import (
     WorkExperienceRequestModel,
     WorkExperienceResponseModel,
     TestScoreRequestModel,
-    TestScoreResponseModel
+    TestScoreResponseModel,
+    PublicationRequestModel,
+    PublicationResponseModel,
 )
 
 
@@ -261,6 +263,30 @@ def add_test_score(test_request: TestScoreRequestModel):
 
     return response
 
+def add_publication(publication_request: PublicationRequestModel):
+
+    publication_id = query_put(
+        """
+            INSERT INTO Publication (profile_id, title, description, publication_date, publisher, publication_url)
+            VALUES (%s, %s, %s, %s, %s, %s);
+                
+            """,
+        (publication_request.profile_id, publication_request.title, publication_request.description, publication_request.publication_date, publication_request.publisher, publication_request.publication_url)
+    )
+
+    #consrtuct response
+    response: PublicationResponseModel = PublicationResponseModel(
+        publication_id=publication_id,
+        profile_id=publication_request.profile_id,
+        title=publication_request.title,
+        description=publication_request.description,
+        publication_date=publication_request.publication_date,
+        publisher=publication_request.publisher,
+        publication_url=publication_request.publication_url,
+    )
+
+    return response
+
 def delete_test_score(test_score_id: int):
     # See if the experience exists
     test_score = query_get(
@@ -297,6 +323,25 @@ def delete_experience(experience_id: int):
             DELETE FROM Experience WHERE experience_id = %s;
             """,
         (experience_id),
+    )
+
+def delete_publication(publication_id: int):
+    # See if the experience exists
+    publication = query_get(
+        """
+            SELECT * FROM Publication WHERE publication_id = %s;
+            """,
+        (publication_id),
+    )
+
+    if len(publication) == 0:
+        raise HTTPException(status_code=404, detail="Publication not found")
+
+    return query_put(
+        """
+            DELETE FROM Publication WHERE publication_id = %s;
+            """,
+        (publication_id),
     )
 
 
@@ -380,3 +425,16 @@ def get_test_score_by_profile_id(profile_id: int):
     )
 
     return test_score
+
+def get_publication_by_profile_id(profile_id: int):
+    publication = query_get(
+        """
+            SELECT * FROM Publication WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    if len(publication) == 0:
+        raise HTTPException(status_code=404, detail="Publication not found")
+
+    return publication

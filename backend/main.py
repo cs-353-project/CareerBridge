@@ -8,7 +8,9 @@ from profile.models import (
     WorkExperienceRequestModel,
     WorkExperienceResponseModel,
     TestScoreRequestModel,
-    TestScoreResponseModel
+    TestScoreResponseModel,
+    PublicationResponseModel,
+    PublicationRequestModel,
 )
 from profile.profile import (
     add_educational_experience,
@@ -23,6 +25,9 @@ from profile.profile import (
     add_test_score,
     get_test_score_by_profile_id,
     delete_test_score,
+    add_publication,
+    get_publication_by_profile_id,
+    delete_publication,
 )
 
 from fastapi import FastAPI, HTTPException, Security
@@ -204,6 +209,15 @@ def delete_test_score_api(test_score_id: int):
 
     return JSONResponse(status_code=200, content={"message": "Test score deleted successfully"})
 
+@app.delete("/api/profile/publication")
+def delete_publication_api(publication_id: int):
+    """
+    This publication delete API allow you to delete publication data.
+    """
+    delete_publication(publication_id)
+
+    return JSONResponse(status_code=200, content={"message": "Publication deleted successfully"})
+
 
 @app.post("/api/profile/work-experience", response_model=WorkExperienceResponseModel)
 def add_work_experience_api(work_experience_details: WorkExperienceRequestModel):
@@ -291,6 +305,30 @@ def get_test_score_api(profile_id: int):
         raise HTTPException(status_code=404, detail="Test score not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(test_score))
+
+@app.post("/api/profile/publication", response_model=PublicationResponseModel)
+def add_publication_api(publication_details: PublicationRequestModel):
+    """
+    This publication add API allow you to add publication data.
+    """
+    publication = add_publication(publication_details)
+
+    # if len(publication) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding publication")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(publication))
+
+@app.get("/api/profile/publication/{profile_id}", response_model=list[PublicationResponseModel])
+def get_publication_api(profile_id: int):
+
+    publication = get_publication_by_profile_id(profile_id)
+
+    if len(publication) == 0:
+        raise HTTPException(status_code=404, detail="Publication not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(publication))
+
+
 
 
 # Test Endpoints

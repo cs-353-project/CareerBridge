@@ -115,3 +115,20 @@ class TestScoreRequestModel(BaseModel):
     test_date: str
     score: str
     attachment: bytes = None
+
+class PublicationResponseModel(BaseModel):
+    publication_id: int
+    profile_id: int
+    title: str
+    description: str
+    publication_date: str
+    publisher: str
+    publication_url: str
+
+class PublicationRequestModel(BaseModel):
+    profile_id: int
+    title: str
+    description: str
+    publication_date: str
+    publisher: str
+    publication_url: str

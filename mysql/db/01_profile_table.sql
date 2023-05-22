@@ -79,3 +79,16 @@ CREATE TABLE IF NOT EXISTS TestScore(
     DELETE CASCADE,
     PRIMARY KEY (test_score_id)
 );
+
+CREATE TABLE IF NOT EXISTS Publication(
+    publication_id INT NOT NULL AUTO_INCREMENT,
+    profile_id INT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(1000),
+    publication_date DATETIME,
+    publisher VARCHAR(100),
+    publication_url VARCHAR(100),
+    FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON
+    DELETE CASCADE,
+    PRIMARY KEY (publication_id)
+);

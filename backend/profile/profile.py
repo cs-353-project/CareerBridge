@@ -13,6 +13,8 @@ from .models import (
     VoluntaryExperienceResponseModel,
     WorkExperienceRequestModel,
     WorkExperienceResponseModel,
+    TestScoreRequestModel,
+    TestScoreResponseModel
 )
 
 
@@ -235,6 +237,48 @@ def add_voluntary_experience(vol_exp: VoluntaryExperienceRequestModel):
 
     return response
 
+def add_test_score(test_request: TestScoreRequestModel):
+
+    test_score_id = query_put(
+        """
+            INSERT INTO TestScore (profile_id, test_name, description, test_date, score, attachment)
+            VALUES (%s, %s, %s, %s, %s, %s);
+                
+            """,
+        (test_request.profile_id, test_request.test_name, test_request.description, test_request.test_date, test_request.score, test_request.attachment),
+    )
+
+    #consrtuct response
+    response: TestScoreResponseModel = TestScoreResponseModel(
+        test_score_id=test_score_id,
+        profile_id=test_request.profile_id,
+        test_name=test_request.test_name,
+        score=test_request.score,
+        description=test_request.description,
+        test_date=test_request.test_date,
+        attachment=test_request.attachment,
+    )
+
+    return response
+
+def delete_test_score(test_score_id: int):
+    # See if the experience exists
+    test_score = query_get(
+        """
+            SELECT * FROM TestScore WHERE test_score_id = %s;
+            """,
+        (test_score_id),
+    )
+
+    if len(test_score) == 0:
+        raise HTTPException(status_code=404, detail="Test Score not found")
+
+    return query_put(
+        """
+            DELETE FROM TestScore WHERE test_score_id = %s;
+            """,
+        (test_score_id),
+    )
 
 def delete_experience(experience_id: int):
     # See if the experience exists
@@ -326,3 +370,13 @@ def get_profile_by_profile_id(profile_id: int):
     )
 
     return profile
+
+def get_test_score_by_profile_id(profile_id: int):
+    test_score = query_get(
+        """
+            SELECT * FROM TestScore WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    return test_score

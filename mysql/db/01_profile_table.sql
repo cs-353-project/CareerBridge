@@ -66,3 +66,16 @@ CREATE TABLE IF NOT EXISTS VoluntaryExperience(
     -- FOREIGN KEY (organization_name) REFERENCES NonProfitOrganization(organization_name) ON DELETE CASCADE,
     PRIMARY KEY (experience_id)
 );
+
+CREATE TABLE IF NOT EXISTS TestScore(
+    test_score_id INT NOT NULL AUTO_INCREMENT,
+    profile_id INT NOT NULL,
+    test_name VARCHAR(50) NOT NULL,
+    description VARCHAR(1000),
+    test_date DATETIME,
+    score VARCHAR(50),
+    attachment BLOB,
+    FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON
+    DELETE CASCADE,
+    PRIMARY KEY (test_score_id)
+);

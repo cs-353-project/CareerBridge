@@ -98,3 +98,20 @@ class VoluntaryExperienceRequestModel(BaseModel):
     experience: ExperienceRequestModel
     responsibility: str
     organization_name: str
+
+class TestScoreResponseModel(BaseModel):
+    test_score_id: int
+    profile_id: int
+    test_name: str
+    description: str
+    test_date: str
+    score: str
+    attachment: bytes = None
+
+class TestScoreRequestModel(BaseModel):
+    profile_id: int
+    test_name: str
+    description: str
+    test_date: str
+    score: str
+    attachment: bytes = None

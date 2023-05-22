@@ -7,6 +7,8 @@ from profile.models import (
     VoluntaryExperienceResponseModel,
     WorkExperienceRequestModel,
     WorkExperienceResponseModel,
+    TestScoreRequestModel,
+    TestScoreResponseModel
 )
 from profile.profile import (
     add_educational_experience,
@@ -18,6 +20,9 @@ from profile.profile import (
     get_vol_exp_by_profile_id,
     get_work_exp_by_profile_id,
     update_profile_base,
+    add_test_score,
+    get_test_score_by_profile_id,
+    delete_test_score,
 )
 
 from fastapi import FastAPI, HTTPException, Security
@@ -190,6 +195,15 @@ def delete_experience_api(experience_id: int):
 
     return JSONResponse(status_code=200, content={"message": "Experience deleted successfully"})
 
+@app.delete("/api/profile/test-score")
+def delete_test_score_api(test_score_id: int):
+    """
+    This test score delete API allow you to delete test score data.
+    """
+    delete_test_score(test_score_id)
+
+    return JSONResponse(status_code=200, content={"message": "Test score deleted successfully"})
+
 
 @app.post("/api/profile/work-experience", response_model=WorkExperienceResponseModel)
 def add_work_experience_api(work_experience_details: WorkExperienceRequestModel):
@@ -254,6 +268,29 @@ def get_voluntary_experience_api(profile_id: int):
         raise HTTPException(status_code=404, detail="Voluntary experience not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(voluntary_experience))
+
+
+@app.post("/api/profile/test-score", response_model=TestScoreResponseModel)
+def add_test_score_api(test_score_details: TestScoreRequestModel):
+    """
+    This test score add API allow you to add test score data.
+    """
+    test_score = add_test_score(test_score_details)
+
+    #   if len(test_score) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding test score")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(test_score))
+
+@app.get("/api/profile/test-score/{profile_id}", response_model=list[TestScoreResponseModel])
+def get_test_score_api(profile_id: int):
+
+    test_score = get_test_score_by_profile_id(profile_id)
+
+    if len(test_score) == 0:
+        raise HTTPException(status_code=404, detail="Test score not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(test_score))
 
 
 # Test Endpoints

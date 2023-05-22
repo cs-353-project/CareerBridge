@@ -1,6 +1,8 @@
 from profile.models import (
     AwardRequestModel,
     AwardResponseModel,
+    CertificationRequestModel,
+    CertificationResponseModel,
     EducationalExperienceRequestModel,
     EducationalExperienceResponseModel,
     LanguageProficiencyRequestModel,
@@ -20,6 +22,7 @@ from profile.models import (
 )
 from profile.profile import (
     add_award,
+    add_certification,
     add_educational_experience,
     add_language_proficiency,
     add_project,
@@ -28,11 +31,13 @@ from profile.profile import (
     add_voluntary_experience,
     add_work_experience,
     delete_award,
+    delete_certification,
     delete_experience,
     delete_project,
     delete_publication,
     delete_test_score,
     get_awards_by_profile_id,
+    get_certification_by_profile_id,
     get_edu_exp_by_profile_id,
     get_language_proficiencies_by_profile_id,
     get_profile_by_user_id_main,
@@ -235,6 +240,16 @@ def delete_publication_api(publication_id: int):
     return JSONResponse(status_code=200, content={"message": "Publication deleted successfully"})
 
 
+@app.delete("/api/profile/certification")
+def delete_certification_api(certification_id: int):
+    """
+    This certification delete API allow you to delete certification data.
+    """
+    delete_certification(certification_id)
+
+    return JSONResponse(status_code=200, content={"message": "Certification deleted successfully"})
+
+
 @app.post("/api/profile/work-experience", response_model=WorkExperienceResponseModel)
 def add_work_experience_api(work_experience_details: WorkExperienceRequestModel):
     """
@@ -337,6 +352,19 @@ def add_publication_api(publication_details: PublicationRequestModel):
     return JSONResponse(status_code=200, content=jsonable_encoder(publication))
 
 
+@app.post("/api/profile/certification", response_model=CertificationResponseModel)
+def add_certification_api(certification_details: CertificationRequestModel):
+    """
+    This certification add API allow you to add certification data.
+    """
+    certification = add_certification(certification_details)
+
+    # if len(certification) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding certification")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(certification))
+
+
 @app.get("/api/profile/publication/{profile_id}", response_model=list[PublicationResponseModel])
 def get_publication_api(profile_id: int):
 
@@ -346,6 +374,17 @@ def get_publication_api(profile_id: int):
         raise HTTPException(status_code=404, detail="Publication not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(publication))
+
+
+@app.get("/api/profile/certification/{profile_id}", response_model=list[CertificationResponseModel])
+def get_certification_api(profile_id: int):
+
+    certification = get_certification_by_profile_id(profile_id)
+
+    if len(certification) == 0:
+        raise HTTPException(status_code=404, detail="Certification not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(certification))
 
 
 @app.post("/api/profile/project", response_model=ProjectResponseModel)

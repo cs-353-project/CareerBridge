@@ -124,3 +124,17 @@ CREATE TABLE IF NOT EXISTS LanguageProficiency(
     FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON DELETE CASCADE,
     PRIMARY KEY (language_id)
 );
+
+CREATE TABLE IF NOT EXISTS Certification(
+    certification_id INT NOT NULL AUTO_INCREMENT,
+    profile_id INT NOT NULL,
+    certification_name VARCHAR(50) NOT NULL,
+    description VARCHAR(1000),
+    credential_url VARCHAR(100),
+    issue_date DATETIME,
+    issuer VARCHAR(100),
+    expiration_date DATETIME,
+    FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON
+    DELETE CASCADE,
+    PRIMARY KEY (certification_id)
+);

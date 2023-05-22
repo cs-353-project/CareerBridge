@@ -4,19 +4,25 @@ from database.query import query_get, query_put, query_update
 from user.user import get_user_by_id
 
 from .models import (
+    AwardRequestModel,
+    AwardResponseModel,
     DegreeResponseModel,
     EducationalExperienceRequestModel,
     EducationalExperienceResponseModel,
     ExperienceResponseModel,
+    LanguageProficiencyRequestModel,
+    LanguageProficiencyResponseModel,
     ProfileUpdateRequestModel,
+    ProjectRequestModel,
+    ProjectResponseModel,
+    PublicationRequestModel,
+    PublicationResponseModel,
+    TestScoreRequestModel,
+    TestScoreResponseModel,
     VoluntaryExperienceRequestModel,
     VoluntaryExperienceResponseModel,
     WorkExperienceRequestModel,
     WorkExperienceResponseModel,
-    TestScoreRequestModel,
-    TestScoreResponseModel,
-    PublicationRequestModel,
-    PublicationResponseModel,
 )
 
 
@@ -239,18 +245,26 @@ def add_voluntary_experience(vol_exp: VoluntaryExperienceRequestModel):
 
     return response
 
+
 def add_test_score(test_request: TestScoreRequestModel):
 
     test_score_id = query_put(
         """
             INSERT INTO TestScore (profile_id, test_name, description, test_date, score, attachment)
             VALUES (%s, %s, %s, %s, %s, %s);
-                
+
             """,
-        (test_request.profile_id, test_request.test_name, test_request.description, test_request.test_date, test_request.score, test_request.attachment),
+        (
+            test_request.profile_id,
+            test_request.test_name,
+            test_request.description,
+            test_request.test_date,
+            test_request.score,
+            test_request.attachment,
+        ),
     )
 
-    #consrtuct response
+    # consrtuct response
     response: TestScoreResponseModel = TestScoreResponseModel(
         test_score_id=test_score_id,
         profile_id=test_request.profile_id,
@@ -263,18 +277,26 @@ def add_test_score(test_request: TestScoreRequestModel):
 
     return response
 
+
 def add_publication(publication_request: PublicationRequestModel):
 
     publication_id = query_put(
         """
             INSERT INTO Publication (profile_id, title, description, publication_date, publisher, publication_url)
             VALUES (%s, %s, %s, %s, %s, %s);
-                
+
             """,
-        (publication_request.profile_id, publication_request.title, publication_request.description, publication_request.publication_date, publication_request.publisher, publication_request.publication_url)
+        (
+            publication_request.profile_id,
+            publication_request.title,
+            publication_request.description,
+            publication_request.publication_date,
+            publication_request.publisher,
+            publication_request.publication_url,
+        ),
     )
 
-    #consrtuct response
+    # consrtuct response
     response: PublicationResponseModel = PublicationResponseModel(
         publication_id=publication_id,
         profile_id=publication_request.profile_id,
@@ -286,6 +308,194 @@ def add_publication(publication_request: PublicationRequestModel):
     )
 
     return response
+
+
+def add_project(project_request: ProjectRequestModel):
+    project_id = query_put(
+        """
+            INSERT INTO Project (profile_id, title, description, start_date, end_date, project_url)
+            VALUES (%s, %s, %s, %s, %s, %s);
+
+            """,
+        (
+            project_request.profile_id,
+            project_request.title,
+            project_request.description,
+            project_request.start_date,
+            project_request.end_date,
+            project_request.project_url,
+        ),
+    )
+
+    # consrtuct response
+    response: ProjectResponseModel = ProjectResponseModel(
+        project_id=project_id,
+        profile_id=project_request.profile_id,
+        title=project_request.title,
+        description=project_request.description,
+        start_date=project_request.start_date,
+        end_date=project_request.end_date,
+        project_url=project_request.project_url,
+    )
+
+    return response
+
+
+def get_projects_by_profile_id(profile_id: int):
+    projects = query_get(
+        """
+            SELECT * FROM Project WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    if len(projects) == 0:
+        raise HTTPException(status_code=404, detail="Projects not found")
+
+    return projects
+
+
+def delete_project(project_id: int):
+    # See if the experience exists
+    project = query_get(
+        """
+            SELECT * FROM Project WHERE project_id = %s;
+            """,
+        (project_id),
+    )
+
+    if len(project) == 0:
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    return query_put(
+        """
+            DELETE FROM Project WHERE project_id = %s;
+            """,
+        (project_id),
+    )
+
+
+def add_award(award_request: AwardRequestModel):
+    award_id = query_put(
+        """
+            INSERT INTO Award (profile_id, title, description, issue_date, issuer)
+            VALUES (%s, %s, %s, %s, %s);
+
+            """,
+        (
+            award_request.profile_id,
+            award_request.title,
+            award_request.description,
+            award_request.issue_date,
+            award_request.issuer,
+        ),
+    )
+
+    # construct response
+    response: AwardResponseModel = AwardResponseModel(
+        award_id=award_id,
+        profile_id=award_request.profile_id,
+        title=award_request.title,
+        description=award_request.description,
+        issue_date=award_request.issue_date,
+        issuer=award_request.issuer,
+    )
+
+    return response
+
+
+def get_awards_by_profile_id(profile_id: int):
+    awards = query_get(
+        """
+            SELECT * FROM Award WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    if len(awards) == 0:
+        raise HTTPException(status_code=404, detail="Awards not found")
+
+    return awards
+
+
+def delete_award(award_id: int):
+    # See if the experience exists
+    award = query_get(
+        """
+            SELECT * FROM Award WHERE award_id = %s;
+            """,
+        (award_id),
+    )
+
+    if len(award) == 0:
+        raise HTTPException(status_code=404, detail="Award not found")
+
+    return query_put(
+        """
+            DELETE FROM Award WHERE award_id = %s;
+            """,
+        (award_id),
+    )
+
+
+def add_language_proficiency(language_proficiency_request: LanguageProficiencyRequestModel):
+    language_proficiency_id = query_put(
+        """
+            INSERT INTO LanguageProficiency (profile_id, language, proficiency)
+            VALUES (%s, %s, %s);
+
+            """,
+        (
+            language_proficiency_request.profile_id,
+            language_proficiency_request.language_name,
+            language_proficiency_request.proficiency,
+        ),
+    )
+
+    # construct response
+    response: LanguageProficiencyResponseModel = LanguageProficiencyResponseModel(
+        language_proficiency_id=language_proficiency_id,
+        profile_id=language_proficiency_request.profile_id,
+        language=language_proficiency_request.language_name,
+        proficiency=language_proficiency_request.proficiency,
+    )
+
+    return response
+
+
+def get_language_proficiencies_by_profile_id(profile_id: int):
+    language_proficiencies = query_get(
+        """
+            SELECT * FROM LanguageProficiency WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    if len(language_proficiencies) == 0:
+        raise HTTPException(status_code=404, detail="Language Proficiencies not found")
+
+    return language_proficiencies
+
+
+def delete_language_proficiency(language_proficiency_id: int):
+    # See if the experience exists
+    language_proficiency = query_get(
+        """
+            SELECT * FROM LanguageProficiency WHERE language_proficiency_id = %s;
+            """,
+        (language_proficiency_id),
+    )
+
+    if len(language_proficiency) == 0:
+        raise HTTPException(status_code=404, detail="Language Proficiency not found")
+
+    return query_put(
+        """
+            DELETE FROM LanguageProficiency WHERE language_proficiency_id = %s;
+            """,
+        (language_proficiency_id),
+    )
+
 
 def delete_test_score(test_score_id: int):
     # See if the experience exists
@@ -306,6 +516,7 @@ def delete_test_score(test_score_id: int):
         (test_score_id),
     )
 
+
 def delete_experience(experience_id: int):
     # See if the experience exists
     experience = query_get(
@@ -324,6 +535,7 @@ def delete_experience(experience_id: int):
             """,
         (experience_id),
     )
+
 
 def delete_publication(publication_id: int):
     # See if the experience exists
@@ -416,6 +628,7 @@ def get_profile_by_profile_id(profile_id: int):
 
     return profile
 
+
 def get_test_score_by_profile_id(profile_id: int):
     test_score = query_get(
         """
@@ -425,6 +638,7 @@ def get_test_score_by_profile_id(profile_id: int):
     )
 
     return test_score
+
 
 def get_publication_by_profile_id(profile_id: int):
     publication = query_get(

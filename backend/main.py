@@ -1,33 +1,47 @@
 from profile.models import (
+    AwardRequestModel,
+    AwardResponseModel,
     EducationalExperienceRequestModel,
     EducationalExperienceResponseModel,
+    LanguageProficiencyRequestModel,
+    LanguageProficiencyResponseModel,
     ProfileResponseModel,
     ProfileUpdateRequestModel,
+    ProjectRequestModel,
+    ProjectResponseModel,
+    PublicationRequestModel,
+    PublicationResponseModel,
+    TestScoreRequestModel,
+    TestScoreResponseModel,
     VoluntaryExperienceRequestModel,
     VoluntaryExperienceResponseModel,
     WorkExperienceRequestModel,
     WorkExperienceResponseModel,
-    TestScoreRequestModel,
-    TestScoreResponseModel,
-    PublicationResponseModel,
-    PublicationRequestModel,
 )
 from profile.profile import (
+    add_award,
     add_educational_experience,
+    add_language_proficiency,
+    add_project,
+    add_publication,
+    add_test_score,
     add_voluntary_experience,
     add_work_experience,
+    delete_award,
     delete_experience,
+    delete_project,
+    delete_publication,
+    delete_test_score,
+    get_awards_by_profile_id,
     get_edu_exp_by_profile_id,
+    get_language_proficiencies_by_profile_id,
     get_profile_by_user_id_main,
+    get_projects_by_profile_id,
+    get_publication_by_profile_id,
+    get_test_score_by_profile_id,
     get_vol_exp_by_profile_id,
     get_work_exp_by_profile_id,
     update_profile_base,
-    add_test_score,
-    get_test_score_by_profile_id,
-    delete_test_score,
-    add_publication,
-    get_publication_by_profile_id,
-    delete_publication,
 )
 
 from fastapi import FastAPI, HTTPException, Security
@@ -200,6 +214,7 @@ def delete_experience_api(experience_id: int):
 
     return JSONResponse(status_code=200, content={"message": "Experience deleted successfully"})
 
+
 @app.delete("/api/profile/test-score")
 def delete_test_score_api(test_score_id: int):
     """
@@ -208,6 +223,7 @@ def delete_test_score_api(test_score_id: int):
     delete_test_score(test_score_id)
 
     return JSONResponse(status_code=200, content={"message": "Test score deleted successfully"})
+
 
 @app.delete("/api/profile/publication")
 def delete_publication_api(publication_id: int):
@@ -296,6 +312,7 @@ def add_test_score_api(test_score_details: TestScoreRequestModel):
 
     return JSONResponse(status_code=200, content=jsonable_encoder(test_score))
 
+
 @app.get("/api/profile/test-score/{profile_id}", response_model=list[TestScoreResponseModel])
 def get_test_score_api(profile_id: int):
 
@@ -305,6 +322,7 @@ def get_test_score_api(profile_id: int):
         raise HTTPException(status_code=404, detail="Test score not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(test_score))
+
 
 @app.post("/api/profile/publication", response_model=PublicationResponseModel)
 def add_publication_api(publication_details: PublicationRequestModel):
@@ -318,6 +336,7 @@ def add_publication_api(publication_details: PublicationRequestModel):
 
     return JSONResponse(status_code=200, content=jsonable_encoder(publication))
 
+
 @app.get("/api/profile/publication/{profile_id}", response_model=list[PublicationResponseModel])
 def get_publication_api(profile_id: int):
 
@@ -329,6 +348,112 @@ def get_publication_api(profile_id: int):
     return JSONResponse(status_code=200, content=jsonable_encoder(publication))
 
 
+@app.post("/api/profile/project", response_model=ProjectResponseModel)
+def add_project_api(project_details: ProjectRequestModel):
+    """
+    This project add API allow you to add project data.
+    """
+    project = add_project(project_details)
+
+    # if len(project) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding project")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(project))
+
+
+@app.get("/api/profile/project/{profile_id}", response_model=list[ProjectResponseModel])
+def get_project_api(profile_id: int):
+    """
+    This project API allow you to fetch specific project data.
+    """
+    project = get_projects_by_profile_id(profile_id)
+
+    if len(project) == 0:
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(project))
+
+
+@app.delete("/api/profile/project")
+def delete_project_api(project_id: int):
+    """
+    This project delete API allow you to delete project data.
+    """
+    delete_project(project_id)
+
+    return JSONResponse(status_code=200, content={"message": "Project deleted successfully"})
+
+
+@app.post("/api/profile/award", response_model=AwardResponseModel)
+def add_award_api(award_details: AwardRequestModel):
+    """
+    This award add API allow you to add award data.
+    """
+    award = add_award(award_details)
+
+    # if len(award) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding award")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(award))
+
+
+@app.get("/api/profile/award/{profile_id}", response_model=list[AwardResponseModel])
+def get_award_api(profile_id: int):
+    """
+    This award API allow you to fetch specific award data.
+    """
+    award = get_awards_by_profile_id(profile_id)
+
+    if len(award) == 0:
+        raise HTTPException(status_code=404, detail="Award not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(award))
+
+
+@app.delete("/api/profile/award")
+def delete_award_api(award_id: int):
+    """
+    This award delete API allow you to delete award data.
+    """
+    delete_award(award_id)
+
+    return JSONResponse(status_code=200, content={"message": "Award deleted successfully"})
+
+
+@app.post("/api/profile/language", response_model=LanguageProficiencyRequestModel)
+def add_language_proficiency_api(language_proficiency_details: LanguageProficiencyRequestModel):
+    """
+    This language proficiency add API allow you to add language proficiency data.
+    """
+    language_proficiency = add_language_proficiency(language_proficiency_details)
+
+    # if len(language_proficiency) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding language proficiency")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(language_proficiency))
+
+
+@app.get("/api/profile/language/{profile_id}", response_model=list[LanguageProficiencyResponseModel])
+def get_language_proficiency_api(profile_id: int):
+    """
+    This language proficiency API allow you to fetch specific language proficiency data.
+    """
+    language_proficiency = get_language_proficiencies_by_profile_id(profile_id)
+
+    if len(language_proficiency) == 0:
+        raise HTTPException(status_code=404, detail="Language proficiency not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(language_proficiency))
+
+
+@app.delete("/api/profile/language")
+def delete_language_proficiency_api(language_proficiency_id: int):
+    """
+    This language proficiency delete API allow you to delete language proficiency data.
+    """
+    delete_language_proficiency_api(language_proficiency_id)
+
+    return JSONResponse(status_code=200, content={"message": "Language proficiency deleted successfully"})
 
 
 # Test Endpoints

@@ -99,6 +99,7 @@ class VoluntaryExperienceRequestModel(BaseModel):
     responsibility: str
     organization_name: str
 
+
 class TestScoreResponseModel(BaseModel):
     test_score_id: int
     profile_id: int
@@ -108,6 +109,7 @@ class TestScoreResponseModel(BaseModel):
     score: str
     attachment: bytes = None
 
+
 class TestScoreRequestModel(BaseModel):
     profile_id: int
     test_name: str
@@ -115,6 +117,7 @@ class TestScoreRequestModel(BaseModel):
     test_date: str
     score: str
     attachment: bytes = None
+
 
 class PublicationResponseModel(BaseModel):
     publication_id: int
@@ -125,6 +128,7 @@ class PublicationResponseModel(BaseModel):
     publisher: str
     publication_url: str
 
+
 class PublicationRequestModel(BaseModel):
     profile_id: int
     title: str
@@ -132,3 +136,52 @@ class PublicationRequestModel(BaseModel):
     publication_date: str
     publisher: str
     publication_url: str
+
+
+class ProjectResponseModel(BaseModel):
+    project_id: int
+    profile_id: int
+    title: str
+    description: str
+    start_date: str
+    end_date: str
+    project_url: HttpUrl
+
+
+class ProjectRequestModel(BaseModel):
+    profile_id: int
+    title: str
+    description: str
+    start_date: str
+    end_date: str
+    project_url: HttpUrl
+
+
+class AwardResponseModel(BaseModel):
+    award_id: int
+    profile_id: int
+    title: str
+    description: str
+    issuer: str
+    issue_date: str
+
+
+class AwardRequestModel(BaseModel):
+    profile_id: int
+    title: str
+    description: str
+    issuer: str
+    issue_date: str
+
+
+class LanguageProficiencyResponseModel(BaseModel):
+    language_id: int
+    profile_id: int
+    language_name: str
+    proficiency: str
+
+
+class LanguageProficiencyRequestModel(BaseModel):
+    profile_id: int
+    language_name: str
+    proficiency: str

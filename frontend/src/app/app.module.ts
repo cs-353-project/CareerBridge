@@ -30,6 +30,9 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AdsComponent } from './ads/ads.component';
 import { MessagesComponent } from './messages/messages.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { MessagesComponent } from './messages/messages.component';
     MatListModule,
     HttpClientModule,
     MatTreeModule,
-    MatTabsModule
+    MatTabsModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

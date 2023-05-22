@@ -10,3 +10,14 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  ::ng-deep .mat-form-field-wrapper{
+    margin-bottom: -1.25em;
+ }
+ 
+ .example-form-field {
+  width: 100%;
+}
+
+.example-button-container > button {
+  margin: 0 12px;
+}

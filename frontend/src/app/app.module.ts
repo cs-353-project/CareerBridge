@@ -33,6 +33,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MatChipsModule } from '@angular/material/chips';
     NavigationComponent,
     FeedComponent,
     AdsComponent,
-    MessagesComponent
+    MessagesComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

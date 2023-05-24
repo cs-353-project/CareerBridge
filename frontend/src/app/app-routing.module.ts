@@ -7,6 +7,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FeedComponent } from './feed/feed.component';
 import { AdsComponent } from './ads/ads.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ProfileComponent } from "./profile/profile.component";
+
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
@@ -17,7 +19,8 @@ const routes: Routes = [
     children: [
       { path: 'feed', component: FeedComponent },
       { path: 'ads', component: AdsComponent },
-      { path: 'messages', component: MessagesComponent }
+      { path: 'messages', component: MessagesComponent },
+      { path: 'profile', component: ProfileComponent }
     ]
   }
 ];

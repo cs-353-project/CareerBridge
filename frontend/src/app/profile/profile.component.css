@@ -1,5 +1,9 @@
 #profile-container {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 }
 
 #top-card {
@@ -79,4 +83,90 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+#bottom-container {
+  width: 80%;
+  padding: 0 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  margin: 0px 24px;
+}
+
+#bottom-left {
+  min-width: 170px;
+  width: 14%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-right: 50px;
+}
+
+#bottom-left button {
+  text-align: left;
+}
+
+#bottom-right {
+  margin-left: 12px;
+  width: 86%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+#basic-information-card {
+  width: 100%;
+}
+
+#basic-information-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#basic-information-top h2 {
+  margin-bottom: 4px;
+}
+
+#basic-information-top-inner-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+#basic-information-top-inner-1 mat-icon {
+  transform: scale(1.8);
+  margin-right: 32px;
+}
+
+#basic-information-bottom {
+  margin: 2px 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#basic-information-left {
+  width: 45%;
+}
+
+#basic-information-right {
+  width: 45%;
+}
+
+#basic-information-left div {
+  margin: 20px 0;
+}
+
+#basic-information-right div {
+  margin: 20px 0;
+}
+
+#basic-information-bottom p {
+  margin: 6px 0;
 }

@@ -1,4 +1,5 @@
 #profile-container {
+  margin-bottom: 36px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -101,7 +102,7 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-  margin-right: 50px;
+  margin-right: 100px;
 }
 
 #bottom-left button {
@@ -118,6 +119,7 @@
 
 #basic-information-card {
   width: 100%;
+  margin-bottom: 28px;
 }
 
 #basic-information-top {
@@ -139,7 +141,7 @@
 }
 
 #basic-information-top-inner-1 mat-icon {
-  transform: scale(1.8);
+  transform: scale(2);
   margin-right: 32px;
 }
 
@@ -169,4 +171,74 @@
 
 #basic-information-bottom p {
   margin: 6px 0;
+}
+
+.main-content-container h2 {
+  margin-bottom: 4px;
+}
+
+.main-content-container {
+  margin-top: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.main-content-top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.main-content-top-inner mat-icon {
+  transform: scale(3);
+  margin-right: 48px;
+}
+
+.main-content-top-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-content-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-top: 16px;
+}
+
+.main-content-item mat-icon {
+  transform: scale(2.4) !important;
+  margin-right: 32px;
+}
+
+.main-content-header {
+  margin: 0;
+}
+
+.main-content-item h3 {
+  margin-bottom: 2px;
+}
+
+.main-content-item p {
+  margin-bottom: 3px;
 }

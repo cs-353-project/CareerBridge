@@ -667,6 +667,7 @@ def assess_skill_api(assess_skill_details: AssessSkillRequestModel):
     """
     This skill assess API allow you to assess skill data.
     """
+
     _as = assess_skill(assess_skill_details)
 
     # if len(assess_skill) == 0:

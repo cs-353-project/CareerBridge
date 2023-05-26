@@ -146,6 +146,6 @@ CREATE TABLE IF NOT EXISTS Skill(
     is_verified BOOLEAN NOT NULL DEFAULT FALSE,
     is_master_skill BOOLEAN NOT NULL DEFAULT FALSE,
     FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON DELETE CASCADE,
-    PRIMARY KEY (skill_id)
+    PRIMARY KEY (skill_id),
     UNIQUE (profile_id, name)
 );

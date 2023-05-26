@@ -14,4 +14,17 @@ class PostRequestModel(BaseModel):
     content: str
     attachment: bytes = None
     post_date: str
+
+class CommentRequestModel(BaseModel):
+    user_id: int
+    post_id: int
+    content: str
+    commented_at : str
+
+class CommentResponseModel(BaseModel):
+    comment_id: int
+    user_id: int
+    post_id: int
+    content: str
+    commented_at : str
     

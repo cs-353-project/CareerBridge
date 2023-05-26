@@ -4,7 +4,9 @@ from fastapi import HTTPException
 from database.query import query_get, query_put, query_update
 
 from .models import( PostResponseModel,
-                     PostRequestModel)
+                     PostRequestModel,
+                     CommentRequestModel,
+                     CommentResponseModel)
 
 def add_post(post_request: PostRequestModel):
 
@@ -49,3 +51,47 @@ def delete_post(post_id: int):
         (post_id,),
     )
     return {"message": "Post deleted successfully."}
+
+def add_comment(comment_request: CommentRequestModel):
+
+    comment_id = query_put(
+        """
+            INSERT INTO Comment (user_id, post_id, content, commented_at)
+            VALUES (%s, %s, %s, %s)
+        """,
+        (
+            comment_request.user_id,
+            comment_request.post_id,
+            comment_request.content,
+            comment_request.commented_at,
+        ),
+    )
+
+    #Construct Response Model   
+    response: CommentResponseModel = CommentResponseModel(
+        comment_id=comment_id,
+        user_id=comment_request.user_id,
+        post_id=comment_request.post_id,
+        content=comment_request.content,
+        commented_at=comment_request.commented_at,
+    )
+
+    return response
+
+def get_comment_by_id(post_id: int):   
+    comment = query_get(
+        """
+            SELECT * FROM Comment WHERE post_id = %s
+        """,
+        (post_id,),
+    )
+    return comment
+
+def delete_comment(comment_id: int):
+    query_update(
+        """
+            DELETE FROM Comment WHERE comment_id = %s
+        """,
+        (comment_id,),
+    )
+    return {"message": "Comment deleted successfully."}

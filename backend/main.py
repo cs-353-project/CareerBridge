@@ -68,12 +68,17 @@ from job_ad.job_ad import (
 from post.models import (
     PostRequestModel,
     PostResponseModel,
+    CommentRequestModel,
+    CommentResponseModel,
 )
 
 from post.post import (
     add_post,
     get_post_by_id,
     delete_post,
+    add_comment,
+    get_comment_by_id,
+    delete_comment,
 )
 
 
@@ -621,6 +626,38 @@ def delete_skill_api(skill_id: int):
 
     return JSONResponse(status_code=200, content={"message": "Skill deleted successfully"})
 
+@app.post("/api/post/comment", response_model=CommentRequestModel)
+def add_comment_api(comment_details: CommentRequestModel):
+    """
+    This comment add API allow you to add comment data.
+    """
+    comment = add_comment(comment_details)
+
+    # if len(comment) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding comment")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(comment))
+
+@app.get("/api/post/comment/{post_id}", response_model=list[CommentResponseModel])
+def get_comment_api(post_id: int):
+    """
+    This comment API allow you to fetch specific comment data.
+    """
+    comment = get_comment_by_id(post_id)
+
+    if len(comment) == 0:
+        raise HTTPException(status_code=404, detail="Comment not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(comment))
+
+@app.delete("/api/post/comment")
+def delete_comment_api(comment_id: int):
+    """
+    This comment delete API allow you to delete comment data.
+    """
+    delete_comment(comment_id)
+
+    return JSONResponse(status_code=200, content={"message": "Comment deleted successfully"})
 
 # Test Endpoints
 

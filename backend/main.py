@@ -65,6 +65,18 @@ from job_ad.job_ad import (
     delete_job_adviertisement,
 )
 
+from post.models import (
+    PostRequestModel,
+    PostResponseModel,
+)
+
+from post.post import (
+    add_post,
+    get_post_by_id,
+    delete_post,
+)
+
+
 
 
 from fastapi import FastAPI, HTTPException, Security
@@ -414,7 +426,7 @@ def add_job_ad_api(job_ad_details: JobAdvertisementRequestModel):
 
     return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
 
-@app.get("/api/job_ad/{creator_id}", response_model=JobAdvertisementResponseModel)
+@app.get("/api/job_ad/{creator_id}", response_model=list[JobAdvertisementResponseModel])
 def get_job_ad_api(creator_id: int):
     
         job_ad = get_job_advertisement_by_id(creator_id)
@@ -538,6 +550,40 @@ def delete_language_proficiency_api(language_proficiency_id: int):
     delete_language_proficiency_api(language_proficiency_id)
 
     return JSONResponse(status_code=200, content={"message": "Language proficiency deleted successfully"})
+
+@app.post("/api/post", response_model=PostResponseModel)
+def add_post_api(post_details: PostRequestModel):
+    """
+    This post add API allow you to add post data.
+    """
+    post = add_post(post_details)
+
+    # if len(post) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding post")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(post))
+
+@app.get("/api/post/{user_id}", response_model=list[PostResponseModel])
+def get_post_api(user_id: int):
+    """
+    This post API allow you to fetch specific post data.
+    """
+    post = get_post_by_id(user_id)
+
+    if len(post) == 0:
+        raise HTTPException(status_code=404, detail="Post not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(post))
+
+@app.delete("/api/post")
+def delete_post_api(post_id: int):
+    """
+    This post delete API allow you to delete post data.
+    """
+    delete_post(post_id)
+
+    return JSONResponse(status_code=200, content={"message": "Post deleted successfully"})
+          
 
 
 @app.post("/api/profile/skill", response_model=SkillRequestModel)

@@ -151,5 +151,3 @@ class CertificationRequestModel(BaseModel):
     issue_date: str 
     issuer: str 
     expiration_date: str
-
-    

@@ -35,6 +35,19 @@ from profile.profile import (
     delete_certification,
 )
 
+from job_ad.models import (
+    JobAdvertisementRequestModel,
+    JobAdvertisementResponseModel,
+)
+
+from job_ad.job_ad import (
+    add_job_advertisement,
+    get_job_advertisement_by_id,
+    delete_job_adviertisement,
+)
+
+
+
 from fastapi import FastAPI, HTTPException, Security
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -363,7 +376,34 @@ def get_certification_api(profile_id: int):
     
         return JSONResponse(status_code=200, content=jsonable_encoder(certification))
 
+@app.post("/api/job_ad/", response_model=JobAdvertisementResponseModel)
+def add_job_ad_api(job_ad_details: JobAdvertisementRequestModel):
 
+    job_ad = add_job_advertisement(job_ad_details)
+    
+    # if len(job_ad) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding job ad")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
+
+@app.get("/api/job_ad/{creator_id}", response_model=JobAdvertisementResponseModel)
+def get_job_ad_api(creator_id: int):
+    
+        job_ad = get_job_advertisement_by_id(creator_id)
+    
+        if len(job_ad) == 0:
+            raise HTTPException(status_code=404, detail="Job ad not found")
+    
+        return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
+
+@app.delete("/api/job_ad/")
+def delete_job_ad_api(ad_id: int):
+    """
+    This certification delete API allow you to delete certification data.
+    """
+    delete_job_adviertisement(ad_id)
+
+    return JSONResponse(status_code=200, content={"message": "Job Advertisement deleted successfully"})
 
 
 # Test Endpoints

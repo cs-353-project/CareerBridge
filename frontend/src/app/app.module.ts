@@ -38,6 +38,7 @@ import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.compon
 import { MatBadgeModule } from '@angular/material/badge';
 import { CreatePostDialogComponent } from './feed/create-post-dialog/create-post-dialog.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { CandidatesComponent } from './candidates/candidates.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MessagesComponent,
     ProfileComponent,
     ViewAdDetailsComponent,
-    CreatePostDialogComponent
+    CreatePostDialogComponent,
+    CandidatesComponent
   ],
   imports: [
     BrowserModule,

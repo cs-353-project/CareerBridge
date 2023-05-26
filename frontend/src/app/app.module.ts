@@ -37,6 +37,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CreatePostDialogComponent } from './feed/create-post-dialog/create-post-dialog.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { CreatePostDialogComponent } from './feed/create-post-dialog/create-post
     MatRadioModule,
     MatSelectModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

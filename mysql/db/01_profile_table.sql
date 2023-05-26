@@ -93,6 +93,38 @@ CREATE TABLE IF NOT EXISTS Publication(
     PRIMARY KEY (publication_id)
 );
 
+CREATE TABLE IF NOT EXISTS Project(
+    project_id INT NOT NULL AUTO_INCREMENT,
+    profile_id INT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(1000),
+    start_date DATETIME,
+    end_date DATETIME,
+    project_url VARCHAR(100),
+    FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON DELETE CASCADE,
+    PRIMARY KEY (project_id)
+);
+
+CREATE TABLE IF NOT EXISTS Award(
+    award_id INT NOT NULL AUTO_INCREMENT,
+    profile_id INT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(1000),
+    issue_date DATETIME,
+    issuer VARCHAR(100),
+    FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON DELETE CASCADE,
+    PRIMARY KEY (award_id)
+);
+
+CREATE TABLE IF NOT EXISTS LanguageProficiency(
+    language_id INT NOT NULL AUTO_INCREMENT,
+    profile_id INT NOT NULL,
+    language_name VARCHAR(50) NOT NULL,
+    proficiency VARCHAR(50),
+    FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON DELETE CASCADE,
+    PRIMARY KEY (language_id)
+);
+
 CREATE TABLE IF NOT EXISTS Certification(
     certification_id INT NOT NULL AUTO_INCREMENT,
     profile_id INT NOT NULL,

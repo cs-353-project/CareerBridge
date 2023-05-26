@@ -35,6 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { CreatePostDialogComponent } from './feed/create-post-dialog/create-post-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.compon
     AdsComponent,
     MessagesComponent,
     ProfileComponent,
-    ViewAdDetailsComponent
+    ViewAdDetailsComponent,
+    CreatePostDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.compon
     MatTabsModule,
     MatRadioModule,
     MatSelectModule,
-    MatChipsModule
+    MatChipsModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

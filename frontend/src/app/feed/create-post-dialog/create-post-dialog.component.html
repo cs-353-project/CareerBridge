@@ -1,0 +1,24 @@
+<div class="container" style="width: 550px; height: 450px">
+  <p class="h2 font-weight-bold text-center">Create a Post</p>
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput class="ml-3" style="width: 100%" />
+  </mat-form-field>
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea
+      class="w-100"
+      matInput
+      cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize"
+      cdkAutosizeMinRows="10"
+      cdkAutosizeMaxRows="10"></textarea>
+  </mat-form-field>
+  <div class="d-flex flex-row align-items-center">
+    <button mat-raised-button color="accent">Add Image</button>
+    <span class="ml-2">No file has uploaded</span>
+  </div>
+  <div class="w-100 d-flex align-items-center mt-3">
+    <button mat-raised-button class="w-100 mt-1" color="primary">Post</button>
+  </div>
+</div>

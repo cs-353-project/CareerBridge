@@ -1,10 +1,6 @@
-<div
-  class="d-flex justify-content-center h-100 w-100 pt-3"
-  style="background-color: #ebf5ff">
-  <div
-    class="d-flex flex-row align-items-center justify-content-center h-100"
-    style="width: 75%">
-    <div style="width: 25%" class="h-100 card-effect">
+<div class="d-flex justify-content-center h-100 w-100 pt-3">
+  <div class="d-flex flex-row justify-content-center h-100" style="width: 75%">
+    <div style="min-width: 25%; height: 85vh" class="card-effect">
       <div class="d-flex flex-row justify-content-between px-3 mt-3">
         <p class="h6">Recommendations</p>
         <a routerLink="/feed">View All</a>
@@ -35,32 +31,126 @@
     <div class="flex-grow-1 h-100 mx-3">
       <div class="card-effect mx-3 pb-3">
         <div class="d-flex w-100">
-          <div class="d-flex flex-row w-100 p-3">
+          <div class="d-flex flex-row w-100 px-3 pt-3 pb-1">
             <img src="assets/images/avatar.png" alt="placeholder" />
             <mat-form-field class="w-75 ml-3">
               <input
                 matInput
                 class="ml-3"
                 style="width: 90%"
-                placeholder="What's on your mind?" />
+                placeholder="What's on your mind?"
+                (click)="createPost()" />
             </mat-form-field>
           </div>
         </div>
+      </div>
+
+      <div class="card-effect d-flex flex-column mx-3 p-3 mt-2">
+        <div class="d-flex flex-row align-items-center ml-2 my-2">
+          <div>
+            <img
+              src="assets/images/avatar.png"
+              alt="placeholder"
+              style="height: 50px; width: 50px" />
+          </div>
+          <div class="d-flex flex-column ml-4">
+            <div>
+              <span style="font-size: 15px" class="font-weight-bold"
+                >Felicia Jackson</span
+              >
+            </div>
+            <div>
+              <span style="font-size: 12px">Recruiter</span>
+              <span class="mx-2">&#183;</span>
+              <span style="font-size: 12px">HR Manager @ Facebook</span>
+            </div>
+          </div>
+        </div>
+        <mat-divider class="w-100 my-1"></mat-divider>
+        <div class="mt-2">
+          <span style="font-size: 25px" class="font-weight-bold"
+            >UI/UX Designer</span
+          >
+        </div>
+        <div class="mt-3">
+          <span style="font-size: 12px"
+            >Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.</span
+          >
+        </div>
+        <mat-divider class="w-100 my-1"></mat-divider>
+
         <div>
-          <div class="d-flex flex-row w-100 justify-content-around">
-            <button mat-flat-button><mat-icon>image</mat-icon>Photo</button>
-            <button mat-flat-button><mat-icon>videocam</mat-icon>Video</button>
-            <button mat-flat-button>
-              <mat-icon>attachment</mat-icon>Other Attachment
-            </button>
-            <button mat-flat-button>
-              <mat-icon>send</mat-icon>
-            </button>
+          <span style="font-size: 10px">April 14, 2023, 7:51 PM</span>
+        </div>
+        <div class="mt-1">
+          <button mat-icon-button><mat-icon>favorite</mat-icon></button>
+          <button mat-icon-button>
+            <mat-icon matBadge="4">comment</mat-icon>
+          </button>
+        </div>
+        <div
+          class="d-flex flex-row align-items-center p-2 mt-1"
+          style="background-color: #f6f6f6; border-radius: 20px">
+          <div>
+            <img
+              src="assets/images/avatar.png"
+              alt="placeholder"
+              style="height: 30px; width: 30px" />
+          </div>
+          <mat-form-field
+            class="w-100 ml-3 mb-1"
+            style="height: 45px; font-size: 12px; margin-bottom: -1.25em">
+            <input type="tel" matInput placeholder="Write a Comment" />
+          </mat-form-field>
+        </div>
+        <div
+          class="d-flex flex-column p-2 mt-2"
+          style="background-color: #f6f6f6; border-radius: 20px">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <img
+                src="assets/images/avatar.png"
+                alt="placeholder"
+                style="height: 30px; width: 30px" />
+            </div>
+            <div class="d-flex flex-column ml-2">
+              <div style="font-size: 11px" class="font-weight-bold">
+                Felicia Jackson
+              </div>
+              <div style="font-size: 9px; line-height: 4px">
+                HR Manager @ Facebook
+              </div>
+              <div style="font-size: 9px">April 13, 2023, 4:32 PM</div>
+            </div>
+          </div>
+          <div>
+            <span style="font-size: 12px; text-align: justify"
+              >Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum.</span
+            >
           </div>
         </div>
       </div>
     </div>
-    <div style="width: 25%" class="h-100 card-effect flex flex-column">
+    <div
+      style="min-width: 25%; height: 85vh"
+      class="card-effect flex flex-column">
       <div class="d-flex flex-row justify-content-between px-3 mt-3">
         <p class="h6">Ads For You</p>
         <a routerLink="/feed">View All</a>

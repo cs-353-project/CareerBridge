@@ -34,6 +34,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { ProfileComponent } from './profile/profile.component';
+import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ProfileComponent } from './profile/profile.component';
     FeedComponent,
     AdsComponent,
     MessagesComponent,
-    ProfileComponent
+    ProfileComponent,
+    ViewAdDetailsComponent
   ],
   imports: [
     BrowserModule,

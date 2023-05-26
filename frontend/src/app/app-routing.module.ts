@@ -7,7 +7,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FeedComponent } from './feed/feed.component';
 import { AdsComponent } from './ads/ads.component';
 import { MessagesComponent } from './messages/messages.component';
-import { ProfileComponent } from "./profile/profile.component";
+import { ProfileComponent } from './profile/profile.component';
+import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
       { path: 'feed', component: FeedComponent },
       { path: 'ads', component: AdsComponent },
       { path: 'messages', component: MessagesComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'view-ad/:id', component: ViewAdDetailsComponent }
     ]
   }
 ];

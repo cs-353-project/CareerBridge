@@ -54,36 +54,6 @@ from profile.profile import (
     update_profile_base,
 )
 
-from job_ad.models import (
-    JobAdvertisementRequestModel,
-    JobAdvertisementResponseModel,
-)
-
-from job_ad.job_ad import (
-    add_job_advertisement,
-    get_job_advertisement_by_id,
-    delete_job_adviertisement,
-)
-
-from post.models import (
-    PostRequestModel,
-    PostResponseModel,
-    CommentRequestModel,
-    CommentResponseModel,
-)
-
-from post.post import (
-    add_post,
-    get_post_by_id,
-    delete_post,
-    add_comment,
-    get_comment_by_id,
-    delete_comment,
-)
-
-
-
-
 from fastapi import FastAPI, HTTPException, Security
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -91,6 +61,28 @@ from fastapi.responses import JSONResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from database.query import query_get, query_put, query_update
+from functionality.functionality import assess_skill
+from functionality.models import AssessSkillRequestModel, AssessSkillResponseModel
+from job_ad.job_ad import (
+    add_job_advertisement,
+    delete_job_adviertisement,
+    get_job_advertisement_by_id,
+)
+from job_ad.models import JobAdvertisementRequestModel, JobAdvertisementResponseModel
+from post.models import (
+    CommentRequestModel,
+    CommentResponseModel,
+    PostRequestModel,
+    PostResponseModel,
+)
+from post.post import (
+    add_comment,
+    add_post,
+    delete_comment,
+    delete_post,
+    get_comment_by_id,
+    get_post_by_id,
+)
 from user import (
     Auth,
     LogInRequestModel,
@@ -421,25 +413,28 @@ def get_certification_api(profile_id: int):
 
     return JSONResponse(status_code=200, content=jsonable_encoder(certification))
 
+
 @app.post("/api/job_ad/", response_model=JobAdvertisementResponseModel)
 def add_job_ad_api(job_ad_details: JobAdvertisementRequestModel):
 
     job_ad = add_job_advertisement(job_ad_details)
-    
+
     # if len(job_ad) == 0:
     #     raise HTTPException(status_code=404, detail="Error while adding job ad")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
 
+
 @app.get("/api/job_ad/{creator_id}", response_model=list[JobAdvertisementResponseModel])
 def get_job_ad_api(creator_id: int):
-    
-        job_ad = get_job_advertisement_by_id(creator_id)
-    
-        if len(job_ad) == 0:
-            raise HTTPException(status_code=404, detail="Job ad not found")
-    
-        return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
+
+    job_ad = get_job_advertisement_by_id(creator_id)
+
+    if len(job_ad) == 0:
+        raise HTTPException(status_code=404, detail="Job ad not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
+
 
 @app.delete("/api/job_ad/")
 def delete_job_ad_api(ad_id: int):
@@ -449,6 +444,8 @@ def delete_job_ad_api(ad_id: int):
     delete_job_adviertisement(ad_id)
 
     return JSONResponse(status_code=200, content={"message": "Job Advertisement deleted successfully"})
+
+
 @app.post("/api/profile/project", response_model=ProjectResponseModel)
 def add_project_api(project_details: ProjectRequestModel):
     """
@@ -556,6 +553,7 @@ def delete_language_proficiency_api(language_proficiency_id: int):
 
     return JSONResponse(status_code=200, content={"message": "Language proficiency deleted successfully"})
 
+
 @app.post("/api/post", response_model=PostResponseModel)
 def add_post_api(post_details: PostRequestModel):
     """
@@ -567,6 +565,7 @@ def add_post_api(post_details: PostRequestModel):
     #     raise HTTPException(status_code=404, detail="Error while adding post")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(post))
+
 
 @app.get("/api/post/{user_id}", response_model=list[PostResponseModel])
 def get_post_api(user_id: int):
@@ -580,6 +579,7 @@ def get_post_api(user_id: int):
 
     return JSONResponse(status_code=200, content=jsonable_encoder(post))
 
+
 @app.delete("/api/post")
 def delete_post_api(post_id: int):
     """
@@ -588,7 +588,6 @@ def delete_post_api(post_id: int):
     delete_post(post_id)
 
     return JSONResponse(status_code=200, content={"message": "Post deleted successfully"})
-          
 
 
 @app.post("/api/profile/skill", response_model=SkillRequestModel)
@@ -626,6 +625,7 @@ def delete_skill_api(skill_id: int):
 
     return JSONResponse(status_code=200, content={"message": "Skill deleted successfully"})
 
+
 @app.post("/api/post/comment", response_model=CommentRequestModel)
 def add_comment_api(comment_details: CommentRequestModel):
     """
@@ -637,6 +637,7 @@ def add_comment_api(comment_details: CommentRequestModel):
     #     raise HTTPException(status_code=404, detail="Error while adding comment")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(comment))
+
 
 @app.get("/api/post/comment/{post_id}", response_model=list[CommentResponseModel])
 def get_comment_api(post_id: int):
@@ -650,6 +651,7 @@ def get_comment_api(post_id: int):
 
     return JSONResponse(status_code=200, content=jsonable_encoder(comment))
 
+
 @app.delete("/api/post/comment")
 def delete_comment_api(comment_id: int):
     """
@@ -658,6 +660,20 @@ def delete_comment_api(comment_id: int):
     delete_comment(comment_id)
 
     return JSONResponse(status_code=200, content={"message": "Comment deleted successfully"})
+
+
+@app.post("/api/profile/skill/assess", response_model=AssessSkillResponseModel)
+def assess_skill_api(assess_skill_details: AssessSkillRequestModel):
+    """
+    This skill assess API allow you to assess skill data.
+    """
+    _as = assess_skill(assess_skill_details)
+
+    # if len(assess_skill) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while assessing skill")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(_as))
+
 
 # Test Endpoints
 

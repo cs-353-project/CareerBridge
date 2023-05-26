@@ -138,3 +138,14 @@ CREATE TABLE IF NOT EXISTS Certification(
     DELETE CASCADE,
     PRIMARY KEY (certification_id)
 );
+
+CREATE TABLE IF NOT EXISTS Skill(
+    skill_id INT NOT NULL AUTO_INCREMENT,
+    profile_id INT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    is_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    is_master_skill BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON DELETE CASCADE,
+    PRIMARY KEY (skill_id)
+    UNIQUE (profile_id, name)
+);

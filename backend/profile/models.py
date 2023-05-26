@@ -206,3 +206,18 @@ class CertificationRequestModel(BaseModel):
     issue_date: str
     issuer: str
     expiration_date: str
+
+
+class SkillResponseModel(BaseModel):
+    skill_id: int
+    profile_id: int
+    name: str
+    is_verified: bool
+    is_master_skill: bool
+
+
+class SkillRequestModel(BaseModel):
+    profile_id: int
+    name: str
+    is_verified: bool
+    is_master_skill: bool

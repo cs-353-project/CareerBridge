@@ -13,6 +13,8 @@ from profile.models import (
     ProjectResponseModel,
     PublicationRequestModel,
     PublicationResponseModel,
+    SkillRequestModel,
+    SkillResponseModel,
     TestScoreRequestModel,
     TestScoreResponseModel,
     VoluntaryExperienceRequestModel,
@@ -27,6 +29,7 @@ from profile.profile import (
     add_language_proficiency,
     add_project,
     add_publication,
+    add_skill,
     add_test_score,
     add_voluntary_experience,
     add_work_experience,
@@ -35,6 +38,7 @@ from profile.profile import (
     delete_experience,
     delete_project,
     delete_publication,
+    delete_skill,
     delete_test_score,
     get_awards_by_profile_id,
     get_certification_by_profile_id,
@@ -43,6 +47,7 @@ from profile.profile import (
     get_profile_by_user_id_main,
     get_projects_by_profile_id,
     get_publication_by_profile_id,
+    get_skills_by_profile_id,
     get_test_score_by_profile_id,
     get_vol_exp_by_profile_id,
     get_work_exp_by_profile_id,
@@ -283,8 +288,8 @@ def get_educational_experience_api(profile_id: int):
     """
     educational_experience = get_edu_exp_by_profile_id(profile_id)
 
-    if len(educational_experience) == 0:
-        raise HTTPException(status_code=404, detail="Educational experience not found")
+    # if len(educational_experience) == 0:
+    #     raise HTTPException(status_code=404, detail="Educational experience not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(educational_experience))
 
@@ -296,8 +301,8 @@ def get_work_experience_api(profile_id: int):
     """
     work_experience = get_work_exp_by_profile_id(profile_id)
 
-    if len(work_experience) == 0:
-        raise HTTPException(status_code=404, detail="Work experience not found")
+    # if len(work_experience) == 0:
+    #     raise HTTPException(status_code=404, detail="Work experience not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(work_experience))
 
@@ -309,8 +314,8 @@ def get_voluntary_experience_api(profile_id: int):
     """
     voluntary_experience = get_vol_exp_by_profile_id(profile_id)
 
-    if len(voluntary_experience) == 0:
-        raise HTTPException(status_code=404, detail="Voluntary experience not found")
+    # if len(voluntary_experience) == 0:
+    #     raise HTTPException(status_code=404, detail="Voluntary experience not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(voluntary_experience))
 
@@ -333,8 +338,8 @@ def get_test_score_api(profile_id: int):
 
     test_score = get_test_score_by_profile_id(profile_id)
 
-    if len(test_score) == 0:
-        raise HTTPException(status_code=404, detail="Test score not found")
+    # if len(test_score) == 0:
+    #     raise HTTPException(status_code=404, detail="Test score not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(test_score))
 
@@ -370,8 +375,8 @@ def get_publication_api(profile_id: int):
 
     publication = get_publication_by_profile_id(profile_id)
 
-    if len(publication) == 0:
-        raise HTTPException(status_code=404, detail="Publication not found")
+    # if len(publication) == 0:
+    #     raise HTTPException(status_code=404, detail="Publication not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(publication))
 
@@ -381,8 +386,8 @@ def get_certification_api(profile_id: int):
 
     certification = get_certification_by_profile_id(profile_id)
 
-    if len(certification) == 0:
-        raise HTTPException(status_code=404, detail="Certification not found")
+    # if len(certification) == 0:
+    #     raise HTTPException(status_code=404, detail="Certification not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(certification))
 
@@ -407,8 +412,8 @@ def get_project_api(profile_id: int):
     """
     project = get_projects_by_profile_id(profile_id)
 
-    if len(project) == 0:
-        raise HTTPException(status_code=404, detail="Project not found")
+    # if len(project) == 0:
+    #     raise HTTPException(status_code=404, detail="Project not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(project))
 
@@ -443,8 +448,8 @@ def get_award_api(profile_id: int):
     """
     award = get_awards_by_profile_id(profile_id)
 
-    if len(award) == 0:
-        raise HTTPException(status_code=404, detail="Award not found")
+    # if len(award) == 0:
+    #     raise HTTPException(status_code=404, detail="Award not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(award))
 
@@ -479,8 +484,8 @@ def get_language_proficiency_api(profile_id: int):
     """
     language_proficiency = get_language_proficiencies_by_profile_id(profile_id)
 
-    if len(language_proficiency) == 0:
-        raise HTTPException(status_code=404, detail="Language proficiency not found")
+    # if len(language_proficiency) == 0:
+    #     raise HTTPException(status_code=404, detail="Language proficiency not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(language_proficiency))
 
@@ -493,6 +498,42 @@ def delete_language_proficiency_api(language_proficiency_id: int):
     delete_language_proficiency_api(language_proficiency_id)
 
     return JSONResponse(status_code=200, content={"message": "Language proficiency deleted successfully"})
+
+
+@app.post("/api/profile/skill", response_model=SkillRequestModel)
+def add_skill_api(skill_details: SkillRequestModel):
+    """
+    This skill add API allow you to add skill data.
+    """
+    skill = add_skill(skill_details)
+
+    # if len(skill) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding skill")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(skill))
+
+
+@app.get("/api/profile/skill/{profile_id}", response_model=list[SkillResponseModel])
+def get_skill_api(profile_id: int):
+    """
+    This skill API allow you to fetch specific skill data.
+    """
+    skill = get_skills_by_profile_id(profile_id)
+
+    # if len(skill) == 0:
+    #     raise HTTPException(status_code=404, detail="Skill not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(skill))
+
+
+@app.delete("/api/profile/skill")
+def delete_skill_api(skill_id: int):
+    """
+    This skill delete API allow you to delete skill data.
+    """
+    delete_skill(skill_id)
+
+    return JSONResponse(status_code=200, content={"message": "Skill deleted successfully"})
 
 
 # Test Endpoints

@@ -19,6 +19,8 @@ from .models import (
     ProjectResponseModel,
     PublicationRequestModel,
     PublicationResponseModel,
+    SkillRequestModel,
+    SkillResponseModel,
     TestScoreRequestModel,
     TestScoreResponseModel,
     VoluntaryExperienceRequestModel,
@@ -386,8 +388,8 @@ def get_projects_by_profile_id(profile_id: int):
         (profile_id),
     )
 
-    if len(projects) == 0:
-        raise HTTPException(status_code=404, detail="Projects not found")
+    # if len(projects) == 0:
+    #     raise HTTPException(status_code=404, detail="Projects not found")
 
     return projects
 
@@ -449,8 +451,8 @@ def get_awards_by_profile_id(profile_id: int):
         (profile_id),
     )
 
-    if len(awards) == 0:
-        raise HTTPException(status_code=404, detail="Awards not found")
+    # if len(awards) == 0:
+    #     raise HTTPException(status_code=404, detail="Awards not found")
 
     return awards
 
@@ -500,6 +502,42 @@ def add_language_proficiency(language_proficiency_request: LanguageProficiencyRe
     return response
 
 
+def add_skill(skill_request: SkillRequestModel):
+    skill_id = query_put(
+        """
+            INSERT INTO Skill (profile_id, name, is_verified, is_master_skill)
+            VALUES (%s, %s, %s, %s);
+
+            """,
+        (skill_request.profile_id, skill_request.name, skill_request.is_verified, skill_request.is_master_skill),
+    )
+
+    # construct response
+    response: SkillResponseModel = SkillResponseModel(
+        skill_id=skill_id,
+        profile_id=skill_request.profile_id,
+        name=skill_request.name,
+        is_verified=skill_request.is_verified,
+        is_master_skill=skill_request.is_master_skill,
+    )
+
+    return response
+
+
+def get_skills_by_profile_id(profile_id: int):
+    skills = query_get(
+        """
+            SELECT * FROM Skill WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    # if len(skills) == 0:
+    #     raise HTTPException(status_code=404, detail="Skills not found")
+
+    return skills
+
+
 def get_language_proficiencies_by_profile_id(profile_id: int):
     language_proficiencies = query_get(
         """
@@ -508,8 +546,8 @@ def get_language_proficiencies_by_profile_id(profile_id: int):
         (profile_id),
     )
 
-    if len(language_proficiencies) == 0:
-        raise HTTPException(status_code=404, detail="Language Proficiencies not found")
+    # if len(language_proficiencies) == 0:
+    #     raise HTTPException(status_code=404, detail="Language Proficiencies not found")
 
     return language_proficiencies
 
@@ -531,6 +569,26 @@ def delete_language_proficiency(language_proficiency_id: int):
             DELETE FROM LanguageProficiency WHERE language_proficiency_id = %s;
             """,
         (language_proficiency_id),
+    )
+
+
+def delete_skill(skill_id: int):
+    # See if the experience exists
+    skill = query_get(
+        """
+            SELECT * FROM Skill WHERE skill_id = %s;
+            """,
+        (skill_id),
+    )
+
+    if len(skill) == 0:
+        raise HTTPException(status_code=404, detail="Skill not found")
+
+    return query_put(
+        """
+            DELETE FROM Skill WHERE skill_id = %s;
+            """,
+        (skill_id),
     )
 
 
@@ -705,8 +763,8 @@ def get_publication_by_profile_id(profile_id: int):
         (profile_id),
     )
 
-    if len(publication) == 0:
-        raise HTTPException(status_code=404, detail="Publication not found")
+    # if len(publication) == 0:
+    #     raise HTTPException(status_code=404, detail="Publication not found")
 
     return publication
 
@@ -719,7 +777,7 @@ def get_certification_by_profile_id(profile_id: int):
         (profile_id),
     )
 
-    if len(certification) == 0:
-        raise HTTPException(status_code=404, detail="Certification not found")
+    # if len(certification) == 0:
+    #     raise HTTPException(status_code=404, detail="Certification not found")
 
     return certification

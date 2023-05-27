@@ -10,7 +10,7 @@
 #top-card {
   margin: 40px 24px;
   padding: 8px;
-  width: 90%;
+  width: 75%;
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -19,7 +19,6 @@
 
 #top-icon {
   height: 160px;
-  margin-left: 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -75,7 +74,7 @@
 }
 
 #top-inner-2 h1 {
-  margin: 0px;
+  margin: 0;
 }
 
 #top-inner-2-buttons {
@@ -117,8 +116,15 @@
   justify-content: start;
 }
 
-#basic-information-card {
+#basic-information {
   width: 100%;
+  margin-bottom: 28px;
+  margin-top: 12px;
+}
+
+#biography {
+  width: 100%;
+  margin-top: 12px;
   margin-bottom: 28px;
 }
 
@@ -129,11 +135,29 @@
   align-items: center;
 }
 
+#biography-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #basic-information-top h2 {
   margin-bottom: 4px;
 }
 
+#biography-top h2 {
+  margin-bottom: 4px;
+}
+
 #basic-information-top-inner-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+#biography-top-inner-1 {
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -145,12 +169,21 @@
   margin-right: 32px;
 }
 
+#biography-top-inner-1 mat-icon {
+  transform: scale(2);
+  margin-right: 32px;
+}
+
 #basic-information-bottom {
   margin: 2px 8px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+#biography-bottom {
+  margin: 20px 8px;
 }
 
 #basic-information-left {
@@ -179,6 +212,7 @@
 
 .main-content-container {
   margin-top: 12px;
+  margin-bottom: 40px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -241,4 +275,8 @@
 
 .main-content-item p {
   margin-bottom: 3px;
+}
+
+.disabled {
+  display: none;
 }

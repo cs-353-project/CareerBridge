@@ -52,7 +52,7 @@
     <mat-step label="Preview & Post">
       <div
         class="card-effect d-flex flex-column mt-2"
-        style="height: 325; max-height: 325px; overflow-y: scroll">
+        style="height: 325px; max-height: 325px; overflow-y: scroll">
         <div class="d-flex flex-row align-items-center ml-2 my-2">
           <div>
             <img
@@ -74,7 +74,7 @@
           </div>
         </div>
         <mat-divider class="w-100 my-1"></mat-divider>
-        <div class="mt-2">
+        <div class="mt-2 col">
           <span style="font-size: 25px" class="font-weight-bold">{{
             title_text
           }}</span>
@@ -83,7 +83,11 @@
           <span style="font-size: 12px">{{ description_text }}</span>
         </div>
         <div class="my-2">
-          <img [src]="selectedFileURL" alt="placeholder" style="width: 100%" />
+          <img
+            *ngIf="selectedFile != null"
+            [src]="selectedFileURL"
+            alt="placeholder"
+            style="width: 100%" />
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between">

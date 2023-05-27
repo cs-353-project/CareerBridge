@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CandidatesComponent implements OnInit {
   id: string;
+  sortOption: string = 'Newest First';
 
   constructor(private route: ActivatedRoute) {}
 

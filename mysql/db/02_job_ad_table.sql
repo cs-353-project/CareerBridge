@@ -41,3 +41,20 @@ CREATE TABLE IF NOT EXISTS DegreeInJobAdvertisement(
     DELETE CASCADE,
     PRIMARY KEY (degree_id, ad_id)
 );
+
+CREATE TABLE IF NOT EXISTS JobAdvertisementResponse(
+    application_id INT NOT NULL AUTO_INCREMENT,
+    profile_id INT NOT NULL,
+    ad_id INT NOT NULL,
+    apply_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    response_date DATETIME,
+    response VARCHAR(15),
+    cv BLOB,
+    FOREIGN KEY (profile_id) REFERENCES Profile(profile_id) ON
+    DELETE CASCADE,
+    FOREIGN KEY (ad_id) REFERENCES JobAdvertisement(ad_id) ON
+    DELETE CASCADE,
+    PRIMARY KEY (application_id),
+    CHECK (response IN ("Waiting", "Interview", "Accepted", "Rejected")),
+    UNIQUE (profile_id, ad_id)
+);

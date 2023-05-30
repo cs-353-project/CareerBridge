@@ -9,7 +9,10 @@ from profile.profile import (add_skill)
 from .models import( JobAdvertisementResponseModel,
                      JobAdvertisementRequestModel,
                      SkillInJobRequestModel,
-                     SkillInJobResponseModel)
+                     SkillInJobResponseModel,
+                     JobApplicationRequestModel,
+                     JobApplicationResponseModel,
+                     JobApplicationUpdateRequestModel)
 
 def add_job_advertisement(job_advertisement_request: JobAdvertisementRequestModel):
 
@@ -199,6 +202,79 @@ def add_degree_in_job_advertisement(ad_id: int, degree_id: int):
             degree_id,
         ),
     )
+
+def apply_for_a_job(job_application_request: JobApplicationRequestModel):
+    application_id = query_put(
+        """
+            INSERT INTO JobAdvertisementResponse (profile_id, ad_id, response_date, response, cv) 
+            VALUES (%s, %s, %s, %s, %s)
+        """,
+        (
+            job_application_request.profile_id,
+            job_application_request.ad_id,
+            job_application_request.response_date,
+            job_application_request.response,
+            job_application_request.cv,
+        ),
+    )
+
+    response: JobApplicationResponseModel = JobApplicationResponseModel(
+        application_id=application_id,
+        profile_id=job_application_request.profile_id,
+        ad_id=job_application_request.ad_id,
+        apply_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        response_date=job_application_request.response_date,
+        response=job_application_request.response,
+        cv = job_application_request.cv,
+    )
+
+    return response
+
+def get_applications_by_ad_id(ad_id: int):
+    applications = query_get(
+        """
+            SELECT * FROM JobAdvertisementResponse WHERE ad_id = %s
+        """,
+        (ad_id,),
+    )
+
+    if not applications:
+        raise HTTPException(status_code=404, detail="Job Application not found")
+
+    return applications
+
+def delete_application(application_id: int):
+    query_update(
+        """
+            DELETE FROM JobAdvertisementResponse WHERE application_id = %s
+        """,
+        (application_id,),
+    )
+
+def get_application_by_application_id(application_id: int):
+    application = query_get(
+        """
+            SELECT * FROM JobAdvertisementResponse WHERE application_id = %s
+        """,
+        (application_id,),
+    )
+
+    if not application:
+        raise HTTPException(status_code=404, detail="Job Application not found")
+
+    return application
+
+def evaluate_application(application_id: int, job_application_request: JobApplicationUpdateRequestModel):
+    query_update(
+        """
+            UPDATE JobAdvertisementResponse SET response = %s, response_date = %s WHERE application_id = %s
+        """,
+        (job_application_request.response, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), application_id,),
+    )
+
+    application = get_application_by_application_id(application_id)
+
+    return application
 
 
 

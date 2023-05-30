@@ -67,8 +67,16 @@ from job_ad.job_ad import (
     add_job_advertisement,
     delete_job_advertisement,
     get_job_advertisement_by_id,
+    apply_for_a_job,
+    get_applications_by_ad_id,
+    delete_application,
+    evaluate_application,
 )
-from job_ad.models import JobAdvertisementRequestModel, JobAdvertisementResponseModel
+from job_ad.models import (JobAdvertisementRequestModel, 
+                           JobAdvertisementResponseModel,
+                           JobApplicationResponseModel,
+                           JobApplicationRequestModel,
+                           JobApplicationUpdateRequestModel,)
 from post.models import (
     CommentRequestModel,
     CommentResponseModel,
@@ -675,7 +683,50 @@ def assess_skill_api(assess_skill_details: AssessSkillRequestModel):
 
     return JSONResponse(status_code=200, content=jsonable_encoder(_as))
 
+@app.post("/api/jobapplications", response_model=JobApplicationResponseModel)
+def add_job_application_api(job_application_details: JobApplicationRequestModel):
+    """
+    This job application add API allow you to add job application data.
+    """
+    job_application = apply_for_a_job(job_application_details)
 
+    # if len(job_application) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while adding job application")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
+
+@app.get("/api/jobapplications/{ad_id}", response_model=list[JobApplicationResponseModel])
+def get_job_application_api(ad_id: int):
+    """
+    This job application API allow you to fetch specific job application data.
+    """
+    job_application = get_applications_by_ad_id(ad_id)
+
+    if len(job_application) == 0:
+        raise HTTPException(status_code=404, detail="Job application not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
+
+@app.delete("/api/jobapplications")
+def delete_job_application_api(application_id: int):
+    """
+    This job application delete API allow you to delete job application data.
+    """
+    delete_application(application_id)
+
+    return JSONResponse(status_code=200, content={"message": "Job application deleted successfully"})
+
+@app.patch("/api/jobapplications/update", response_model=JobApplicationResponseModel)
+def update_job_application_api(application_id: int, application_details: JobApplicationUpdateRequestModel):
+    """
+    This job application update API allow you to update job application data.
+    """
+    job_application = evaluate_application(application_id, application_details)
+
+    # if len(job_application) == 0:
+    #     raise HTTPException(status_code=404, detail="Error while updating job application")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
 # Test Endpoints
 
 

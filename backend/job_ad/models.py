@@ -49,6 +49,29 @@ class JobAdvertisementRequestModel(BaseModel):
     skills: list[SkillInJobRequestModel]
     required_degrees: list[DegreeRequestModel]
 
+class JobApplicationRequestModel(BaseModel):
+    profile_id: int
+    ad_id: int
+    resume: bytes = None
+    response_date: str = None
+    response: str
+    cv: bytes = None
+
+class JobApplicationResponseModel(BaseModel):
+    application_id: int
+    profile_id: int
+    ad_id: int
+    apply_date: str
+    resume: bytes = None
+    response_date: str = None
+    response: str
+    cv: bytes = None
+
+class JobApplicationUpdateRequestModel(BaseModel):
+    response: Optional[str] = None
+
+  
+
 
 
 

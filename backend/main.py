@@ -65,7 +65,7 @@ from functionality.functionality import assess_skill
 from functionality.models import AssessSkillRequestModel, AssessSkillResponseModel
 from job_ad.job_ad import (
     add_job_advertisement,
-    delete_job_adviertisement,
+    delete_job_advertisement,
     get_job_advertisement_by_id,
 )
 from job_ad.models import JobAdvertisementRequestModel, JobAdvertisementResponseModel
@@ -441,7 +441,7 @@ def delete_job_ad_api(ad_id: int):
     """
     This certification delete API allow you to delete certification data.
     """
-    delete_job_adviertisement(ad_id)
+    delete_job_advertisement(ad_id)
 
     return JSONResponse(status_code=200, content={"message": "Job Advertisement deleted successfully"})
 

@@ -1,6 +1,17 @@
 from typing import Optional
 
 from pydantic import BaseModel, HttpUrl
+from profile.models import DegreeResponseModel,DegreeRequestModel
+
+class SkillInJobResponseModel(BaseModel):
+    skill_id: int
+    skill_name: str
+    ad_id: int
+
+
+class SkillInJobRequestModel(BaseModel):
+    skill_name: str
+    ad_id: int
 
 class JobAdvertisementResponseModel(BaseModel):
     ad_id: int
@@ -19,6 +30,8 @@ class JobAdvertisementResponseModel(BaseModel):
     application_count: int
     view_count: int
     created_at: str
+    skills: list[SkillInJobResponseModel]
+    required_degrees: list[DegreeResponseModel]
 
 class JobAdvertisementRequestModel(BaseModel):
     creator_id: int
@@ -33,6 +46,14 @@ class JobAdvertisementRequestModel(BaseModel):
     domain: str
     is_open: bool
     external_url: str
+    skills: list[SkillInJobRequestModel]
+    required_degrees: list[DegreeRequestModel]
+
+
+
+
+
+
 
 
     

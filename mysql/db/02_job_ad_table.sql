@@ -22,3 +22,22 @@ CREATE TABLE IF NOT EXISTS JobAdvertisement(
     CHECK (type IN ("Internship", "Part-time Job", "Job", "Contract",
     "Project-based"))
 );
+
+CREATE TABLE IF NOT EXISTS SkillInJobAdvertisement(
+    ad_id INT NOT NULL,
+    skill_id INT NOT NULL AUTO_INCREMENT,
+    skill_name VARCHAR(50) NOT NULL,
+    FOREIGN KEY (ad_id) REFERENCES JobAdvertisement(ad_id) ON
+    DELETE CASCADE,
+    PRIMARY KEY (skill_id)
+);
+
+CREATE TABLE IF NOT EXISTS DegreeInJobAdvertisement(
+    degree_id INT NOT NULL,
+    ad_id INT NOT NULL,
+    FOREIGN KEY (degree_id) REFERENCES Degree(degree_id) ON
+    DELETE CASCADE,
+    FOREIGN KEY (ad_id) REFERENCES JobAdvertisement(ad_id) ON
+    DELETE CASCADE,
+    PRIMARY KEY (degree_id, ad_id)
+);

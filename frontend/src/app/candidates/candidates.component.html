@@ -1,0 +1,71 @@
+<div class="mt-2 d-flex justify-content-center">
+  <div
+    class="w-75 card-effect"
+    style="
+      height: 85%;
+      position: absolute;
+      min-height: 600px;
+      overflow-y: scroll;
+    ">
+    <div class="d-flex flex-column ml-5 my-3">
+      <div>
+        <button mat-flat-button color="accent">Back</button>
+      </div>
+      <div class="mt-3 d-flex flex-row justify-content-between align-items-end">
+        <div>
+          <span style="font-size: 25px" class="font-weight-bold"
+            >UI/UX Designer</span
+          >
+          <span style="font-size: 12px" class="ml-3"
+            >Posted on 25 March 2023 (22 days ago)</span
+          >
+          <span class="mx-3">&#183;</span>
+          <span style="font-size: 12px">Candidate Count: 74</span>
+        </div>
+        <div class="ml-3">
+          <span>Sort By:</span>
+          <mat-form-field class="mx-2">
+            <mat-select [(value)]="sortOption" style="text-align: center">
+              <mat-option value="Newest First"> Newest First</mat-option>
+              <mat-option value="Oldest First"> Oldest First </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-divider class="w-100 my-2"></mat-divider>
+      <div class="d-flex flex-row" style="flex-wrap: wrap">
+        <div
+          class="d-flex flex-column align-items-center justify-content-center py-2 border border-primary rounded m-1"
+          style="min-width: 250px; min-height: 200px">
+          <img src="assets/images/avatar.png" style="width: 75px" alt="user" />
+          <div class="mt-2">
+            <span style="font-size: 16px" class="font-weight-bold"
+              >Berk Çakar</span
+            >
+          </div>
+          <div class="bg-danger py-1 px-2 m-1" style="border-radius: 10px">
+            <span class="text-light" style="font-size: 12px">Not Viewed</span>
+          </div>
+
+          <div class="d-flex flex-row justify-content-center w-100 mt-1">
+            <button mat-raised-button class="mr-1" color="accent">View</button>
+            <button mat-raised-button class="ml-1" color="primary">
+              Respond
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-row justify-content-center align-items-center my-1">
+        <button mat-raised-button color="primary" class="mt-2">1</button>
+        <button mat-raised-button class="mt-2 mx-1">2</button>
+        <button mat-raised-button class="mt-2">3</button>
+        <button mat-raised-button class="mt-2 mx-1">4</button>
+        <span class="mx-1">&#183;</span>
+        <span class="mx-1">&#183;</span>
+        <span class="mx-1">&#183;</span>
+        <button mat-raised-button class="mt-2 mx-1">55</button>
+      </div>
+    </div>
+  </div>
+</div>

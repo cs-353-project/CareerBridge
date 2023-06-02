@@ -1,0 +1,9 @@
+.card-effect{
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+  } 
+
+  ::ng-deep .mat-form-field-wrapper{
+   margin-bottom: -1.25em;
+}

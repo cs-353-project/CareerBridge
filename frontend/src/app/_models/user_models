@@ -1,0 +1,47 @@
+export interface RegisterUpdateRequestModel {
+  email: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+}
+
+export interface RegisterRequestModel {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+}
+
+export interface TokenModel {
+  access_token: string;
+  refresh_token: string;
+}
+
+export interface UserResponseModel {
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  user_role: string;
+  is_admin: boolean;
+}
+
+export interface UserAuthResponseModel {
+  token: TokenModel;
+  user: UserResponseModel;
+}
+
+export interface LogInRequestModel {
+  email: string;
+  password: string;
+}
+
+export interface UserUpdateRequestModel {
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  password?: string;
+  user_role?: string;
+  is_admin?: boolean;
+  can_approve_applications?: boolean;
+}

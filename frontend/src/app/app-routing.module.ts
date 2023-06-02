@@ -10,7 +10,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.component';
 import { CandidatesComponent } from './candidates/candidates.component';
-
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
@@ -24,7 +24,8 @@ const routes: Routes = [
       { path: 'messages', component: MessagesComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'view-ad/:id', component: ViewAdDetailsComponent },
-      { path: 'candidates/:id', component: CandidatesComponent }
+      { path: 'candidates/:id', component: CandidatesComponent },
+      { path: 'admin-panel', component: AdminPanelComponent}
     ]
   }
 ];

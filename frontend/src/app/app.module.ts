@@ -39,6 +39,11 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CreatePostDialogComponent } from './feed/create-post-dialog/create-post-dialog.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CandidatesComponent } from './candidates/candidates.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -54,7 +59,8 @@ import { CandidatesComponent } from './candidates/candidates.component';
     ProfileComponent,
     ViewAdDetailsComponent,
     CreatePostDialogComponent,
-    CandidatesComponent
+    CandidatesComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +89,11 @@ import { CandidatesComponent } from './candidates/candidates.component';
     MatSelectModule,
     MatChipsModule,
     MatBadgeModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

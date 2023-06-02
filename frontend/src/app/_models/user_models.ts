@@ -1,11 +1,4 @@
-export interface RegisterUpdateRequestModel {
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-}
-
-export interface RegisterRequestModel {
+export interface RegisterModel {
   first_name: string;
   last_name: string;
   email: string;
@@ -17,8 +10,8 @@ export interface TokenModel {
   refresh_token: string;
 }
 
-export interface UserResponseModel {
-  user_id: number;
+export interface UserModel {
+  user_id?: number;
   first_name: string;
   last_name: string;
   email: string;
@@ -28,7 +21,7 @@ export interface UserResponseModel {
 
 export interface UserAuthResponseModel {
   token: TokenModel;
-  user: UserResponseModel;
+  user: UserModel;
 }
 
 export interface LogInRequestModel {

@@ -9,10 +9,17 @@ class SkillInJobResponseModel(BaseModel):
     skill_name: str
     ad_id: int
 
-
 class SkillInJobRequestModel(BaseModel):
     skill_name: str
+
+class DegreeInJobResponseModel(BaseModel):
+    degree_id: int
+    degree_name: str
     ad_id: int
+
+class DegreeInJobRequestModel(BaseModel):
+    degree_name: str
+    
 
 
 class JobAdvertisementResponseModel(BaseModel):
@@ -33,7 +40,7 @@ class JobAdvertisementResponseModel(BaseModel):
     view_count: int
     created_at: str
     skills: list[SkillInJobResponseModel]
-    required_degrees: list[DegreeResponseModel]
+    required_degrees: list[DegreeInJobResponseModel]
 
 
 class JobAdvertisementRequestModel(BaseModel):
@@ -50,7 +57,7 @@ class JobAdvertisementRequestModel(BaseModel):
     is_open: bool
     external_url: str
     skills: list[SkillInJobRequestModel]
-    required_degrees: list[DegreeRequestModel]
+    required_degrees: list[DegreeInJobRequestModel]
 
 
 class JobApplicationRequestModel(BaseModel):

@@ -33,12 +33,12 @@ CREATE TABLE IF NOT EXISTS SkillInJobAdvertisement(
 );
 
 CREATE TABLE IF NOT EXISTS DegreeInJobAdvertisement(
-    degree_id INT NOT NULL,
+    degree_id INT NOT NULL AUTO_INCREMENT,
     ad_id INT NOT NULL,
     degree_name VARCHAR(50) NOT NULL,
     FOREIGN KEY (ad_id) REFERENCES JobAdvertisement(ad_id) ON
     DELETE CASCADE,
-    PRIMARY KEY (degree_id, ad_id)
+    PRIMARY KEY (degree_id)
 );
 
 CREATE TABLE IF NOT EXISTS JobAdvertisementResponse(

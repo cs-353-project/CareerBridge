@@ -15,6 +15,8 @@ from .models import (
     JobApplicationUpdateRequestModel,
     SkillInJobRequestModel,
     SkillInJobResponseModel,
+    DegreeInJobRequestModel,
+    DegreeInJobResponseModel,
 )
 
 
@@ -43,25 +45,13 @@ def add_job_advertisement(job_advertisement_request: JobAdvertisementRequestMode
 
     skill_reponse_list = []
     for skill_request in job_advertisement_request.skills:
-        skill_reponse = add_skill_in_job_advertisement(skill_request)
+        skill_reponse = add_skill_in_job_advertisement(skill_request, ad_id)
         skill_reponse_list.append(skill_reponse)
 
     degree_response_list = []
     for degree_request in job_advertisement_request.required_degrees:
 
-        degree_id = query_put(
-            """
-            INSERT INTO Degree (name) VALUES (%s);
-            """,
-            (degree_request.name),
-        )
-
-        degree_response: DegreeResponseModel = DegreeResponseModel(
-            degree_id=degree_id,
-            name=degree_request.name,
-        )
-
-        add_degree_in_job_advertisement(ad_id, degree_id)
+        degree_response = add_degree_in_job_advertisement(degree_request, ad_id)
         degree_response_list.append(degree_response)
 
     # Construct Response Model
@@ -217,38 +207,46 @@ def apply_filter(request: JobAdFilterRequestModel):
     return job_advertisements
 
 
-def add_skill_in_job_advertisement(skill_in_job_request: SkillInJobRequestModel):
+def add_skill_in_job_advertisement(skill_in_job_request: SkillInJobRequestModel, ad_id: int):
     skill__id = query_put(
         """
             INSERT INTO  SkillInJobAdvertisement (ad_id, skill_name)
             VALUES (%s, %s)
         """,
         (
-            skill_in_job_request.ad_id,
+            ad_id,
             skill_in_job_request.skill_name,
         ),
     )
 
     response: SkillInJobResponseModel = SkillInJobResponseModel(
         skill_id=skill__id,
-        ad_id=skill_in_job_request.ad_id,
+        ad_id=ad_id,
         skill_name=skill_in_job_request.skill_name,
     )
 
     return response
 
 
-def add_degree_in_job_advertisement(ad_id: int, degree_id: int):
-    query_put(
+def add_degree_in_job_advertisement(degree_in_job_request: DegreeInJobRequestModel, ad_id: int):
+    degree_id = query_put(
         """
-            INSERT INTO DegreeInJobAdvertisement (ad_id, degree_id)
+            INSERT INTO DegreeInJobAdvertisement (ad_id, degree_name)
             VALUES (%s, %s)
         """,
         (
             ad_id,
-            degree_id,
+            degree_in_job_request.degree_name,
         ),
     )
+
+    response: DegreeInJobResponseModel = DegreeInJobResponseModel(
+        ad_id=ad_id,
+        degree_name=degree_in_job_request.degree_name,
+        degree_id=degree_id,
+    )
+
+    return response
 
 
 def apply_for_a_job(job_application_request: JobApplicationRequestModel):

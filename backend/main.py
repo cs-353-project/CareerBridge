@@ -774,7 +774,7 @@ def get_system_reports_api():
     """
     This system reports API allow you to fetch system reports.
     """
-    system_reports = create_average_number_of_ad_views_for_company_response_model()
+    system_reports = create_minimum_and_maximum_pay_averages_response_model()
     return JSONResponse(status_code=200, content=jsonable_encoder(system_reports))
 
 

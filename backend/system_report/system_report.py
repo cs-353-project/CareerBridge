@@ -178,11 +178,10 @@ def create_average_number_of_ad_views_for_company_response_model():
 
     list_of_data = query_get(
         """
-            SELECT C.company_name, AVG(JA.view_count) AS average_view_count
-            FROM Company C, JobAdvertisement JA
-            WHERE C.company_name = JA.organization
-            GROUP BY C.company_name
-            ORDER BY C.company_name ASC;
+            SELECT JA.organization, AVG(JA.view_count) AS average_view_count
+            FROM JobAdvertisement JA
+            GROUP BY JA.organization
+            ORDER BY JA.organization ASC;
         """,
         (),
     )
@@ -193,34 +192,34 @@ def create_average_number_of_ad_views_for_company_response_model():
         company_names.append(data["company_names"])
         average_view_counts.append(data["average_view_count"])
 
-    # response: AverageNumberOfAdViewsForCompanyResponseModel = AverageNumberOfAdViewsForCompanyResponseModel(
-    # company_names=company_names,
-    # average_number_of_ad_views=average_view_counts
-    # )
+    response: AverageNumberOfAdViewsForCompanyResponseModel = AverageNumberOfAdViewsForCompanyResponseModel(
+        company_names=company_names,
+        average_number_of_ad_views=average_view_counts
+    )
 
-    # return response
-    return "Company Names: " + str(company_names) + "\nAverage Number Of Ad Views: " + str(average_view_counts)
+    return response
+    #return "Company Names: " + str(company_names) + "\nAverage Number Of Ad Views: " + str(average_view_counts)
 
 
 def create_minimum_and_maximum_pay_averages_response_model():
 
     list_of_data = query_get(
         """
-            SELECT C.company_name,AVG(JA.pay_range_min) AS average_min_pay, AVG(JA.pay_range_mix) AS average_max_pay
-            FROM Company C, JobAdvertisement JA
-            WHERE C.company_name = JA.organization
-            GROUP BY C.company_name
-            ORDER BY C.company_name ASC;
-        """
+            SELECT JA.organization, AVG(JA.pay_range_min) AS average_min_pay, AVG(JA.pay_range_max) AS average_max_pay
+            FROM JobAdvertisement JA
+            GROUP BY JA.organization
+            ORDER BY JA.organization ASC;
+        """,
+        ()
     )
 
     company_names = []
     minimum_pay_averages = []
     maximum_pay_averages = []
     for data in list_of_data:
-        company_names.append(data[0]["company_names"])
-        minimum_pay_averages.append(data[0]["average_min_pay"])
-        maximum_pay_averages.append(data[0]["average_max_pay"])
+        company_names.append(data["organization"])
+        minimum_pay_averages.append(data["average_min_pay"])
+        maximum_pay_averages.append(data["average_max_pay"])
 
     response: MinimumAndMaximumPayAveragesResponseModel = MinimumAndMaximumPayAveragesResponseModel(
         company_names=company_names,
@@ -229,3 +228,4 @@ def create_minimum_and_maximum_pay_averages_response_model():
     )
 
     return response
+    #return "Company Names: " + str(company_names) + "\nMinimum Pay Averages: " + str(minimum_pay_averages) + "\nMaximum Pay Averages: " + str(maximum_pay_averages)

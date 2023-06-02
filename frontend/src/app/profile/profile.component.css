@@ -1,0 +1,282 @@
+#profile-container {
+  margin-bottom: 36px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+#top-card {
+  margin: 40px 24px;
+  padding: 8px;
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+#top-icon {
+  height: 160px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-right: 16px;
+}
+
+#top-icon mat-icon {
+  transform: scale(6);
+}
+
+#top-inner {
+  height: 100px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+}
+
+#top-inner-1 {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+}
+
+#top-inner-1 mat-icon {
+  transform: scale(1.4);
+}
+
+#top-inner-1 p {
+  margin: 2px 12px;
+}
+
+#top-inner-1-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+#top-inner-2 {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#top-inner-2 h1 {
+  margin: 0;
+}
+
+#top-inner-2-buttons {
+  width: 140px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#bottom-container {
+  width: 80%;
+  padding: 0 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  margin: 0px 24px;
+}
+
+#bottom-left {
+  min-width: 170px;
+  width: 14%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-right: 100px;
+}
+
+#bottom-left button {
+  text-align: left;
+}
+
+#bottom-right {
+  margin-left: 12px;
+  width: 86%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+#basic-information {
+  width: 100%;
+  margin-bottom: 28px;
+  margin-top: 12px;
+}
+
+#biography {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 28px;
+}
+
+#basic-information-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#biography-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#basic-information-top h2 {
+  margin-bottom: 4px;
+}
+
+#biography-top h2 {
+  margin-bottom: 4px;
+}
+
+#basic-information-top-inner-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+#biography-top-inner-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+#basic-information-top-inner-1 mat-icon {
+  transform: scale(2);
+  margin-right: 32px;
+}
+
+#biography-top-inner-1 mat-icon {
+  transform: scale(2);
+  margin-right: 32px;
+}
+
+#basic-information-bottom {
+  margin: 2px 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#biography-bottom {
+  margin: 20px 8px;
+}
+
+#basic-information-left {
+  width: 45%;
+}
+
+#basic-information-right {
+  width: 45%;
+}
+
+#basic-information-left div {
+  margin: 20px 0;
+}
+
+#basic-information-right div {
+  margin: 20px 0;
+}
+
+#basic-information-bottom p {
+  margin: 6px 0;
+}
+
+.main-content-container h2 {
+  margin-bottom: 4px;
+}
+
+.main-content-container {
+  margin-top: 12px;
+  margin-bottom: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.main-content-top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.main-content-top-inner mat-icon {
+  transform: scale(3);
+  margin-right: 48px;
+}
+
+.main-content-top-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-content-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-top: 16px;
+}
+
+.main-content-item mat-icon {
+  transform: scale(2.4) !important;
+  margin-right: 32px;
+}
+
+.main-content-header {
+  margin: 0;
+}
+
+.main-content-item h3 {
+  margin-bottom: 2px;
+}
+
+.main-content-item p {
+  margin-bottom: 3px;
+}
+
+.disabled {
+  display: none;
+}

@@ -1,0 +1,636 @@
+<div id="profile-container">
+  <div id="top-card">
+    <div id="top-icon"><mat-icon>account_circle</mat-icon></div>
+    <div id="top-inner">
+      <div id="top-inner-1">
+        <mat-icon>verified_user</mat-icon>
+        <div id="top-inner-1-1">
+          <p>Verified Master Skill: <b>Python</b></p>
+          <p>Rating: <b>4/5</b></p>
+        </div>
+      </div>
+      <div id="top-inner-2">
+        <h1>Berk Çakar</h1>
+        <div id="top-inner-2-buttons">
+          <button mat-button><mat-icon>share</mat-icon></button>
+          <button mat-button><mat-icon>more_horiz</mat-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bottom-container">
+    <div id="bottom-left">
+      <button mat-button (click)="setActiveElement('information')">
+        Information
+      </button>
+      <button mat-button (click)="setActiveElement('biography')">
+        Biography
+      </button>
+      <button mat-button (click)="setActiveElement('work-experience')">
+        Work Experience
+      </button>
+      <button mat-button (click)="setActiveElement('education-experience')">
+        Education Experience
+      </button>
+      <button mat-button (click)="setActiveElement('voluntary-experience')">
+        Voluntary Experience
+      </button>
+      <button mat-button (click)="setActiveElement('projects')">
+        Projects
+      </button>
+      <button mat-button (click)="setActiveElement('certifications')">
+        Certifications
+      </button>
+      <button mat-button (click)="setActiveElement('awards')">Awards</button>
+      <button mat-button (click)="setActiveElement('test-scores')">
+        Test Scores
+      </button>
+      <button mat-button (click)="setActiveElement('publications')">
+        Publications
+      </button>
+      <button mat-button (click)="setActiveElement('languages')">
+        Languages
+      </button>
+      <button mat-button (click)="setActiveElement('skills')">Skills</button>
+      <button mat-button (click)="setActiveElement('resume')">Resume</button>
+    </div>
+
+    <div id="bottom-right">
+      <div
+        id="basic-information"
+        [ngStyle]="{
+          display: this.activeElement !== 'information' ? 'none' : ''
+        }">
+        <div id="basic-information-top">
+          <div id="basic-information-top-inner-1">
+            <mat-icon>account_circle</mat-icon>
+            <div>
+              <h2>Basic Information</h2>
+              <p>Update profile information</p>
+            </div>
+          </div>
+          <button mat-button><mat-icon>edit</mat-icon></button>
+        </div>
+        <div id="basic-information-bottom">
+          <div id="basic-information-left">
+            <div>
+              <p>Email Address</p>
+              <p>email@address.com</p>
+            </div>
+            <div>
+              <p>Phone Number</p>
+              <p>+90 919 191 91 91</p>
+            </div>
+            <div>
+              <p>Country</p>
+              <p>Turkiye</p>
+            </div>
+          </div>
+          <div id="basic-information-right">
+            <div>
+              <p>Website</p>
+              <p>website.com</p>
+            </div>
+            <div>
+              <p>Address</p>
+              <p>address address address</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="biography"
+        [ngStyle]="{
+          display: this.activeElement !== 'biography' ? 'none' : ''
+        }">
+        <div id="biography-top">
+          <div id="biography-top-inner-1">
+            <mat-icon>account_circle</mat-icon>
+            <div>
+              <h2>Biography</h2>
+              <p>Update profile information</p>
+            </div>
+          </div>
+          <button mat-button><mat-icon>edit</mat-icon></button>
+        </div>
+        <div id="biography-bottom">
+          <p>
+            AaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAAAaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaA
+            AaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAAaaAAAaaAAaaaAAAaaaAAaaaAAAAaaAaaAAAAaaAAa
+            aAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaAaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAA
+            AaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAAAaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaa
+            AaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAAaAAAaaAAaaaAAAaaaAAaaaAAAaaAAaaaAAAaaaaAa
+          </p>
+        </div>
+      </div>
+
+      <div
+        id="work-experience"
+        class="main-content-container"
+        [ngStyle]="{
+          display: this.activeElement !== 'work-experience' ? 'none' : ''
+        }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon>work</mat-icon>
+            <h2 class="main-content-header">Work Experience</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Experience</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>work_outline</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>work_outline</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="education-experience"
+        class="main-content-container"
+        [ngStyle]="{
+          display: this.activeElement !== 'education-experience' ? 'none' : ''
+        }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon>school</mat-icon>
+            <h2 class="main-content-header">Education Experience</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Experience</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>location_city</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>location_city</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="Voluntary Experience"
+        class="main-content-container"
+        [ngStyle]="{
+          display: this.activeElement !== 'voluntary-experience' ? 'none' : ''
+        }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon> money_off</mat-icon>
+            <h2 class="main-content-header">Voluntary Experience</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Experience</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon> add_location</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon> add_location</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="Projects"
+        class="main-content-container"
+        [ngStyle]="{
+          display: this.activeElement !== 'projects' ? 'none' : ''
+        }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon> layers</mat-icon>
+            <h2 class="main-content-header">Projects</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Project</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon> local_offer</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon> local_offer</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="certifications"
+        class="main-content-container"
+        [ngStyle]="{
+          display: this.activeElement !== 'certifications' ? 'none' : ''
+        }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon>description</mat-icon>
+            <h2 class="main-content-header">Certifications</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Certification</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>receipt</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>receipt</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="awards"
+        class="main-content-container"
+        [ngStyle]="{ display: this.activeElement !== 'awards' ? 'none' : '' }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon> score</mat-icon>
+            <h2 class="main-content-header">Awards</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Awards</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon> show_chart</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon> show_chart</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="test-scores"
+        class="main-content-container"
+        [ngStyle]="{
+          display: this.activeElement !== 'test-scores' ? 'none' : ''
+        }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon>grade</mat-icon>
+            <h2 class="main-content-header">Test Scores</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Score</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>timeline</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>timeline</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="publications"
+        class="main-content-container"
+        [ngStyle]="{
+          display: this.activeElement !== 'publications' ? 'none' : ''
+        }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon>public</mat-icon>
+            <h2 class="main-content-header">Publications</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Publication</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon> rate_review</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon> rate_review</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="languages"
+        class="main-content-container"
+        [ngStyle]="{
+          display: this.activeElement !== 'languages' ? 'none' : ''
+        }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon>language</mat-icon>
+            <h2 class="main-content-header">Publications</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Language</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>speaker_notes</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>speaker_notes</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="skills"
+        class="main-content-container"
+        [ngStyle]="{ display: this.activeElement !== 'skills' ? 'none' : '' }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon>check_circle</mat-icon>
+            <h2 class="main-content-header">Skills</h2>
+          </div>
+          <button mat-button class="btn-primary">Add Skill</button>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>check_circle_outline</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+        <div class="main-content-item">
+          <div class="main-content-top">
+            <div class="main-content-top-inner">
+              <mat-icon>check_circle_outline</mat-icon>
+              <div>
+                <h3>DevOps Engineering Intern</h3>
+                <p>Amazon</p>
+                <p><small>17 June 2021 - 21 July 2022</small></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            During my Amazon DevOps Engineering Internship, I gained valuable
+            experience in cloud computing technologies, including AWS services
+            such as EC2, S3, and CloudFormation. I worked on automation projects
+            using tools such...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

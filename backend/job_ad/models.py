@@ -1,7 +1,8 @@
+from profile.models import DegreeRequestModel, DegreeResponseModel
 from typing import Optional
 
 from pydantic import BaseModel, HttpUrl
-from profile.models import DegreeResponseModel,DegreeRequestModel
+
 
 class SkillInJobResponseModel(BaseModel):
     skill_id: int
@@ -12,6 +13,7 @@ class SkillInJobResponseModel(BaseModel):
 class SkillInJobRequestModel(BaseModel):
     skill_name: str
     ad_id: int
+
 
 class JobAdvertisementResponseModel(BaseModel):
     ad_id: int
@@ -33,6 +35,7 @@ class JobAdvertisementResponseModel(BaseModel):
     skills: list[SkillInJobResponseModel]
     required_degrees: list[DegreeResponseModel]
 
+
 class JobAdvertisementRequestModel(BaseModel):
     creator_id: int
     title: str
@@ -49,6 +52,7 @@ class JobAdvertisementRequestModel(BaseModel):
     skills: list[SkillInJobRequestModel]
     required_degrees: list[DegreeRequestModel]
 
+
 class JobApplicationRequestModel(BaseModel):
     profile_id: int
     ad_id: int
@@ -56,6 +60,7 @@ class JobApplicationRequestModel(BaseModel):
     response_date: str = None
     response: str
     cv: bytes = None
+
 
 class JobApplicationResponseModel(BaseModel):
     application_id: int
@@ -67,16 +72,32 @@ class JobApplicationResponseModel(BaseModel):
     response: str
     cv: bytes = None
 
+
 class JobApplicationUpdateRequestModel(BaseModel):
     response: Optional[str] = None
 
-  
+
+"""
+    pay_range_min: int,
+    pay_range_max: int,
+    type: str,
+    location: str,
+    setting: str,
+    domain: str,
+    status: bool,
+    degrees: list[str],
+    skills: list[str],
+):
+"""
 
 
-
-
-
-
-
-
-    
+class JobAdFilterRequestModel(BaseModel):
+    pay_range_min: Optional[int] = None
+    pay_range_max: Optional[int] = None
+    type: Optional[str] = None
+    location: Optional[str] = None
+    setting: Optional[str] = None
+    domain: Optional[str] = None
+    status: Optional[bool] = None
+    degrees: Optional[list[str]] = None
+    skills: Optional[list[str]] = None

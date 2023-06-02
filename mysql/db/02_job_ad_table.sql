@@ -35,8 +35,7 @@ CREATE TABLE IF NOT EXISTS SkillInJobAdvertisement(
 CREATE TABLE IF NOT EXISTS DegreeInJobAdvertisement(
     degree_id INT NOT NULL,
     ad_id INT NOT NULL,
-    FOREIGN KEY (degree_id) REFERENCES Degree(degree_id) ON
-    DELETE CASCADE,
+    degree_name VARCHAR(50) NOT NULL,
     FOREIGN KEY (ad_id) REFERENCES JobAdvertisement(ad_id) ON
     DELETE CASCADE,
     PRIMARY KEY (degree_id, ad_id)

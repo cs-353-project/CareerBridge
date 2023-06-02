@@ -54,26 +54,6 @@ from profile.profile import (
     update_profile_base,
 )
 
-from system_report.models import ( TotalNumOfAdsResponseModel,
-                    NumOfUsersEachRoleResponseModel,
-                    HighestApplicationsEachDomainResponseModel,
-                    AverageSkillRatingOfEachSkillResponseModel,
-                    LeastPublishedAdTypeForIntervalResponseModel,
-                    AverageNumberOfAdViewsForCompanyResponseModel,
-                    MinimumAndMaximumPayAveragesResponseModel,
-                    SystemReportResponseModel
-                    )  
-
-from system_report.system_report import (create_total_num_of_ads_response_model,
-                                        create_num_of_users_each_role_response_model,
-                                        create_highest_applications_each_domain_response_model,
-                                        create_average_skill_rating_of_each_skill_response_model,
-                                        create_least_published_ad_type_for_interval_response_model,
-                                        create_average_number_of_ad_views_for_company_response_model,
-                                        create_minimum_and_maximum_pay_averages_response_model,
-)
-
-
 from fastapi import FastAPI, HTTPException, Security
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -85,18 +65,22 @@ from functionality.functionality import assess_skill
 from functionality.models import AssessSkillRequestModel, AssessSkillResponseModel
 from job_ad.job_ad import (
     add_job_advertisement,
-    delete_job_advertisement,
-    get_job_advertisement_by_id,
+    apply_filter,
     apply_for_a_job,
-    get_applications_by_ad_id,
     delete_application,
+    delete_job_advertisement,
     evaluate_application,
+    get_applications_by_ad_id,
+    get_job_advertisement_by_id,
 )
-from job_ad.models import (JobAdvertisementRequestModel, 
-                           JobAdvertisementResponseModel,
-                           JobApplicationResponseModel,
-                           JobApplicationRequestModel,
-                           JobApplicationUpdateRequestModel,)
+from job_ad.models import (
+    JobAdFilterRequestModel,
+    JobAdvertisementRequestModel,
+    JobAdvertisementResponseModel,
+    JobApplicationRequestModel,
+    JobApplicationResponseModel,
+    JobApplicationUpdateRequestModel,
+)
 from post.models import (
     CommentRequestModel,
     CommentResponseModel,
@@ -110,6 +94,25 @@ from post.post import (
     delete_post,
     get_comment_by_id,
     get_post_by_id,
+)
+from system_report.models import (
+    AverageNumberOfAdViewsForCompanyResponseModel,
+    AverageSkillRatingOfEachSkillResponseModel,
+    HighestApplicationsEachDomainResponseModel,
+    LeastPublishedAdTypeForIntervalResponseModel,
+    MinimumAndMaximumPayAveragesResponseModel,
+    NumOfUsersEachRoleResponseModel,
+    SystemReportResponseModel,
+    TotalNumOfAdsResponseModel,
+)
+from system_report.system_report import (
+    create_average_number_of_ad_views_for_company_response_model,
+    create_average_skill_rating_of_each_skill_response_model,
+    create_highest_applications_each_domain_response_model,
+    create_least_published_ad_type_for_interval_response_model,
+    create_minimum_and_maximum_pay_averages_response_model,
+    create_num_of_users_each_role_response_model,
+    create_total_num_of_ads_response_model,
 )
 from user import (
     Auth,
@@ -703,6 +706,7 @@ def assess_skill_api(assess_skill_details: AssessSkillRequestModel):
 
     return JSONResponse(status_code=200, content=jsonable_encoder(_as))
 
+
 @app.post("/api/jobapplications", response_model=JobApplicationResponseModel)
 def add_job_application_api(job_application_details: JobApplicationRequestModel):
     """
@@ -715,17 +719,19 @@ def add_job_application_api(job_application_details: JobApplicationRequestModel)
 
     return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
 
-@app.get("/api/jobapplications/{ad_id}", response_model=list[JobApplicationResponseModel])
-def get_job_application_api(ad_id: int):
-    """
-    This job application API allow you to fetch specific job application data.
-    """
-    job_application = get_applications_by_ad_id(ad_id)
 
-    if len(job_application) == 0:
-        raise HTTPException(status_code=404, detail="Job application not found")
+# @app.get("/api/jobapplications/{ad_id}", response_model=list[JobApplicationResponseModel])
+# def get_job_application_api(ad_id: int):
+#     """
+#     This job application API allow you to fetch specific job application data.
+#     """
+#     job_application = get_applications_by_ad_id(ad_id)
 
-    return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
+#     if len(job_application) == 0:
+#         raise HTTPException(status_code=404, detail="Job application not found")
+
+#     return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
+
 
 @app.delete("/api/jobapplications")
 def delete_job_application_api(application_id: int):
@@ -735,6 +741,7 @@ def delete_job_application_api(application_id: int):
     delete_application(application_id)
 
     return JSONResponse(status_code=200, content={"message": "Job application deleted successfully"})
+
 
 @app.patch("/api/jobapplications/update", response_model=JobApplicationResponseModel)
 def update_job_application_api(application_id: int, application_details: JobApplicationUpdateRequestModel):
@@ -748,6 +755,20 @@ def update_job_application_api(application_id: int, application_details: JobAppl
 
     return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
 
+
+@app.get("/api/jobapplications/filter", response_model=None)
+def filter_job_application_api(request: JobAdFilterRequestModel):
+    """
+    This job application filter API allow you to filter job application data.
+    """
+    job_application = apply_filter(request)
+
+    # if len(job_application) == 0:
+    #     raise HTTPException(status_code=404, detail="Job application not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
+
+
 @app.get("/api/systemreports", response_model=None)
 def get_system_reports_api():
     """
@@ -755,6 +776,8 @@ def get_system_reports_api():
     """
     system_reports = create_average_number_of_ad_views_for_company_response_model()
     return JSONResponse(status_code=200, content=jsonable_encoder(system_reports))
+
+
 # Test Endpoints
 
 

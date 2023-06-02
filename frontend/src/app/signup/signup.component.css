@@ -1,0 +1,15 @@
+form {
+    margin: 0 20%;
+}
+
+.link {
+    text-decoration: underline;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.mat-card {
+    box-shadow: 0px 0px 10px 0px #9b9b9b,
+        0 1px 1px 0 #9b9b9b,
+        0 1px 3px 0 #9b9b9b;
+}

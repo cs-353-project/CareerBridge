@@ -1,0 +1,403 @@
+<div class="mt-2 d-flex justify-content-center">
+  <div
+    class="w-75 card-effect"
+    style="
+      height: 85%;
+      position: absolute;
+      min-height: 600px;
+      overflow-y: scroll;
+    ">
+    <div class="d-flex flex-column mb-4">
+      <div
+        class="mx-4 mt-4 d-flex flex-row text-light text-center justify-content-around">
+        <div class="p-3 bg-info" style="border-radius: 15px">
+          <div>
+            <span style="font-size: 14pt">Total Number of Users:</span>
+          </div>
+          <div class="h-100 mt-1">
+            <span style="font-size: 14pt" class="h-100"> 1823</span>
+          </div>
+        </div>
+        <div class="ml-3 p-3 bg-info" style="border-radius: 15px">
+          <div>
+            <span style="font-size: 14pt">Total Number of Ads:</span>
+          </div>
+          <div class="h-100 mt-1">
+            <span style="font-size: 14pt" class="h-100"> 1823</span>
+          </div>
+        </div>
+        <div class="ml-3 p-3 bg-info" style="border-radius: 15px">
+          <div>
+            <span style="font-size: 14pt">Total Number of Applications:</span>
+          </div>
+          <div class="h-100 mt-1">
+            <span style="font-size: 14pt" class="h-100"> 1823</span>
+          </div>
+        </div>
+        <div class="ml-3 p-3 bg-info" style="border-radius: 15px">
+          <div>
+            <span style="font-size: 14pt">Total Number of Views:</span>
+          </div>
+          <div class="h-100 mt-1">
+            <span style="font-size: 14pt" class="h-100"> 1823</span>
+          </div>
+        </div>
+      </div>
+      <mat-divider class="h-100 my-4"> </mat-divider>
+      <div class="h-100 d-flex justify-content-center">
+        <table
+          mat-table
+          #RoleCountTable
+          [dataSource]="RoleCountSource"
+          matSort
+          class="mat-elevation-z8">
+          <!-- Role Column -->
+          <ng-container matColumnDef="role">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Role">
+              Role
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.role }}
+            </td>
+          </ng-container>
+
+          <!-- Count Column -->
+          <ng-container matColumnDef="count">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Count">
+              Count
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              {{ element.count }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="roleCountDisplayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: roleCountDisplayedColumns"></tr>
+        </table>
+      </div>
+      <mat-divider class="h-100 my-4"> </mat-divider>
+      <div class="h-100 d-flex justify-content-center flex-column">
+        <div class="text-center h-100">
+          <span style="font-size: 14pt"
+            >Highest Number of Applications For Each Domain in Time
+            Interval</span
+          >
+        </div>
+        <div class="d-flex flex-row justify-content-center">
+          <div class="h-100">
+            <mat-form-field appearance="standard">
+              <mat-label>Start Date</mat-label>
+              <input
+                readonly
+                matInput
+                [matDatepicker]="picker"
+                [value]="domainApplicationsStartDate"
+                (click)="picker.open()" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="ml-3">
+            <mat-form-field appearance="standard">
+              <mat-label>End Date</mat-label>
+              <input
+                readonly
+                matInput
+                [matDatepicker]="picker2"
+                [value]="domainApplicationsEndDate"
+                (click)="picker2.open()" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <table
+            mat-table
+            #DomainApplicationTable
+            [dataSource]="DomainApplicationSource"
+            matSort
+            class="mat-elevation-z8">
+            <!-- Domain Column -->
+            <ng-container matColumnDef="domain">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by Role">
+                Domain
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.domain }}
+              </td>
+            </ng-container>
+
+            <!-- Ad Title Column -->
+            <ng-container matColumnDef="ad_title">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by Ad Title">
+                Advertisement Title
+              </th>
+              <td mat-cell *matCellDef="let element">{{ element.ad_title }}</td>
+            </ng-container>
+
+            <!-- Organization -->
+            <ng-container matColumnDef="organization">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by Organization">
+                Organization
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.organization }}
+              </td>
+            </ng-container>
+
+            <!-- Application Count Column -->
+            <ng-container matColumnDef="application_count">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                sortActionDescription="Sort by Application Count">
+                Application Count
+              </th>
+              <td mat-cell *matCellDef="let element" class="text-center">
+                {{ element.application_count }}
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="domainApplicationDisplayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="
+                let row;
+                columns: domainApplicationDisplayedColumns
+              "></tr>
+          </table>
+        </div>
+      </div>
+      <mat-divider class="h-100 my-4"> </mat-divider>
+      <div class="h-100 d-flex justify-content-center">
+        <table
+          mat-table
+          #SkillAverageRatingTable
+          [dataSource]="SkillAverageRatingSource"
+          matSort
+          class="mat-elevation-z8">
+          <!-- Skill Column -->
+          <ng-container matColumnDef="skill">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Role">
+              Skill
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.skill }}
+            </td>
+          </ng-container>
+
+          <!-- Average Column -->
+          <ng-container matColumnDef="average_rating">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Average Rating">
+              Average Rating
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              {{ element.average_rating }}
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="skillAverageRatingDisplayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: skillAverageRatingDisplayedColumns
+            "></tr>
+        </table>
+      </div>
+      <mat-divider class="h-100 my-4"> </mat-divider>
+      <div class="h-100 d-flex justify-content-center flex-column mb-2">
+        <div class="text-center h-100">
+          <span style="font-size: 14pt"
+            >The Least Published Ad Type For a Time Interval</span
+          >
+        </div>
+        <div class="d-flex flex-row justify-content-center">
+          <div class="h-100">
+            <mat-form-field appearance="standard">
+              <mat-label>Start Date</mat-label>
+              <input
+                readonly
+                matInput
+                [matDatepicker]="picker3"
+                [value]="leastPublishedAdsStartDate"
+                (click)="picker3.open()" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="ml-3">
+            <mat-form-field appearance="standard">
+              <mat-label>End Date</mat-label>
+              <input
+                readonly
+                matInput
+                [matDatepicker]="picker4"
+                [value]="leastPublishedAdsEndDate"
+                (click)="picker4.open()" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker4"></mat-datepicker-toggle>
+              <mat-datepicker #picker4></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="h-100 text-center text-light mt-2">
+          <span class="p-3 bg-info" style="font-size: 18px; border-radius: 15px"
+            >Part-Time Job: 4 times</span
+          >
+        </div>
+      </div>
+      <mat-divider class="h-100 my-4"> </mat-divider>
+      <div class="h-100 d-flex justify-content-center">
+        <table
+          mat-table
+          #CompanyAverageAdViewTable
+          [dataSource]="CompanyAverageAdViewSource"
+          matSort
+          class="mat-elevation-z8">
+          <!-- Skill Column -->
+          <ng-container matColumnDef="company">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Company">
+              Company
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.company }}
+            </td>
+          </ng-container>
+
+          <!-- Average Column -->
+          <ng-container matColumnDef="average_ad_view">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Average Rating">
+              Average Ad view
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              {{ element.average_ad_view }}
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="companyAverageAdViewDisplayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: companyAverageAdViewDisplayedColumns
+            "></tr>
+        </table>
+      </div>
+      <mat-divider class="h-100 my-4"> </mat-divider>
+      <div class="h-100 d-flex justify-content-center">
+        <table
+          mat-table
+          #CompanyMaxMinPayTable
+          [dataSource]="CompanyMaxMinPaySource"
+          matSort
+          class="mat-elevation-z8">
+          <!-- Skill Column -->
+          <ng-container matColumnDef="company">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Company">
+              Company
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.company }}
+            </td>
+          </ng-container>
+
+          <!-- Min Pay Column -->
+          <ng-container matColumnDef="min_pay">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Min Pay">
+              Min Pay
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              {{ element.min_pay }}$
+            </td>
+          </ng-container>
+
+          <!-- Max Pay Column -->
+          <ng-container matColumnDef="max_pay">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by Max Pay">
+              Max Pay
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              {{ element.max_pay }}$
+            </td>
+          </ng-container>
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="companyMaxMinPayDisplayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: companyMaxMinPayDisplayedColumns
+            "></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

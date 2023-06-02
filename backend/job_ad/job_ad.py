@@ -1,24 +1,28 @@
 import datetime
+from profile.models import DegreeResponseModel
+from profile.profile import add_skill
+
 from fastapi import HTTPException
 
 from database.query import query_get, query_put, query_update
 
-from profile.models import( DegreeResponseModel)
-from profile.profile import (add_skill)
+from .models import (
+    JobAdFilterRequestModel,
+    JobAdvertisementRequestModel,
+    JobAdvertisementResponseModel,
+    JobApplicationRequestModel,
+    JobApplicationResponseModel,
+    JobApplicationUpdateRequestModel,
+    SkillInJobRequestModel,
+    SkillInJobResponseModel,
+)
 
-from .models import( JobAdvertisementResponseModel,
-                     JobAdvertisementRequestModel,
-                     SkillInJobRequestModel,
-                     SkillInJobResponseModel,
-                     JobApplicationRequestModel,
-                     JobApplicationResponseModel,
-                     JobApplicationUpdateRequestModel)
 
 def add_job_advertisement(job_advertisement_request: JobAdvertisementRequestModel):
 
     ad_id = query_put(
         """
-            INSERT INTO JobAdvertisement (creator_id, title, description, organization, setting, location, type, pay_range_min, pay_range_max, domain, is_open, external_url) 
+            INSERT INTO JobAdvertisement (creator_id, title, description, organization, setting, location, type, pay_range_min, pay_range_max, domain, is_open, external_url)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """,
         (
@@ -41,27 +45,26 @@ def add_job_advertisement(job_advertisement_request: JobAdvertisementRequestMode
     for skill_request in job_advertisement_request.skills:
         skill_reponse = add_skill_in_job_advertisement(skill_request)
         skill_reponse_list.append(skill_reponse)
-        
 
     degree_response_list = []
     for degree_request in job_advertisement_request.required_degrees:
-        
+
         degree_id = query_put(
-        """
+            """
             INSERT INTO Degree (name) VALUES (%s);
             """,
-        (degree_request.name),
+            (degree_request.name),
         )
 
         degree_response: DegreeResponseModel = DegreeResponseModel(
-        degree_id=degree_id,
-        name=degree_request.name,
+            degree_id=degree_id,
+            name=degree_request.name,
         )
 
         add_degree_in_job_advertisement(ad_id, degree_id)
         degree_response_list.append(degree_response)
 
-    #Construct Response Model
+    # Construct Response Model
     response: JobAdvertisementResponseModel = JobAdvertisementResponseModel(
         ad_id=ad_id,
         creator_id=job_advertisement_request.creator_id,
@@ -78,12 +81,13 @@ def add_job_advertisement(job_advertisement_request: JobAdvertisementRequestMode
         external_url=job_advertisement_request.external_url,
         application_count=0,
         view_count=0,
-        created_at= datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        created_at=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         skills=skill_reponse_list,
         required_degrees=degree_response_list,
     )
 
     return response
+
 
 def get_job_advertisement_by_id(creator_id: int):
     job_advertisement = query_get(
@@ -98,6 +102,7 @@ def get_job_advertisement_by_id(creator_id: int):
 
     return job_advertisement
 
+
 def delete_job_advertisement(ad_id: int):
     query_update(
         """
@@ -106,74 +111,116 @@ def delete_job_advertisement(ad_id: int):
         (ad_id,),
     )
 
-def apply_filter(
-    pay_range_min: int,
-    pay_range_max: int,
-    type: str,
-    location: str,
-    setting: str,
-    domain: str,
-    status: bool,
-    degrees: list[str],
-    skills: list[str]
-):
-    query = """
-        SELECT * FROM JobAdvertisement WHERE is_open = %s
-    """
-    parameters = [status]
+
+def apply_filter(request: JobAdFilterRequestModel):
+    status = request.status
+    pay_range_min = request.pay_range_min
+    pay_range_max = request.pay_range_max
+    type = request.type
+    location = request.location
+    setting = request.setting
+    domain = request.domain
+    skills = request.skills
+    degrees = request.degrees
+
+    query = ""
+    parameters = []
+    if (status or pay_range_min or pay_range_max or type or location or setting or domain) is not None:
+        query = "SELECT * FROM JobAdvertisement WHERE"
+    else:
+        query = "SELECT * FROM JobAdvertisement"
+        return query
+
+    first_found = False
 
     if pay_range_min:
-        query += " AND pay_range_min >= %s"
+        if not first_found:
+            query += " pay_range_min >= %s"
+            first_found = True
+        else:
+            query += " AND pay_range_min >= %s"
+
         parameters.append(pay_range_min)
     if pay_range_max:
-        query += " AND pay_range_max <= %s"
+        if not first_found:
+            query += " pay_range_max <= %s"
+            first_found = True
+        else:
+            query += " AND pay_range_max <= %s"
+
         parameters.append(pay_range_max)
     if type:
-        query += " AND type = %s"
+        if not first_found:
+            query += " type = %s"
+            first_found = True
+        else:
+            query += " AND type = %s"
+
         parameters.append(type)
     if location:
-        query += " AND location = %s"
+        if not first_found:
+            query += " location = %s"
+            first_found = True
+        else:
+            query += " AND location = %s"
+
         parameters.append(location)
     if setting:
-        query += " AND setting = %s"
+        if not first_found:
+            query += " setting = %s"
+            first_found = True
+        else:
+            query += " AND setting = %s"
+
         parameters.append(setting)
     if domain:
-        query += " AND domain = %s"
-        parameters.append(domain)
+        if not first_found:
+            query += " domain = %s"
+            first_found = True
+        else:
+            query += " AND domain = %s"
 
-    # Add filtering based on skill names
+        parameters.append(domain)
     if skills:
-        query += " AND ("
+        # Create an inner query to get the ad_ids of the job advertisements that have the skills
+        if not first_found:
+            query += " ad_id IN (SELECT ad_id FROM SkillInJobAdvertisement WHERE"
+            first_found = True
+        else:
+            query += " AND ad_id IN (SELECT ad_id FROM SkillInJobAdvertisement WHERE"
+
         for i, skill in enumerate(skills):
             if i != 0:
                 query += " OR"
-            query += " description LIKE %s"
-            parameters.append(f"%{skill}%")
+            query += " skill_name = %s"
+            parameters.append(skill)
         query += ")"
-
-    # Add filtering based on degree names
     if degrees:
-        query += " AND ("
+        # Create an inner query to get the ad_ids of the job advertisements that have the degrees
+        if not first_found:
+            query += " ad_id IN (SELECT ad_id FROM DegreeInJobAdvertisement WHERE"
+            first_found = True
+        else:
+            query += " AND ad_id IN (SELECT ad_id FROM DegreeInJobAdvertisement WHERE"
         for i, degree in enumerate(degrees):
             if i != 0:
                 query += " OR"
-            query += " description LIKE %s"
-            parameters.append(f"%{degree}%")
+            query += " degree_name = %s"
+            parameters.append(degree)
         query += ")"
 
     job_advertisements = query_get(query, tuple(parameters))
 
-    if not job_advertisements:
-        raise HTTPException(status_code=404, detail="Job Advertisement not found")
+    # if not job_advertisements:
+    #     raise HTTPException(status_code=404, detail="Job Advertisement not found")
 
     return job_advertisements
-    
-   
+
 
 def add_skill_in_job_advertisement(skill_in_job_request: SkillInJobRequestModel):
     skill__id = query_put(
         """
-            INSERT INTO  SkillInJobAdvertisement (ad_id, skill_name) 
+            INSERT INTO  SkillInJobAdvertisement (ad_id, skill_name)
             VALUES (%s, %s)
         """,
         (
@@ -194,7 +241,7 @@ def add_skill_in_job_advertisement(skill_in_job_request: SkillInJobRequestModel)
 def add_degree_in_job_advertisement(ad_id: int, degree_id: int):
     query_put(
         """
-            INSERT INTO DegreeInJobAdvertisement (ad_id, degree_id) 
+            INSERT INTO DegreeInJobAdvertisement (ad_id, degree_id)
             VALUES (%s, %s)
         """,
         (
@@ -203,10 +250,11 @@ def add_degree_in_job_advertisement(ad_id: int, degree_id: int):
         ),
     )
 
+
 def apply_for_a_job(job_application_request: JobApplicationRequestModel):
     application_id = query_put(
         """
-            INSERT INTO JobAdvertisementResponse (profile_id, ad_id, response_date, response, cv) 
+            INSERT INTO JobAdvertisementResponse (profile_id, ad_id, response_date, response, cv)
             VALUES (%s, %s, %s, %s, %s)
         """,
         (
@@ -222,13 +270,14 @@ def apply_for_a_job(job_application_request: JobApplicationRequestModel):
         application_id=application_id,
         profile_id=job_application_request.profile_id,
         ad_id=job_application_request.ad_id,
-        apply_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        apply_date=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         response_date=job_application_request.response_date,
         response=job_application_request.response,
-        cv = job_application_request.cv,
+        cv=job_application_request.cv,
     )
 
     return response
+
 
 def get_applications_by_ad_id(ad_id: int):
     applications = query_get(
@@ -243,6 +292,7 @@ def get_applications_by_ad_id(ad_id: int):
 
     return applications
 
+
 def delete_application(application_id: int):
     query_update(
         """
@@ -250,6 +300,7 @@ def delete_application(application_id: int):
         """,
         (application_id,),
     )
+
 
 def get_application_by_application_id(application_id: int):
     application = query_get(
@@ -264,20 +315,19 @@ def get_application_by_application_id(application_id: int):
 
     return application
 
+
 def evaluate_application(application_id: int, job_application_request: JobApplicationUpdateRequestModel):
     query_update(
         """
             UPDATE JobAdvertisementResponse SET response = %s, response_date = %s WHERE application_id = %s
         """,
-        (job_application_request.response, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), application_id,),
+        (
+            job_application_request.response,
+            datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            application_id,
+        ),
     )
 
     application = get_application_by_application_id(application_id)
 
     return application
-
-
-
-
-
-    

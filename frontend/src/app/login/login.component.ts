@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../_services/authentication.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,11 @@ export class LoginComponent implements OnInit {
   hidePassword = true;
   rememberMe = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    public authenticationService: AuthenticationService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
     this.buildForm();
   }
@@ -26,9 +32,21 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.rememberMe);
-    console.log('login');
-    this.router.navigate(['/feed']);
+    this.loading = true;
+    if (this.requiredForm.valid) {
+      this.authenticationService
+        .login(this.requiredForm.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            // this.toastr.success('Login successful');
+            this.router.navigate(['/feed']);
+          },
+          error => {
+            this.loading = false;
+          }
+        );
+    }
   }
 
   goForgotPassword() {

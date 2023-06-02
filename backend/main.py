@@ -54,6 +54,26 @@ from profile.profile import (
     update_profile_base,
 )
 
+from system_report.models import ( TotalNumOfAdsResponseModel,
+                    NumOfUsersEachRoleResponseModel,
+                    HighestApplicationsEachDomainResponseModel,
+                    AverageSkillRatingOfEachSkillResponseModel,
+                    LeastPublishedAdTypeForIntervalResponseModel,
+                    AverageNumberOfAdViewsForCompanyResponseModel,
+                    MinimumAndMaximumPayAveragesResponseModel,
+                    SystemReportResponseModel
+                    )  
+
+from system_report.system_report import (create_total_num_of_ads_response_model,
+                                        create_num_of_users_each_role_response_model,
+                                        create_highest_applications_each_domain_response_model,
+                                        create_average_skill_rating_of_each_skill_response_model,
+                                        create_least_published_ad_type_for_interval_response_model,
+                                        create_average_number_of_ad_views_for_company_response_model,
+                                        create_minimum_and_maximum_pay_averages_response_model,
+)
+
+
 from fastapi import FastAPI, HTTPException, Security
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
@@ -727,6 +747,14 @@ def update_job_application_api(application_id: int, application_details: JobAppl
     #     raise HTTPException(status_code=404, detail="Error while updating job application")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
+
+@app.get("/api/systemreports", response_model=None)
+def get_system_reports_api():
+    """
+    This system reports API allow you to fetch system reports.
+    """
+    system_reports = create_average_number_of_ad_views_for_company_response_model()
+    return JSONResponse(status_code=200, content=jsonable_encoder(system_reports))
 # Test Endpoints
 
 

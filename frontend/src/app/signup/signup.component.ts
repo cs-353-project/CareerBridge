@@ -10,6 +10,7 @@ import {
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PolicyDialogComponent } from './policy-dialog/policy-dialog.component';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +25,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public authService: AuthenticationService
   ) {
     this.buildForm();
   }
@@ -32,28 +34,25 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {}
 
   signUp() {
-    /*
     if (this.requiredForm.valid) {
       this.authService.register(this.requiredForm.value).subscribe(
         (response: any) => {
-          this.toastr.success('Registration successful');
+          // this.toastr.success('Registration successful');
           this.router.navigate(['/login']);
         },
         error => {
-          const errorMsg = error.error ? error.error : error;
-          this.toastr.error('Registration failed: ' + errorMsg);
+          // const errorMsg = error.error ? error.error : error;
+          // this.toastr.error('Registration failed: ' + errorMsg);
         }
       );
     }
-    */
   }
 
   buildForm() {
     this.requiredForm = this.formBuilder.group({
       //actorType: [ActorsEnum.Student.toString(), Validators.required],
-      firstName: ['test', Validators.required],
-      lastName: ['test', Validators.required],
-      userName: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]]

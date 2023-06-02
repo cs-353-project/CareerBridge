@@ -10,15 +10,30 @@
           <mat-form-field class="w-100">
             <input
               matInput
-              placeholder="Bilkent ID Number"
+              placeholder="First Name"
               class="form-control"
-              formControlName="userName" />
+              formControlName="first_name" />
             <mat-error
               *ngIf="
-                requiredForm.controls['userName'].invalid &&
-                requiredForm.controls['userName'].touched
+                requiredForm.controls['first_name'].invalid &&
+                requiredForm.controls['first_name'].touched
               ">
-              Bilkent ID Number is
+              First name is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              placeholder="Last Name"
+              class="form-control"
+              formControlName="last_name" />
+            <mat-error
+              *ngIf="
+                requiredForm.controls['last_name'].invalid &&
+                requiredForm.controls['last_name'].touched
+              ">
+              First name is
               <strong>required</strong>
             </mat-error>
           </mat-form-field>
@@ -33,7 +48,7 @@
                 requiredForm.controls['email'].invalid &&
                 requiredForm.controls['email'].touched
               ">
-              A valid Bilkent University email address is
+              A valid email address is
               <strong>required</strong>
             </mat-error>
           </mat-form-field>

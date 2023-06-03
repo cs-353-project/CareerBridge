@@ -48,6 +48,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { WorkExperienceDialogComponent } from './profile/work-experience-dialog/work-experience-dialog.component';
+import { NewAdDialogComponent } from './ads/new-ad-dialog/new-ad-dialog.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { WorkExperienceDialogComponent } from './profile/work-experience-dialog/
     CandidatesComponent,
     AdminPanelComponent,
     WorkExperienceDialogComponent
+    NewAdDialogComponent
   ],
   imports: [
     BrowserModule,

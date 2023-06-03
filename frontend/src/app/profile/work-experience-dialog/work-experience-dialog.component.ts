@@ -12,16 +12,15 @@ import { ProfileService } from '../../_services/profile.service';
 export class WorkExperienceDialogComponent implements OnInit {
   userName: string;
 
+  workExperienceStartDate: Date;
+  workExperienceEndDate: Date;
+
   constructor(
     private toastr: ToastrService,
     private profileService: ProfileService,
     public dialogRef: MatDialogRef<WorkExperienceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: WorkExperienceModel
-  ) {
-    this.userName = JSON.parse(localStorage.getItem('user')).userName;
-  }
+  ) {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -6,6 +6,8 @@ import { UserAuthResponseModel } from '../_models/user_models';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { WorkExperienceDialogComponent } from './work-experience-dialog/work-experience-dialog.component';
+import { EducationalExperienceDialogComponent } from './educational-experience-dialog/educational-experience-dialog.component';
+import { SkillDialogComponent } from './skill-dialog/skill-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -57,5 +59,24 @@ export class ProfileComponent implements OnInit {
       WorkExperienceDialogComponent,
       dialogConfig
     );
+  }
+
+  addEducationalExperience() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = null;
+    const dialogRef = this.dialog.open(
+      EducationalExperienceDialogComponent,
+      dialogConfig
+    );
+  }
+
+  addSkill() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = null;
+    const dialogRef = this.dialog.open(SkillDialogComponent, dialogConfig);
   }
 }

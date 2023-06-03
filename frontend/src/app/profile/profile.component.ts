@@ -4,8 +4,8 @@ import { ProfileService } from '../_services/profile.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { UserAuthResponseModel } from '../_models/user_models';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { WorkExperienceDialogComponent } from "./work-experience-dialog/work-experience-dialog.component";
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { WorkExperienceDialogComponent } from './work-experience-dialog/work-experience-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -53,6 +53,9 @@ export class ProfileComponent implements OnInit {
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
     dialogConfig.data = null;
-    const dialogRef = this.dialog.open(WorkExperienceDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(
+      WorkExperienceDialogComponent,
+      dialogConfig
+    );
   }
 }

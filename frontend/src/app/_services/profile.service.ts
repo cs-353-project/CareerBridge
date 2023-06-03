@@ -9,8 +9,15 @@ import {
   RegisterModel
 } from '../_models/user_models';
 import {
+  AwardModel,
+  CertificationModel,
   EducationalExperienceModel,
-  ProfileModel
+  ProfileModel,
+  ProjectModel,
+  PublicationModel,
+  TestScoreModel,
+  VoluntaryExperienceModel,
+  WorkExperienceModel
 } from '../_models/profile_models';
 import { AuthenticationService } from './authentication.service';
 
@@ -81,5 +88,53 @@ export class ProfileService {
 
   getSkill(id: string): Observable<any> {
     return this.http.get(this.baseUrl + 'profile/skill/' + id);
+  }
+
+  addEducationalExperience(educationalExperience: EducationalExperienceModel) {
+    return this.http.post(
+      this.baseUrl + 'profile/educational-experience',
+      educationalExperience
+    );
+  }
+
+  addWorkExperience(workExperience: WorkExperienceModel) {
+    return this.http.post(
+      this.baseUrl + 'profile/work-experience',
+      workExperience
+    );
+  }
+
+  addVoluntaryExperience(voluntaryExperience: VoluntaryExperienceModel) {
+    return this.http.post(
+      this.baseUrl + 'profile/voluntary-experience',
+      voluntaryExperience
+    );
+  }
+
+  addTestScore(testScore: TestScoreModel) {
+    return this.http.post(this.baseUrl + 'profile/test-score', testScore);
+  }
+
+  addProject(project: ProjectModel) {
+    return this.http.post(this.baseUrl + 'profile/project', project);
+  }
+
+  addAward(award: AwardModel) {
+    return this.http.post(this.baseUrl + 'profile/award', award);
+  }
+
+  addPublication(publication: PublicationModel) {
+    return this.http.post(this.baseUrl + 'profile/publication', publication);
+  }
+
+  addCertification(certification: CertificationModel) {
+    return this.http.post(
+      this.baseUrl + 'profile/certification',
+      certification
+    );
+  }
+
+  addSkill(skill: any) {
+    return this.http.post(this.baseUrl + 'profile/skill', skill);
   }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthenticationService } from './_services/authentication.service';
+import { UserAuthResponseModel } from './_models/user_models';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,8 @@ export class AppComponent {
 
   constructor(
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private authenticationService: AuthenticationService
   ) {
     this.matIconRegistry.addSvgIcon(
       `dashboard`,
@@ -45,5 +48,16 @@ export class AppComponent {
         '../assets/icons/emoji.svg'
       )
     );
+  }
+
+  ngOnInit(): void {
+    this.setCurrentUser();
+  }
+
+  setCurrentUser() {
+    const userString = localStorage.getItem('user');
+    if (!userString) return;
+    const user: UserAuthResponseModel = JSON.parse(userString);
+    this.authenticationService.setCurrentUser(user);
   }
 }

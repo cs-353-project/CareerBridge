@@ -11,6 +11,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PolicyDialogComponent } from './policy-dialog/policy-dialog.component';
 import { AuthenticationService } from '../_services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -26,6 +27,7 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
+    private toastr: ToastrService,
     public authService: AuthenticationService
   ) {
     this.buildForm();
@@ -37,12 +39,12 @@ export class SignupComponent implements OnInit {
     if (this.requiredForm.valid) {
       this.authService.register(this.requiredForm.value).subscribe(
         (response: any) => {
-          // this.toastr.success('Registration successful');
+          this.toastr.success('Registration successful');
           this.router.navigate(['/login']);
         },
         error => {
-          // const errorMsg = error.error ? error.error : error;
           // this.toastr.error('Registration failed: ' + errorMsg);
+          this.toastr.error('Registration failed');
         }
       );
     }

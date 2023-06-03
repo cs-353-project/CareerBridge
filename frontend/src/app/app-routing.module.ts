@@ -11,6 +11,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.component';
 import { CandidatesComponent } from './candidates/candidates.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AuthGuard } from './_guards/auth.guard';
+
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
@@ -18,6 +20,7 @@ const routes: Routes = [
   {
     path: '',
     component: NavigationComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'feed', component: FeedComponent },
       { path: 'ads', component: AdsComponent },
@@ -25,7 +28,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       { path: 'view-ad/:id', component: ViewAdDetailsComponent },
       { path: 'candidates/:id', component: CandidatesComponent },
-      { path: 'admin-panel', component: AdminPanelComponent}
+      { path: 'admin-panel', component: AdminPanelComponent }
     ]
   }
 ];

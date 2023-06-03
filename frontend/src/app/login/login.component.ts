@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { first } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -39,10 +41,11 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            // this.toastr.success('Login successful');
+            this.toastr.success('Login successful');
             this.router.navigate(['/feed']);
           },
           error => {
+            this.toastr.error('Login failed');
             this.loading = false;
           }
         );

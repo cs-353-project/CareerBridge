@@ -22,7 +22,6 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   login(model: LogInRequestModel) {
-    console.log(model);
     return this.http.post(this.baseUrl + 'auth/login', model).pipe(
       map((response: UserAuthResponseModel) => {
         const user = response;

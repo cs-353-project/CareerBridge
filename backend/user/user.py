@@ -125,7 +125,7 @@ def update_user(user_model: UserUpdateRequestModel, user_id: int):
 def get_all_users():
     user = query_get(
         """
-        SELECT *
+        SELECT user_id, first_name, last_name, email, user_role, is_admin
         FROM UserLogin u
         """,
         (),

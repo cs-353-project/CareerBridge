@@ -19,12 +19,15 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { PolicyDialogComponent } from './signup/policy-dialog/policy-dialog.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { SharedModule } from './_modules/shared.module';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FeedComponent } from './feed/feed.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -93,9 +96,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatTableModule,
     MatPaginatorModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    SharedModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

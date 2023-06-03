@@ -39,7 +39,9 @@
         name="setting">
         <mat-label class="mr-3">Setting</mat-label>
         <mat-select [(ngModel)]="data.setting" required>
-          <mat-option value="Any"> Any </mat-option>
+          <mat-option value="On-site"> On-site </mat-option>
+          <mat-option value="Remote"> Remote </mat-option>
+          <mat-option value="Hybrid"> Hybrid </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field
@@ -50,7 +52,11 @@
         name="type">
         <mat-label class="mr-3">Type</mat-label>
         <mat-select [(ngModel)]="data.type" required>
-          <mat-option value="Any"> Any </mat-option>
+          <mat-option value="Internship"> Internship </mat-option>
+          <mat-option value="Part-time Job"> Part-time Job </mat-option>
+          <mat-option value="Job"> Job </mat-option>
+          <mat-option value="Contract"> Contract </mat-option>
+          <mat-option value="Project-based"> Project-based </mat-option>
         </mat-select>
       </mat-form-field>
     </div>

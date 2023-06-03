@@ -62,12 +62,18 @@
       type="button"
       class="btn btn-outline-info d-flex flex-row align-items-center"
       style="margin: 0 !important; height: 50px"
-      routerLink="/profile"
+      routerLink="/profile/{{ user.user.user_id }}"
       routerLinkActive="active-button">
       <mat-icon>person</mat-icon>
       <div class="username ml-1">
-        <span style="height: 20px"><b>Atak Talay Yücel</b> </span>
-        <span style="height: 12px; font-size: 12px">Recruiter</span>
+        <span style="height: 20px"
+          ><b>{{
+            this.user.user.first_name + " " + this.user.user.last_name
+          }}</b>
+        </span>
+        <span style="height: 12px; font-size: 12px">
+          {{ this.user.user.user_role }}
+        </span>
       </div>
     </button>
   </mat-toolbar-row>

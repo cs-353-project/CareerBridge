@@ -49,6 +49,13 @@ export class AuthenticationService {
     this.currentUserSource.next(user);
   }
 
+  getCurrentUser(): UserAuthResponseModel | null {
+    const userString = localStorage.getItem('user');
+    if (!userString) return null;
+    const user: UserAuthResponseModel = JSON.parse(userString);
+    return user;
+  }
+
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);

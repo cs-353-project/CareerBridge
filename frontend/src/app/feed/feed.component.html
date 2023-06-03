@@ -29,7 +29,9 @@
       </div>
     </div>
     <div class="flex-grow-1 h-100 mx-3">
-      <div class="card-effect mx-3 pb-3">
+      <div
+        class="card-effect mx-3 pb-3"
+        *ngIf="this.user.user.user_role === 'CareerExpert'">
         <div class="d-flex w-100">
           <div class="d-flex flex-row w-100 px-3 pt-3 pb-1">
             <img src="assets/images/avatar.png" alt="placeholder" />

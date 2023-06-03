@@ -160,7 +160,7 @@ def get_user_by_email_hide_password(email: str):
 def get_user_by_id(id: int):
     user = query_get(
         """
-        SELECT *
+        SELECT user_id, first_name, last_name, email, user_role, is_admin
         FROM UserLogin u
         WHERE u.user_id = %s
         """,

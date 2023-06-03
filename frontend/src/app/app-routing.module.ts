@@ -22,10 +22,11 @@ const routes: Routes = [
     component: NavigationComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: '', redirectTo: 'feed', pathMatch: 'full' },
       { path: 'feed', component: FeedComponent },
       { path: 'ads', component: AdsComponent },
       { path: 'messages', component: MessagesComponent },
-      { path: 'profile', component: ProfileComponent },
+      { path: 'profile/:id', component: ProfileComponent },
       { path: 'view-ad/:id', component: ViewAdDetailsComponent },
       { path: 'candidates/:id', component: CandidatesComponent },
       { path: 'admin-panel', component: AdminPanelComponent }

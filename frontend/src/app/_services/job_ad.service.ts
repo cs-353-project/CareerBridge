@@ -22,6 +22,6 @@ export class JobAdService {
   }
 
   deleteJobAd(id: string): Observable<any> {
-    return this.http.delete(this.baseUrl + 'job-ad/' + id);
+    return this.http.delete(this.baseUrl + 'job-ad/', { body: { ad_id: id } });
   }
 }

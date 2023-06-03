@@ -25,7 +25,14 @@ export class WorkExperienceDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addWorkExperience() {
-    console.log(this.data);
+    // Convert dates to ISO format
+    const a = new Date(this.data.experience.start_date);
+    this.data.experience.start_date = a.toISOString().split('T')[0];
+    const b = new Date(this.data.experience.end_date);
+    this.data.experience.end_date = b.toISOString().split('T')[0];
+
+    this.data.experience.current_status = 'Working'; // temp fix
+
     this.profileService.addWorkExperience(this.data).subscribe(
       response => {
         this.toastr.success('Work experience added successfully');

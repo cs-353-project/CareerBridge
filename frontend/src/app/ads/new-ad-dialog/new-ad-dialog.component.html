@@ -1,0 +1,107 @@
+<div class="container" style="width: 800px; height: 625px">
+  <div class="h-100 v-100 d-flex flex-column">
+    <div class="w-100 text-center">
+      <span class="font-weight-bold" style="font-size: 20pt"
+        >Create New Ad</span
+      >
+    </div>
+    <div class="d-flex flex-row mt-2">
+      <mat-form-field class="w-100 mr-2" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          formControlName="title" />
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Company Name</mat-label>
+        <input matInput class="ml-3" style="width: 90%" required />
+      </mat-form-field>
+    </div>
+    <div class="d-flex flex-row">
+      <mat-form-field class="w-100 mr-2" appearance="outline">
+        <mat-label>Location</mat-label>
+        <input matInput class="ml-3" style="width: 90%" required />
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Domain</mat-label>
+        <input matInput class="ml-3" style="width: 90%" required />
+      </mat-form-field>
+    </div>
+    <div class="d-flex flex-row">
+      <mat-form-field
+        class="mr-2 w-100"
+        style="width: 300px"
+        appearance="outline">
+        <mat-label class="mr-3">Setting</mat-label>
+        <mat-select>
+          <mat-option> Any </mat-option>
+          <mat-option> Software Development </mat-option>
+          <mat-option> Academy </mat-option><mat-option> Job </mat-option>
+          <mat-option> Finance </mat-option>
+          <mat-option> Human Resources </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-100" style="width: 300px" appearance="outline">
+        <mat-label class="mr-3">Type</mat-label>
+        <mat-select>
+          <mat-option> Any </mat-option>
+          <mat-option> Software Development </mat-option>
+          <mat-option> Academy </mat-option><mat-option> Job </mat-option>
+          <mat-option> Finance </mat-option>
+          <mat-option> Human Resources </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <div class="d-flex flex-row align-items-center">
+        <mat-label class="font-weight-bold mr-3">Pay Range</mat-label>
+        <mat-form-field
+          style="width: 150px; margin-bottom: -1.25em"
+          appearance="outline">
+          <input matInput placeholder="Min" />
+          <mat-icon matSuffix>attach_money</mat-icon>
+        </mat-form-field>
+        <mat-form-field
+          style="width: 150px; margin-bottom: -1.25em"
+          class="ml-2"
+          appearance="outline">
+          <input matInput placeholder="Max" />
+          <mat-icon matSuffix>attach_money</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="mt-2">
+      <span class="font-weight-bold"
+        >Please fill below fields with comma seperated elements</span
+      >
+    </div>
+    <div class="d-flex flex-row">
+      <mat-form-field class="w-100 mr-2" appearance="outline">
+        <mat-label>Degrees Required</mat-label>
+        <input matInput class="ml-3" style="width: 90%" required />
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Skills Required</mat-label>
+        <input matInput class="ml-3" style="width: 90%" required />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea
+          class="w-100"
+          matInput
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="6"
+          cdkAutosizeMaxRows="6"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="w-100 d-flex flex-row justify-content-center">
+      <button mat-raised-button color="accent">Post</button>
+    </div>
+  </div>
+</div>

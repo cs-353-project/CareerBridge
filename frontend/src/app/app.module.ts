@@ -47,6 +47,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NewAdDialogComponent } from './ads/new-ad-dialog/new-ad-dialog.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ViewAdDetailsComponent,
     CreatePostDialogComponent,
     CandidatesComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    NewAdDialogComponent
   ],
   imports: [
     BrowserModule,

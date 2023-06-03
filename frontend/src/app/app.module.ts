@@ -66,7 +66,7 @@ import { NewAdDialogComponent } from './ads/new-ad-dialog/new-ad-dialog.componen
     CreatePostDialogComponent,
     CandidatesComponent,
     AdminPanelComponent,
-    WorkExperienceDialogComponent
+    WorkExperienceDialogComponent,
     NewAdDialogComponent
   ],
   imports: [

@@ -10,9 +10,9 @@
         </div>
       </div>
       <div id="top-inner-2">
-        <!-- <h1>
-          {{ this.profile_user.first_name }} {{ this.profile_user.last_name }}
-        </h1> -->
+        <h1>
+          {{ this.profile_user?.first_name }} {{ this.profile_user?.last_name }}
+        </h1>
         <div id="top-inner-2-buttons">
           <button mat-button><mat-icon>share</mat-icon></button>
           <button mat-button><mat-icon>more_horiz</mat-icon></button>
@@ -139,7 +139,7 @@
             <mat-icon>work</mat-icon>
             <h2 class="main-content-header">Work Experience</h2>
           </div>
-          <button mat-button class="btn-primary">Add Experience</button>
+          <button mat-button class="btn-primary" (click)="addWorkExperience()">Add Experience</button>
         </div>
         <div class="main-content-item">
           <div class="main-content-top">

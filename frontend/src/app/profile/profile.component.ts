@@ -4,6 +4,8 @@ import { ProfileService } from '../_services/profile.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { UserAuthResponseModel } from '../_models/user_models';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { WorkExperienceDialogComponent } from "./work-experience-dialog/work-experience-dialog.component";
 
 @Component({
   selector: 'app-profile',
@@ -21,6 +23,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     public profileService: ProfileService,
     public authenticationService: AuthenticationService,
+    private dialog: MatDialog,
     private route: ActivatedRoute
   ) {
     console.log(this.id);
@@ -33,7 +36,7 @@ export class ProfileComponent implements OnInit {
       .toPromise()
       .then(
         response => {
-          this.profile_user = response;
+          this.profile_user = response[0];
         },
         error => {
           console.log(error);
@@ -43,5 +46,13 @@ export class ProfileComponent implements OnInit {
 
   setActiveElement(element) {
     this.activeElement = element;
+  }
+
+  addWorkExperience() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = null;
+    const dialogRef = this.dialog.open(WorkExperienceDialogComponent, dialogConfig);
   }
 }

@@ -44,6 +44,13 @@ export class ProfileComponent implements OnInit {
           console.log(error);
         }
       );
+
+    this.profileService
+      .getWorkExperiences(this.id)
+      .toPromise()
+      .then(response => {
+        console.log(response);
+      });
   }
 
   setActiveElement(element) {
@@ -54,7 +61,19 @@ export class ProfileComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
-    dialogConfig.data = null;
+    dialogConfig.data = {
+      experience: {
+        profile_id: this.id,
+        title: '',
+        start_date: '',
+        end_date: '',
+        description: '',
+        current_status: ''
+      },
+      company_name: '',
+      setting: '',
+      type: ''
+    };
     const dialogRef = this.dialog.open(
       WorkExperienceDialogComponent,
       dialogConfig

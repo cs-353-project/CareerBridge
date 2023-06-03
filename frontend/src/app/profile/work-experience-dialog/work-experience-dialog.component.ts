@@ -23,4 +23,18 @@ export class WorkExperienceDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  addWorkExperience() {
+    console.log(this.data);
+    this.profileService.addWorkExperience(this.data).subscribe(
+      response => {
+        this.toastr.success('Work experience added successfully');
+        this.dialogRef.close();
+      },
+      error => {
+        this.toastr.clear();
+        this.toastr.error('Error adding work experience');
+      }
+    );
+  }
 }

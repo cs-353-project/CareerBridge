@@ -6,50 +6,91 @@
       >
     </div>
     <div class="d-flex flex-row mt-2">
-      <mat-form-field class="w-100 mr-2" appearance="outline">
+      <mat-form-field
+        class="w-100 mr-2"
+        appearance="outline"
+        name="title"
+        ngDefaultControl>
         <mat-label>Title</mat-label>
         <input
           matInput
           class="ml-3"
           style="width: 90%"
           required
-          formControlName="title" />
+          [(ngModel)]="data.experience.title" />
+        formControlName="title" />
       </mat-form-field>
-      <mat-form-field class="w-100" appearance="outline">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        name="school_name"
+        ngDefaultControl>
         <mat-label>School Name</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.school_name" />
       </mat-form-field>
     </div>
     <div class="d-flex flex-row">
-      <mat-form-field class="w-100 mr-2" appearance="outline">
+      <mat-form-field
+        class="w-100 mr-2"
+        appearance="outline"
+        name="field"
+        ngDefaultControl>
         <mat-label>Field of Study</mat-label>
         <input
           matInput
           class="ml-3"
           style="width: 90%"
           required
-          formControlName="title" />
+          formControlName="title"
+          [(ngModel)]="data.experience.title" />
       </mat-form-field>
-      <mat-form-field class="w-100" appearance="outline">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        name="grade"
+        ngDefaultControl>
         <mat-label>Grade</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.grade" />
       </mat-form-field>
     </div>
     <div class="d-flex flex-row">
-      <mat-form-field class="w-50" appearance="outline">
+      <mat-form-field
+        class="w-50"
+        appearance="outline"
+        name="degree"
+        ngDefaultControl>
         <mat-label>Degree Name</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.degree.name" />
       </mat-form-field>
     </div>
     <div class="d-flex flex-row">
       <div class="h-100">
-        <mat-form-field appearance="standard" style="width: 100%">
+        <mat-form-field
+          appearance="standard"
+          style="width: 100%"
+          name="start_date"
+          ngDefaultControl>
           <mat-label>Start Date</mat-label>
           <input
             readonly
             matInput
             [matDatepicker]="picker"
-            [value]="EducationalExperienceStartDate"
+            [(ngModel)]="data.experience.start_date"
             (click)="picker.open()" />
           <mat-datepicker-toggle
             matSuffix
@@ -58,13 +99,17 @@
         </mat-form-field>
       </div>
       <div class="ml-3">
-        <mat-form-field appearance="standard" class="w-100">
+        <mat-form-field
+          appearance="standard"
+          class="w-100"
+          name="end_date"
+          ngDefaultControl>
           <mat-label>End Date</mat-label>
           <input
             readonly
             matInput
             [matDatepicker]="picker2"
-            [value]="EducationalExperienceEndDate"
+            [(ngModel)]="data.experience.end_date"
             (click)="picker2.open()" />
           <mat-datepicker-toggle
             matSuffix
@@ -74,12 +119,17 @@
       </div>
     </div>
     <div>
-      <mat-form-field class="w-100" appearance="outline">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        name="description"
+        ngDefaultControl>
         <mat-label>Description</mat-label>
         <textarea
           class="w-100"
           matInput
           cdkTextareaAutosize
+          [(ngModel)]="data.experience.description"
           #autosize="cdkTextareaAutosize"
           cdkAutosizeMinRows="6"
           cdkAutosizeMaxRows="6"></textarea>

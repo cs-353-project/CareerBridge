@@ -683,6 +683,17 @@ def get_exp_by_experience_id(experience_id: int):
     return experience[0]
 
 
+def get_degree_by_degree_id(degree_id: int):
+    degree = query_get(
+        """
+            SELECT * FROM Degree WHERE degree_id = %s;
+            """,
+        (degree_id),
+    )
+
+    return degree[0]
+
+
 def get_edu_exp_by_profile_id(profile_id: int):
     edu_exp = query_get(
         """
@@ -693,7 +704,7 @@ def get_edu_exp_by_profile_id(profile_id: int):
         (profile_id),
     )
 
-    # For every educational experience, get experience id and get all work experience
+    # For every educational experience, get experience id and get all experience
     exp_list = []
     for exp in edu_exp:
         id = exp["experience_id"]
@@ -702,6 +713,15 @@ def get_edu_exp_by_profile_id(profile_id: int):
     # Merge every item in work_exp with the corresponding item in exp_list
     for i in range(len(edu_exp)):
         edu_exp[i]["experience"] = exp_list[i]
+
+    # For every educational experience, get degree id and get all degree info
+    degree_list = []
+    for exp in edu_exp:
+        id = exp["degree_id"]
+        degree_list.append(get_degree_by_degree_id(id))
+
+    for i in range(len(edu_exp)):
+        edu_exp[i]["degree"] = degree_list[i]
 
     return edu_exp
 
@@ -716,7 +736,7 @@ def get_work_exp_by_profile_id(profile_id: int):
         (profile_id),
     )
 
-    # For every work experience, get experience id and get all work experience
+    # For every work experience, get experience id and get all experience
     exp_list = []
     for exp in work_exp:
         id = exp["experience_id"]
@@ -739,7 +759,7 @@ def get_vol_exp_by_profile_id(profile_id: int):
         (profile_id),
     )
 
-    # For every voluntary experience, get experience id and get all work experience
+    # For every voluntary experience, get experience id and get all experience
     exp_list = []
     for exp in vol_exp:
         id = exp["experience_id"]

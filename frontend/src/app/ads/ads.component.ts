@@ -85,6 +85,7 @@ export class AdsComponent implements OnInit {
             required_degrees: element.required_degrees
           };
           this.ads_for_you.push(ad);
+          console.log(ad);
         });
       });
     this.applied_ads = [];
@@ -114,6 +115,7 @@ export class AdsComponent implements OnInit {
             skills: element.ad_details[0].skills,
             required_degrees: element.ad_details[0].required_degrees
           };
+          console.log(ad);
           this.applied_ads.push(ad);
         });
       });
@@ -146,11 +148,10 @@ export class AdsComponent implements OnInit {
           this.your_ads.push(ad);
         });
       });
-    console.log(this.applied_ads);
   }
 
-  viewAdDetails() {
-    this.router.navigate(['/view-ad', this.id_view]);
+  viewAdDetails(ad: JobAdvertisementResponseModel) {
+    this.router.navigate(['/view-ad', ad.ad_id]);
   }
 
   createAd() {

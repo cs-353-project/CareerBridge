@@ -262,10 +262,10 @@ def apply_filter(request: JobAdFilterRequestModel):
 
     if is_open == 0 or is_open == 1:
         if not first_found:
-            query += " is_open = %s" % is_open
+            query += " is_open = {0}".format(is_open)
             first_found = True
         else:
-            query += " AND is_open = %s" % is_open
+            query += " AND is_open = {0}".format(is_open)
 
     if setting:
         if not first_found:
@@ -274,12 +274,12 @@ def apply_filter(request: JobAdFilterRequestModel):
         else:
             query += " AND UPPER(setting) = UPPER({0})".format("'" + setting + "'")
 
-        if domain:
-            if not first_found:
-                query += " UPPER(domain) LIKE UPPER({0})".format("'%%" + domain + "%%'")
-                first_found = True
-            else:
-                query += " AND UPPER(domain) LIKE UPPER(%{0}%)".format("'%%" + domain + "%%'")
+    if domain:
+        if not first_found:
+            query += " UPPER(domain) LIKE UPPER({0})".format("'%%" + domain + "%%'")
+            first_found = True
+        else:
+            query += " AND UPPER(domain) LIKE UPPER({0})".format("'%%" + domain + "%%'")
 
     if skills:
         # Create an inner query to get the ad_ids of the job advertisements that have the skills

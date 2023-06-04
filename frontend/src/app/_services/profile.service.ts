@@ -51,15 +51,12 @@ export class ProfileService {
     return null;
   }
 
-  getUserById(id: number): Observable<any> {
+  getUserById(id: string): Observable<any> {
     return this.http.get(this.baseUrl + 'user/' + id.toString());
   }
 
-  updateUser(user_id: number, user: ProfileUpdateRequestModel) {
-    return this.http.put(
-      this.baseUrl + 'user/update/' + user_id.toString(),
-      user
-    );
+  updateUser(user_id: string, user: ProfileUpdateRequestModel) {
+    return this.http.put(this.baseUrl + 'user/update/' + user_id, user);
   }
 
   getEducationalExperiences(id: string): Observable<any> {

@@ -8,6 +8,7 @@ import {
   JobAdvertisementRequestModel,
   JobAdvertisementResponseModel,
   JobApplicationResponseModel,
+  JobApplicationRequestModel,
   JobApplicationUpdateRequestModel
 } from '../_models/job_ad_models';
 
@@ -36,7 +37,7 @@ export class JobAdService {
   }
 
   addJobApplication(
-    job_application: JobApplicationResponseModel
+    job_application: JobApplicationRequestModel
   ): Observable<any> {
     return this.http.post(this.baseUrl + 'jobapplications', job_application);
   }

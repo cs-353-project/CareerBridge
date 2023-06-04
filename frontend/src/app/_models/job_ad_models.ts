@@ -1,4 +1,4 @@
-import { DegreeModel } from './profile_models';
+import {DegreeModel, ProfileModel} from './profile_models';
 
 export interface SkillInJobResponseModel {
   skill_id?: number;
@@ -92,4 +92,9 @@ export interface JobAdFilterRequestModel {
   is_open?: number;
   degrees?: string[];
   skills?: string[];
+}
+
+export interface JobDetailResponseModel {
+  job_ad: JobAdvertisementResponseModel;
+  creator: ProfileModel;
 }

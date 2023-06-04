@@ -142,6 +142,46 @@ def get_job_advertisement_by_id(creator_id: int):
     return job_advertisement
 
 
+def get_job_details(ad_id: int):
+    job_advertisement = query_get(
+        """
+            SELECT * FROM JobAdvertisement WHERE ad_id = %s
+        """,
+        (ad_id,),
+    )
+
+    if not job_advertisement:
+        raise HTTPException(status_code=404, detail="Job Advertisement not found")
+
+    for job_ad in job_advertisement:
+        skill_list = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (job_ad["ad_id"]),
+        )
+
+        degree_list = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (job_ad["ad_id"]),
+        )
+
+        creator = query_get(
+            """
+                SELECT * FROM User WHERE user_id = %s
+            """,
+            (job_ad["creator_id"]),
+        )
+
+        job_ad["skills"] = skill_list
+        job_ad["required_degrees"] = degree_list
+        job_ad["creator"] = creator
+
+    return job_advertisement
+
+
 def delete_job_advertisement(ad_id: int):
     query_update(
         """

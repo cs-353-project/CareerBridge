@@ -3,6 +3,8 @@ from typing import Optional
 
 from pydantic import BaseModel, HttpUrl
 
+from backend.profile import ProfileResponseModel
+
 
 class SkillInJobResponseModel(BaseModel):
     skill_id: int
@@ -110,3 +112,8 @@ class JobAdFilterRequestModel(BaseModel):
     is_open: Optional[bool] = None
     degrees: Optional[list[str]] = None
     skills: Optional[list[str]] = None
+
+
+class JobDetailsResponseModel(BaseModel):
+    job_ad: JobAdvertisementResponseModel
+    creator: ProfileResponseModel

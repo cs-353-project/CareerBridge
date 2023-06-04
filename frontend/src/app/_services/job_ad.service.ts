@@ -78,4 +78,8 @@ export class JobAdService {
       this.baseUrl + 'jobapplications/' + profile_id.toString()
     );
   }
+
+  getJobDetails(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'job_details/' + id.toString());
+  }
 }

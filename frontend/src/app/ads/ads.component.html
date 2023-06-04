@@ -150,7 +150,7 @@
                   </div>
                   <div>
                     <span style="font-size: 10px; color: darkgray"
-                      >25 minutes ago</span
+                      >{{ afy.timedelta }} days ago</span
                     >
                   </div>
                 </div>
@@ -208,7 +208,7 @@
         </div>
       </mat-tab>
       <mat-tab label="Applied Ads">
-        <div *ngFor="let afy of this.applied_ads; index as i">
+        <div *ngFor="let appad of this.applied_ads; index as i">
           <div
             class="w-100 d-flex flex-row align-items-center"
             style="height: 150px; overflow: hidden">
@@ -224,38 +224,38 @@
               <div class="p-3 d-flex flex-column">
                 <div class="d-flex flex-column">
                   <span style="font-size: 15px" class="font-weight-bold">{{
-                    afy.title
+                    appad.title
                   }}</span>
                   <div>
                     <span style="font-size: 12px" class="mr-2">{{
-                      afy.organization
+                      appad.organization
                     }}</span>
                     <span style="font-size: 12px; color: darkgray">{{
-                      afy.location
+                      appad.location
                     }}</span>
                   </div>
 
                   <div>
                     <span style="font-size: 11px"
                       ><strong
-                        >${{ afy.pay_range_min }}-{{
-                          afy.pay_range_max
+                        >${{ appad.pay_range_min }}-{{
+                          appad.pay_range_max
                         }}</strong
                       ></span
                     >
                     <span style="font-size: 12px; color: darkgray">/year</span>
                   </div>
                   <div style="font-size: 12px">
-                    <span>{{ afy.domain }}</span>
+                    <span>{{ appad.domain }}</span>
                   </div>
                   <div class="d-flex flex-row" style="font-size: 11px">
-                    <span>{{ afy.type }}</span>
+                    <span>{{ appad.type }}</span>
                     <span class="mx-1">&#183;</span>
-                    <span>{{ afy.setting }}</span>
+                    <span>{{ appad.setting }}</span>
                   </div>
                   <div>
                     <span style="font-size: 10px; color: darkgray"
-                      >25 minutes ago</span
+                      >{{ appad.timedelta }} days ago</span
                     >
                   </div>
                 </div>
@@ -265,7 +265,7 @@
               <div
                 class="d-flex flex-column justify-content-center align-items-center h-100">
                 <div
-                  *ngFor="let skill of afy.skills; index as j; first as isFirst"
+                  *ngFor="let skill of appad.skills; index as j; first as isFirst"
                   class="bg-danger py-1 px-2"
                   style="border-radius: 10px"
                   [ngClass]="{ 'mt-1': !isFirst }"
@@ -283,7 +283,7 @@
                 </div>
                 <div>
                   <p class="max-lines">
-                    {{ afy.description }}
+                    {{ appad.description }}
                   </p>
                 </div>
               </div>
@@ -294,16 +294,16 @@
                   mat-raised-button
                   color="primary"
                   class="mt-2"
-                  (click)="viewAdDetails(afy)">
+                  (click)="viewAdDetails(appad)">
                   View Ad Details
                 </button>
                 <div
                   class="d-flex flex-column justify-content-center align-items-center mt-3">
                   <span style="font-size: 11px"
-                    >Application count: {{ afy.application_count }}</span
+                    >Application count: {{ appad.application_count }}</span
                   >
                   <span style="font-size: 11px"
-                    >View count: {{ afy.view_count }}</span
+                    >View count: {{ appad.view_count }}</span
                   >
                 </div>
               </div>
@@ -363,7 +363,7 @@
                   </div>
                   <div>
                     <span style="font-size: 10px; color: darkgray"
-                      >25 minutes ago</span
+                      >{{ yads.timedelta }} days ago</span
                     >
                   </div>
                 </div>

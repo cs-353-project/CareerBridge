@@ -93,25 +93,26 @@ export class AdsComponent implements OnInit {
       .toPromise()
       .then(response => {
         response.forEach(element => {
+          console.log(element);
           let ad = {
-            ad_id: element.ad_id,
-            creator_id: element.creator_id,
-            title: element.title,
-            description: element.description,
-            organization: element.organization,
-            setting: element.setting,
-            location: element.location,
-            type: element.type,
-            pay_range_min: element.pay_range_min,
-            pay_range_max: element.pay_range_max,
-            domain: element.domain,
-            is_open: element.is_open,
-            external_url: element.external_url,
-            application_count: element.application_count,
-            view_count: element.view_count,
-            created_at: element.created_at,
-            skills: element.skills,
-            required_degrees: element.required_degrees
+            ad_id: element.ad_details[0].ad_id,
+            creator_id: element.ad_details[0].creator_id,
+            title: element.ad_details[0].title,
+            description: element.ad_details[0].description,
+            organization: element.ad_details[0].organization,
+            setting: element.ad_details[0].setting,
+            location: element.ad_details[0].location,
+            type: element.ad_details[0].type,
+            pay_range_min: element.ad_details[0].pay_range_min,
+            pay_range_max: element.ad_details[0].pay_range_max,
+            domain: element.ad_details[0].domain,
+            is_open: element.ad_details[0].is_open,
+            external_url: element.ad_details[0].external_url,
+            application_count: element.ad_details[0].application_count,
+            view_count: element.ad_details[0].view_count,
+            created_at: element.ad_details[0].created_at,
+            skills: element.ad_details[0].skills,
+            required_degrees: element.ad_details[0].required_degrees
           };
           this.applied_ads.push(ad);
         });
@@ -145,6 +146,7 @@ export class AdsComponent implements OnInit {
           this.your_ads.push(ad);
         });
       });
+    console.log(this.applied_ads);
   }
 
   viewAdDetails() {

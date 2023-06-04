@@ -57,23 +57,21 @@ export class ProfileComponent implements OnInit {
       .getWorkExperiences(this.id)
       .toPromise()
       .then(data => {
-        //console.log(data);
         data.forEach(element => {
-          console.log(element);
           let temp: WorkExperienceModel = {
             experience: {
-              profile_id: element.profile_id,
-              title: element.title,
-              start_date: element.start_date,
-              end_date: element.end_date,
-              description: element.description,
-              current_status: element.current_status
+              experience_id: element.experience.experience_id,
+              profile_id: element.experience.profile_id,
+              title: element.experience.title,
+              start_date: element.experience.start_date,
+              end_date: element.experience.end_date,
+              description: element.experience.description,
+              current_status: element.experience.current_status
             },
             company_name: element.company_name,
             setting: element.setting,
             type: element.type
           };
-          //console.log(element);
           this.workExperiences.unshift(temp);
         });
       });
@@ -85,15 +83,18 @@ export class ProfileComponent implements OnInit {
         data.forEach(element => {
           let temp: EducationalExperienceModel = {
             experience: {
-              profile_id: element.profile_id,
-              title: element.title,
-              start_date: element.start_date,
-              end_date: element.end_date,
-              description: element.description,
-              current_status: element.current_status
+              experience_id: element.experience.experience_id,
+              profile_id: element.experience.profile_id,
+              title: element.experience.title,
+              start_date: element.experience.start_date,
+              end_date: element.experience.end_date,
+              description: element.experience.description,
+              current_status: element.experience.current_status
             },
             school_name: element.school_name,
-            degree: element.degree,
+            degree: {
+              name: element.degree.name
+            },
             field_of_study: element.field_of_study,
             grade: element.grade
           };
@@ -114,6 +115,7 @@ export class ProfileComponent implements OnInit {
             is_master_skill: element.is_master_skill
           };
           this.skills.unshift(temp);
+          console.log(this.skills);
         });
       });
   }
@@ -149,7 +151,22 @@ export class ProfileComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
-    dialogConfig.data = null;
+    dialogConfig.data = {
+      experience: {
+        profile_id: this.id,
+        title: '',
+        start_date: '',
+        end_date: '',
+        description: '',
+        current_status: ''
+      },
+      grade: '',
+      field_of_study: '',
+      school_name: '',
+      degree: {
+        name: ''
+      }
+    };
     const dialogRef = this.dialog.open(
       EducationalExperienceDialogComponent,
       dialogConfig
@@ -160,7 +177,12 @@ export class ProfileComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
-    dialogConfig.data = null;
+    dialogConfig.data = {
+      profile_id: this.id,
+      name: '',
+      is_verified: false,
+      is_master_skill: false
+    };
     const dialogRef = this.dialog.open(SkillDialogComponent, dialogConfig);
   }
 }

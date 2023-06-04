@@ -30,7 +30,7 @@ export class EducationalExperienceDialogComponent implements OnInit {
     this.data.experience.end_date = b.toISOString().split('T')[0];
 
     this.data.experience.current_status = 'Working'; // temp fix
-
+    console.log(this.data);
     this.profileService.addEducationalExperience(this.data).subscribe(
       response => {
         this.toastr.success('Educational experience added successfully');

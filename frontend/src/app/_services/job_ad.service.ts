@@ -37,8 +37,18 @@ export class JobAdService {
   }
 
   filterJobAds(filter: JobAdFilterRequestModel): Observable<any> {
-    // TODO: fix this
-    return this.http.get(this.baseUrl + 'jobapplications/filter');
+    const body = {
+      pay_range_min: filter.pay_range_min,
+      pay_range_max: filter.pay_range_max,
+      type: filter.type,
+      location: filter.location,
+      setting: filter.setting,
+      domain: filter.domain,
+      is_open: filter.is_open,
+      skills: filter.skills,
+      degrees: filter.degrees
+    };
+    return this.http.post(this.baseUrl + 'jobapplications/filter', body);
   }
 
   addJobApplication(
@@ -64,6 +74,8 @@ export class JobAdService {
   }
 
   getJobApplicationsByProfileId(profile_id: number): Observable<any> {
-    return this.http.get(this.baseUrl + 'jobapplications/' + profile_id.toString());
+    return this.http.get(
+      this.baseUrl + 'jobapplications/' + profile_id.toString()
+    );
   }
 }

@@ -71,8 +71,9 @@ from job_ad.job_ad import (
     delete_job_advertisement,
     evaluate_application,
     get_applications_by_ad_id,
+    get_applications_by_profile_id,
     get_job_advertisement_by_id,
-    get_job_advertisements, get_applications_by_profile_id,
+    get_job_advertisements,
 )
 from job_ad.models import (
     JobAdFilterRequestModel,
@@ -782,7 +783,7 @@ def update_job_application_api(application_id: int, application_details: JobAppl
     return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
 
 
-@app.get("/api/jobapplications/filter", response_model=None)
+@app.post("/api/jobapplications/filter", response_model=None)
 def filter_job_application_api(request: JobAdFilterRequestModel):
     """
     This job application filter API allow you to filter job application data.

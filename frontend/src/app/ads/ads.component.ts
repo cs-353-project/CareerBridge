@@ -33,6 +33,9 @@ export class AdsComponent implements OnInit {
     'black'
   ];
 
+  skills = '';
+  degrees = '';
+
   jobAdFilter: JobAdFilterRequestModel = {
     pay_range_min: 0,
     pay_range_max: 10000000,
@@ -40,7 +43,9 @@ export class AdsComponent implements OnInit {
     location: '',
     setting: '',
     domain: '',
-    status: ''
+    is_open: 1,
+    skills: [],
+    degrees: []
   };
 
   constructor(
@@ -153,5 +158,47 @@ export class AdsComponent implements OnInit {
 
   filterChange() {
     this.showFilters = !this.showFilters;
+  }
+
+  filterAds() {
+    this.jobAdFilter.pay_range_min = +this.jobAdFilter.pay_range_min;
+    this.jobAdFilter.pay_range_max = +this.jobAdFilter.pay_range_max;
+    this.jobAdFilter.is_open = +this.jobAdFilter.is_open;
+
+    if (this.skills != '') {
+      this.jobAdFilter.skills = this.skills.split(',');
+    }
+    if (this.degrees != '') {
+      this.jobAdFilter.degrees = this.degrees.split(',');
+    }
+
+    // return;
+    this.adService.filterJobAds(this.jobAdFilter).subscribe(response => {
+      // Update the ads_for_you array
+      this.ads_for_you = [];
+      response.forEach(element => {
+        let ad = {
+          ad_id: element.ad_id,
+          creator_id: element.creator_id,
+          title: element.title,
+          description: element.description,
+          organization: element.organization,
+          setting: element.setting,
+          location: element.location,
+          type: element.type,
+          pay_range_min: element.pay_range_min,
+          pay_range_max: element.pay_range_max,
+          domain: element.domain,
+          is_open: element.is_open,
+          external_url: element.external_url,
+          application_count: element.application_count,
+          view_count: element.view_count,
+          created_at: element.created_at,
+          skills: element.skills,
+          required_degrees: element.required_degrees
+        };
+        this.ads_for_you.push(ad);
+      });
+    });
   }
 }

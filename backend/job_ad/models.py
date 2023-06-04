@@ -107,6 +107,6 @@ class JobAdFilterRequestModel(BaseModel):
     location: Optional[str] = None
     setting: Optional[str] = None
     domain: Optional[str] = None
-    status: Optional[bool] = None
+    is_open: Optional[bool] = None
     degrees: Optional[list[str]] = None
     skills: Optional[list[str]] = None

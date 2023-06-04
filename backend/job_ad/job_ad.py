@@ -152,7 +152,7 @@ def delete_job_advertisement(ad_id: int):
 
 
 def apply_filter(request: JobAdFilterRequestModel):
-    status = request.status
+    is_open = request.is_open
     pay_range_min = request.pay_range_min
     pay_range_max = request.pay_range_max
     type = request.type
@@ -163,11 +163,11 @@ def apply_filter(request: JobAdFilterRequestModel):
     degrees = request.degrees
 
     query = ""
-    if (status or pay_range_min or pay_range_max or type or location or setting or domain) is not None:
+    if (is_open or pay_range_min or pay_range_max or type or location or setting or domain) is not None:
         query = "SELECT * FROM JobAdvertisement WHERE"
     else:
         query = "SELECT * FROM JobAdvertisement"
-        return query
+        return []
 
     first_found = False
 
@@ -178,7 +178,7 @@ def apply_filter(request: JobAdFilterRequestModel):
         else:
             query += " AND pay_range_min >= {0}".format(pay_range_min)
 
-    if pay_range_max:
+    if pay_range_max is not None or pay_range_max == 0:
         if not first_found:
             query += " pay_range_max <= %s" % pay_range_max
             first_found = True
@@ -198,6 +198,13 @@ def apply_filter(request: JobAdFilterRequestModel):
             first_found = True
         else:
             query += " AND UPPER(location) LIKE UPPER({0})".format("'%%" + location + "%%'")
+
+    if is_open == 0 or is_open == 1:
+        if not first_found:
+            query += " is_open = %s" % is_open
+            first_found = True
+        else:
+            query += " AND is_open = %s" % is_open
 
     if setting:
         if not first_found:

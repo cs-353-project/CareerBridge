@@ -89,7 +89,7 @@ export interface JobAdFilterRequestModel {
   location?: string;
   setting?: string;
   domain?: string;
-  status?: string;
+  is_open?: number;
   degrees?: string[];
   skills?: string[];
 }

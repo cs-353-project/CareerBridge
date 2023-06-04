@@ -7,6 +7,8 @@ from fastapi import HTTPException
 from database.query import query_get, query_put, query_update
 
 from .models import (
+    DegreeInJobRequestModel,
+    DegreeInJobResponseModel,
     JobAdFilterRequestModel,
     JobAdvertisementRequestModel,
     JobAdvertisementResponseModel,
@@ -15,8 +17,6 @@ from .models import (
     JobApplicationUpdateRequestModel,
     SkillInJobRequestModel,
     SkillInJobResponseModel,
-    DegreeInJobRequestModel,
-    DegreeInJobResponseModel,
 )
 
 
@@ -90,6 +90,23 @@ def get_job_advertisement_by_id(creator_id: int):
     if not job_advertisement:
         raise HTTPException(status_code=404, detail="Job Advertisement not found")
 
+    skill_list = query_get(
+        """
+            SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+        """,
+        (job_advertisement[0]["ad_id"]),
+    )
+
+    degree_list = query_get(
+        """
+            SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+        """,
+        (job_advertisement[0]["ad_id"]),
+    )
+
+    job_advertisement[0]["skills"] = skill_list
+    job_advertisement[0]["required_degrees"] = degree_list
+
     return job_advertisement
 
 
@@ -114,7 +131,6 @@ def apply_filter(request: JobAdFilterRequestModel):
     degrees = request.degrees
 
     query = ""
-    parameters = []
     if (status or pay_range_min or pay_range_max or type or location or setting or domain) is not None:
         query = "SELECT * FROM JobAdvertisement WHERE"
     else:
@@ -123,54 +139,48 @@ def apply_filter(request: JobAdFilterRequestModel):
 
     first_found = False
 
-    if pay_range_min:
+    if pay_range_min is not None or pay_range_min == 0:
         if not first_found:
-            query += " pay_range_min >= %s"
+            query += " pay_range_min >= {0}".format(pay_range_min)
             first_found = True
         else:
-            query += " AND pay_range_min >= %s"
+            query += " AND pay_range_min >= {0}".format(pay_range_min)
 
-        parameters.append(pay_range_min)
     if pay_range_max:
         if not first_found:
-            query += " pay_range_max <= %s"
+            query += " pay_range_max <= %s" % pay_range_max
             first_found = True
         else:
-            query += " AND pay_range_max <= %s"
+            query += " AND pay_range_max <= %s" % pay_range_max
 
-        parameters.append(pay_range_max)
     if type:
         if not first_found:
-            query += " type = %s"
+            query += " type = '%s'" % type
             first_found = True
         else:
-            query += " AND type = %s"
+            query += " AND type = '%s'" % type
 
-        parameters.append(type)
     if location:
         if not first_found:
-            query += " location = %s"
+            query += " UPPER(location) LIKE UPPER({0})".format("'%%" + location + "%%'")
             first_found = True
         else:
-            query += " AND location = %s"
+            query += " AND UPPER(location) LIKE UPPER({0})".format("'%%" + location + "%%'")
 
-        parameters.append(location)
     if setting:
         if not first_found:
-            query += " setting = %s"
+            query += " UPPER(setting) = UPPER({0})".format("'" + setting + "'")
             first_found = True
         else:
-            query += " AND setting = %s"
+            query += " AND UPPER(setting) = UPPER({0})".format("'" + setting + "'")
 
-        parameters.append(setting)
-    if domain:
-        if not first_found:
-            query += " domain = %s"
-            first_found = True
-        else:
-            query += " AND domain = %s"
+        if domain:
+            if not first_found:
+                query += " UPPER(domain) LIKE UPPER({0})".format("'%%" + domain + "%%'")
+                first_found = True
+            else:
+                query += " AND UPPER(domain) LIKE UPPER(%{0}%)".format("'%%" + domain + "%%'")
 
-        parameters.append(domain)
     if skills:
         # Create an inner query to get the ad_ids of the job advertisements that have the skills
         if not first_found:
@@ -182,9 +192,9 @@ def apply_filter(request: JobAdFilterRequestModel):
         for i, skill in enumerate(skills):
             if i != 0:
                 query += " OR"
-            query += " skill_name = %s"
-            parameters.append(skill)
+            query += " UPPER(skill_name) LIKE UPPER({0})".format("'%%" + skill + "%%'")
         query += ")"
+
     if degrees:
         # Create an inner query to get the ad_ids of the job advertisements that have the degrees
         if not first_found:
@@ -195,11 +205,10 @@ def apply_filter(request: JobAdFilterRequestModel):
         for i, degree in enumerate(degrees):
             if i != 0:
                 query += " OR"
-            query += " degree_name = %s"
-            parameters.append(degree)
+            query += " UPPER(degree_name) LIKE UPPER({0})".format("'%%" + degree + "%%'")
         query += ")"
 
-    job_advertisements = query_get(query, tuple(parameters))
+    job_advertisements = query_get(query, ())
 
     # if not job_advertisements:
     #     raise HTTPException(status_code=404, detail="Job Advertisement not found")

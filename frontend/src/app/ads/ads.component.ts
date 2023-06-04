@@ -93,9 +93,27 @@ export class AdsComponent implements OnInit {
       .toPromise()
       .then(response => {
         response.forEach(element => {
-          let elementt = element.ad_details;
-          this.applied_ads.push(elementt);
-          console.log(this.applied_ads);
+          let ad = {
+            ad_id: element.ad_id,
+            creator_id: element.creator_id,
+            title: element.title,
+            description: element.description,
+            organization: element.organization,
+            setting: element.setting,
+            location: element.location,
+            type: element.type,
+            pay_range_min: element.pay_range_min,
+            pay_range_max: element.pay_range_max,
+            domain: element.domain,
+            is_open: element.is_open,
+            external_url: element.external_url,
+            application_count: element.application_count,
+            view_count: element.view_count,
+            created_at: element.created_at,
+            skills: element.skills,
+            required_degrees: element.required_degrees
+          };
+          this.applied_ads.push(ad);
         });
       });
     this.your_ads = [];

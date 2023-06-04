@@ -105,7 +105,7 @@
       <mat-tab label="All Ads" style="min-height: 450px">
         <div>
           <div
-            *ngFor="let afy of this.ads_for_you; index as i; first as isFirst"
+            *ngFor="let afy of this.ads_for_you; index as i"
             class="w-100 d-flex flex-row align-items-center"
             style="height: 150px; overflow: hidden">
             <div class="h-100" style="width: 125px !important">
@@ -159,9 +159,10 @@
               <div
                 class="d-flex flex-column justify-content-center align-items-center h-100">
                 <div
-                  *ngFor="let skill of afy.skills; index as j"
+                  *ngFor="let skill of afy.skills; index as j; first as isFirst"
                   class="bg-danger py-1 px-2"
                   style="border-radius: 10px"
+                  [ngClass]="{ 'mt-1': !isFirst }"
                   [ngStyle]="{ color: this.colors[j] }">
                   <span class="text-light">{{ skill.skill_name }}</span>
                 </div>
@@ -208,7 +209,7 @@
       <mat-tab label="Applied Ads"></mat-tab>
       <div>
         <div
-          *ngFor="let appads of this.applied_ads; index as i; first as isFirst"
+          *ngFor="let appads of this.applied_ads; index as i"
           class="w-100 d-flex flex-row align-items-center"
           style="height: 150px; overflow: hidden">
           <div class="h-100" style="width: 125px !important">
@@ -262,10 +263,15 @@
             <div
               class="d-flex flex-column justify-content-center align-items-center h-100">
               <div
-                *ngFor="let skill of appads.skills; index as j"
+                *ngFor="
+                  let skill of appads.skills;
+                  index as j;
+                  first as isFirst
+                "
                 class="bg-danger py-1 px-2"
                 style="border-radius: 10px"
-                [ngStyle]="{ color: this.colors[j] }">
+                [ngClass]="{ 'mt-1': !isFirst }"
+                [ngStyle]="{ 'background': this.colors[j] }">
                 <span class="text-light">{{ skill.skill_name }}</span>
               </div>
             </div>
@@ -310,7 +316,7 @@
       <mat-tab label="Your Ads">
         <div>
           <div
-            *ngFor="let yads of this.your_ads; index as i; first as isFirst"
+            *ngFor="let yads of this.your_ads; index as i"
             class="w-100 d-flex flex-row align-items-center"
             style="height: 150px; overflow: hidden">
             <div class="h-100" style="width: 125px !important">
@@ -364,10 +370,15 @@
               <div
                 class="d-flex flex-column justify-content-center align-items-center h-100">
                 <div
-                  *ngFor="let skill of yads.skills; index as j"
-                  class="bg-danger py-1 px-2 mt-1"
+                  *ngFor="
+                    let skill of yads.skills;
+                    index as j;
+                    first as isFirst
+                  "
+                  class="bg-danger py-1 px-2"
                   style="border-radius: 10px"
-                  [ngStyle]="{ color: this.colors[j] }">
+                  [ngClass]="{ 'mt-1': !isFirst }"
+                  [ngStyle]="{ 'background-color': this.colors[j] }">
                   <span class="text-light">{{ skill.skill_name }}</span>
                 </div>
               </div>

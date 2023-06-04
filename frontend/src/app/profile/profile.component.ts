@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
             setting: element.setting,
             type: element.type
           };
-          this.workExperiences.unshift(temp);
+          this.workExperiences.push(temp);
         });
       });
 
@@ -98,7 +98,7 @@ export class ProfileComponent implements OnInit {
             field_of_study: element.field_of_study,
             grade: element.grade
           };
-          this.educationalExperiences.unshift(temp);
+          this.educationalExperiences.push(temp);
         });
       });
 
@@ -114,7 +114,7 @@ export class ProfileComponent implements OnInit {
             is_verified: element.is_verified,
             is_master_skill: element.is_master_skill
           };
-          this.skills.unshift(temp);
+          this.skills.push(temp);
         });
       });
   }

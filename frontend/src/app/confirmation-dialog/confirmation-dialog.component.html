@@ -1,0 +1,23 @@
+<div class="container" style="width: 350px; height: 75px">
+  <div class="d-flex flex-column text-center justify-content-between h-100">
+    <div>
+      <span style="font-size: 16px">{{ data.text }}</span>
+    </div>
+    <div>
+      <button
+        mat-flat-button
+        color="primary"
+        class="mr-2"
+        (click)="onNoClick()">
+        No
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        class="mr-2"
+        (click)="onYesClick()">
+        Yes
+      </button>
+    </div>
+  </div>
+</div>

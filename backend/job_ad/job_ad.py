@@ -377,14 +377,6 @@ def add_degree_in_job_advertisement(degree_in_job_request: DegreeInJobRequestMod
 
 
 def apply_for_a_job(job_application_request: JobApplicationRequestModel):
-    # Call the procedure to update the view count
-    query_update(
-        """
-            CALL increase_application_count(%s)
-        """,
-        (job_application_request.ad_id,),
-    )
-
     application_id = query_put(
         """
             INSERT INTO JobAdvertisementResponse (profile_id, ad_id, response_date, response, cv)
@@ -397,6 +389,14 @@ def apply_for_a_job(job_application_request: JobApplicationRequestModel):
             job_application_request.response,
             job_application_request.cv,
         ),
+    )
+
+    # Call the procedure to update the view count
+    query_update(
+        """
+            CALL increase_application_count(%s)
+        """,
+        (job_application_request.ad_id,),
     )
 
     response: JobApplicationResponseModel = JobApplicationResponseModel(

@@ -33,6 +33,8 @@ export class AdsComponent implements OnInit {
     'black'
   ];
 
+  options = { year: 'numeric', month: 'long', day: 'numeric' };
+
   skills = '';
   degrees = '';
 
@@ -64,6 +66,10 @@ export class AdsComponent implements OnInit {
       .toPromise()
       .then(response => {
         response.forEach(element => {
+          let date = new Date();
+          let create_at = new Date(element.created_at);
+          let timedelta = date.getTime() - create_at.getTime();
+          timedelta = Math.floor(timedelta / (1000 * 3600 * 24));
           let ad = {
             ad_id: element.ad_id,
             creator_id: element.creator_id,
@@ -82,7 +88,8 @@ export class AdsComponent implements OnInit {
             view_count: element.view_count,
             created_at: element.created_at,
             skills: element.skills,
-            required_degrees: element.required_degrees
+            required_degrees: element.required_degrees,
+            timedelta: timedelta
           };
           this.ads_for_you.push(ad);
           console.log(ad);
@@ -94,7 +101,10 @@ export class AdsComponent implements OnInit {
       .toPromise()
       .then(response => {
         response.forEach(element => {
-          console.log(element);
+          let date = new Date();
+          let create_at = new Date(element.created_at);
+          let timedelta = date.getTime() - create_at.getTime();
+          timedelta = Math.floor(timedelta / (1000 * 3600 * 24));
           let ad = {
             ad_id: element.ad_details[0].ad_id,
             creator_id: element.ad_details[0].creator_id,
@@ -113,9 +123,9 @@ export class AdsComponent implements OnInit {
             view_count: element.ad_details[0].view_count,
             created_at: element.ad_details[0].created_at,
             skills: element.ad_details[0].skills,
-            required_degrees: element.ad_details[0].required_degrees
+            required_degrees: element.ad_details[0].required_degrees,
+            timedelta: timedelta
           };
-          console.log(ad);
           this.applied_ads.push(ad);
         });
       });
@@ -125,6 +135,10 @@ export class AdsComponent implements OnInit {
       .toPromise()
       .then(response => {
         response.forEach(element => {
+          let date = new Date();
+          let create_at = new Date(element.created_at);
+          let timedelta = date.getTime() - create_at.getTime();
+          timedelta = Math.floor(timedelta / (1000 * 3600 * 24));
           let ad = {
             ad_id: element.ad_id,
             creator_id: element.creator_id,
@@ -143,7 +157,8 @@ export class AdsComponent implements OnInit {
             view_count: element.view_count,
             created_at: element.created_at,
             skills: element.skills,
-            required_degrees: element.required_degrees
+            required_degrees: element.required_degrees,
+            timedelta: timedelta
           };
           this.your_ads.push(ad);
         });
@@ -200,6 +215,10 @@ export class AdsComponent implements OnInit {
       // Update the ads_for_you array
       this.ads_for_you = [];
       response.forEach(element => {
+        let date = new Date();
+        let create_at = new Date(element.created_at);
+        let timedelta = date.getTime() - create_at.getTime();
+        timedelta = Math.floor(timedelta / (1000 * 3600 * 24));
         let ad = {
           ad_id: element.ad_id,
           creator_id: element.creator_id,
@@ -218,7 +237,8 @@ export class AdsComponent implements OnInit {
           view_count: element.view_count,
           created_at: element.created_at,
           skills: element.skills,
-          required_degrees: element.required_degrees
+          required_degrees: element.required_degrees,
+          timedelta: timedelta
         };
         this.ads_for_you.push(ad);
       });

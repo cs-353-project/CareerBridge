@@ -51,6 +51,7 @@ import { WorkExperienceDialogComponent } from './profile/work-experience-dialog/
 import { NewAdDialogComponent } from './ads/new-ad-dialog/new-ad-dialog.component';
 import { EducationalExperienceDialogComponent } from './profile/educational-experience-dialog/educational-experience-dialog.component';
 import { SkillDialogComponent } from './profile/skill-dialog/skill-dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { SkillDialogComponent } from './profile/skill-dialog/skill-dialog.compon
     WorkExperienceDialogComponent,
     NewAdDialogComponent,
     EducationalExperienceDialogComponent,
-    SkillDialogComponent
+    SkillDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

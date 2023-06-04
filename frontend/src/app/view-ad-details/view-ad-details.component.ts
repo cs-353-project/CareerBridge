@@ -35,7 +35,6 @@ export class ViewAdDetailsComponent implements OnInit {
       .toPromise()
       .then(response => {
         response.forEach(element => {
-          console.log(element);
           let temp = {
             ad_id: element.ad_id,
             creator_id: element.creator_id,

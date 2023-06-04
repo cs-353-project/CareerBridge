@@ -216,7 +216,7 @@ def get_user_by_id_api(user_id: int):
     return JSONResponse(status_code=200, content=jsonable_encoder(user))
 
 
-@app.patch("/api/user/update", response_model=UserResponseModel)
+@app.patch("/api/user/update/{user_id}", response_model=UserResponseModel)
 def update_user_api(user_id: int, user_details: UserUpdateRequestModel):
     """
     This user update API allow you to update user data.

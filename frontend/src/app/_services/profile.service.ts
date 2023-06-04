@@ -13,6 +13,7 @@ import {
   CertificationModel,
   EducationalExperienceModel,
   ProfileModel,
+  ProfileUpdateRequestModel,
   ProjectModel,
   PublicationModel,
   TestScoreModel,
@@ -50,8 +51,15 @@ export class ProfileService {
     return null;
   }
 
-  getUserById(id: string): Observable<any> {
-    return this.http.get(this.baseUrl + 'user/' + id);
+  getUserById(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'user/' + id.toString());
+  }
+
+  updateUser(user_id: number, user: ProfileUpdateRequestModel) {
+    return this.http.put(
+      this.baseUrl + 'user/update/' + user_id.toString(),
+      user
+    );
   }
 
   getEducationalExperiences(id: string): Observable<any> {

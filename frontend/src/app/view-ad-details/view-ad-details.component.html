@@ -17,7 +17,9 @@
         <span style="font-size: 25px" class="font-weight-bold">{{
           ad?.title
         }}</span>
-        <span style="font-size: 12px" class="ml-3">{{ ad?.created_at }}</span>
+        <span style="font-size: 12px" class="ml-3">{{
+          ad?.created_at | date: 'mediumDate'
+        }}</span>
         <span class="mx-3">&#183;</span>
 
         <span style="font-size: 12px">View Count: {{ ad?.view_count }}</span>

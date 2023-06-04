@@ -824,7 +824,7 @@ def get_system_reports_api():
     return JSONResponse(status_code=200, content=jsonable_encoder(system_reports))
 
 
-@app.get("/api/systemreports/highest_applications_each_domain",
+@app.post("/api/systemreports/highest_applications_each_domain",
          response_model=HighestApplicationsEachDomainResponseModel)
 def get_highest_applications_each_domain_api(dates: SystemReportRequestModel):
     """
@@ -834,7 +834,7 @@ def get_highest_applications_each_domain_api(dates: SystemReportRequestModel):
     return JSONResponse(status_code=200, content=jsonable_encoder(highest_applications_each_domain))
 
 
-@app.get("/api/systemreports/least_published_ad_type_for_interval",
+@app.post("/api/systemreports/least_published_ad_type_for_interval",
          response_model=LeastPublishedAdTypeForIntervalResponseModel)
 def get_least_published_ad_type_for_interval_api(dates: SystemReportRequestModel):
     """

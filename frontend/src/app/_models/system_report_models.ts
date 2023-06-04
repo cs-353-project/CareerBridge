@@ -48,3 +48,8 @@ export interface SystemReportResponseModel {
   average_number_of_ad_views_for_company: AverageNumberOfAdViewsForCompanyModel;
   minimum_and_maximum_pay_averages: MinimumAndMaximumPayAveragesModel;
 }
+
+export interface SystemReportRequestModel {
+  start_date: Date;
+  end_date: Date;
+}

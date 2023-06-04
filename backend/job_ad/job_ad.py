@@ -99,7 +99,7 @@ def get_job_advertisements():
 
         degree_list = query_get(
             """
-                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+                SELECT * FROM DegreeInJobAdvertisement WHERE ad_id = %s
             """,
             (job_ad["ad_id"]),
         )
@@ -131,7 +131,7 @@ def get_job_advertisement_by_id(creator_id: int):
 
         degree_list = query_get(
             """
-                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+                SELECT * FROM DegreeInJobAdvertisement WHERE ad_id = %s
             """,
             (job_ad["ad_id"]),
         )
@@ -163,7 +163,7 @@ def get_job_details(ad_id: int):
 
         degree_list = query_get(
             """
-                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+                SELECT * FROM DegreeInJobAdvertisement WHERE ad_id = %s
             """,
             (job_ad["ad_id"]),
         )
@@ -177,7 +177,7 @@ def get_job_details(ad_id: int):
 
         job_ad["skills"] = skill_list
         job_ad["required_degrees"] = degree_list
-        job_ad["creator"] = creator
+        job_ad["creator"] = creator[0]
 
     return job_advertisement
 
@@ -299,7 +299,7 @@ def apply_filter(request: JobAdFilterRequestModel):
 
         degree_list = query_get(
             """
-                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+                SELECT * FROM DegreeInJobAdvertisement WHERE ad_id = %s
             """,
             (job_ad["ad_id"]),
         )

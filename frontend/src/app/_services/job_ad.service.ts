@@ -5,8 +5,8 @@ import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
 import {
   JobAdFilterRequestModel,
-  JobAdvertisementResponseModel,
-  JobApplicationResponseModel,
+  JobAdvertisementRequestModel,
+  JobApplicationRequestModel,
   JobApplicationUpdateRequestModel
 } from '../_models/job_ad_models';
 
@@ -22,7 +22,7 @@ export class JobAdService {
     return this.http.get(this.baseUrl + 'job-ad/' + id.toString());
   }
 
-  addJobAd(jobAd: JobAdvertisementResponseModel): Observable<any> {
+  addJobAd(jobAd: JobAdvertisementRequestModel): Observable<any> {
     return this.http.post(this.baseUrl + 'job-ad', jobAd);
   }
 
@@ -35,7 +35,7 @@ export class JobAdService {
   }
 
   addJobApplication(
-    job_application: JobApplicationResponseModel
+    job_application: JobApplicationRequestModel
   ): Observable<any> {
     return this.http.post(this.baseUrl + 'job-applications', job_application);
   }

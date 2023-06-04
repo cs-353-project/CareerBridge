@@ -170,7 +170,7 @@ def get_job_details(ad_id: int):
 
         creator = query_get(
             """
-                SELECT * FROM User WHERE user_id = %s
+                SELECT * FROM Profile WHERE user_id = %s
             """,
             (job_ad["creator_id"]),
         )

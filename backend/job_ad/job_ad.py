@@ -143,6 +143,14 @@ def get_job_advertisement_by_id(creator_id: int):
 
 
 def get_job_details(ad_id: int):
+    # Call the procedure to update the view count
+    query_update(
+        """
+            CALL increase_view_count(%s)
+        """,
+        (ad_id,),
+    )
+
     job_advertisement = query_get(
         """
             SELECT * FROM JobAdvertisement WHERE ad_id = %s
@@ -356,6 +364,14 @@ def add_degree_in_job_advertisement(degree_in_job_request: DegreeInJobRequestMod
 
 
 def apply_for_a_job(job_application_request: JobApplicationRequestModel):
+    # Call the procedure to update the view count
+    query_update(
+        """
+            CALL increase_application_count(%s)
+        """,
+        (job_application_request.ad_id,),
+    )
+
     application_id = query_put(
         """
             INSERT INTO JobAdvertisementResponse (profile_id, ad_id, response_date, response, cv)

@@ -79,7 +79,13 @@ export class JobAdService {
     );
   }
 
-  getJobDetails(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + 'job_details/' + id.toString());
+  getJobDetails(id: number, profile_id: number): Observable<any> {
+    return this.http.get(
+      this.baseUrl +
+        'job_details/' +
+        id.toString() +
+        '?profile_id=' +
+        profile_id.toString()
+    );
   }
 }

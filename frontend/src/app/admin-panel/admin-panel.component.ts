@@ -1,5 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { SystemReportService } from '../_services/system_report.service';
+import { SystemReportResponseModel } from '../_models/system_report_models';
 
 export interface RoleCount {
   role: string;
@@ -117,7 +119,48 @@ export class AdminPanelComponent implements OnInit {
   leastPublishedAdsStartDate: Date;
   leastPublishedAdsEndDate: Date;
 
-  constructor() {}
+  systemReport: SystemReportResponseModel;
 
-  ngOnInit(): void {}
+  constructor(private systemReportService: SystemReportService) {}
+
+  ngOnInit(): void {
+    this.systemReportService.getSystemReports().subscribe(response => {
+      console.log(response);
+      let temp = {
+        report_id: response.report_id,
+        total_num_of_ads: {
+          total_num_of_users: response.total_num_of_ads.total_num_of_users,
+          total_num_of_ads: response.total_num_of_ads.total_num_of_ads,
+          total_num_of_applications:
+            response.total_num_of_ads.total_num_of_applications,
+          total_num_of_views: response.total_num_of_ads.total_num_of_views
+        },
+        num_of_users_each_role: {
+          roles: response.num_of_users_each_role.roles,
+          num_of_users: response.num_of_users_each_role.num_of_users
+        },
+        average_skill_rating_of_each_skill: {
+          skills: response.average_skill_rating_of_each_skill.skills,
+          average_skill_rating:
+            response.average_skill_rating_of_each_skill.average_skill_rating
+        },
+        average_number_of_ad_views_for_company: {
+          company_names:
+            response.average_number_of_ad_views_for_company.company_names,
+          average_number_of_ad_views:
+            response.average_number_of_ad_views_for_company
+              .average_number_of_ad_views
+        },
+        minimum_and_maximum_pay_averages: {
+          company_names:
+            response.minimum_and_maximum_pay_averages.company_names,
+          minimum_pay_averages:
+            response.minimum_and_maximum_pay_averages.minimum_pay_averages,
+          maximum_pay_averages:
+            response.minimum_and_maximum_pay_averages.maximum_pay_averages
+        }
+      };
+      this.systemReport = response;
+    });
+  }
 }

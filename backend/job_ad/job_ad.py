@@ -142,7 +142,7 @@ def get_job_advertisement_by_id(creator_id: int):
     return job_advertisement
 
 
-def get_job_details(ad_id: int):
+def get_job_details(ad_id: int, profile_id: int):
     # Call the procedure to update the view count
     query_update(
         """
@@ -186,6 +186,19 @@ def get_job_details(ad_id: int):
         job_ad["skills"] = skill_list
         job_ad["required_degrees"] = degree_list
         job_ad["creator"] = creator[0]
+
+        # Check if the user has applied for the job
+        application = query_get(
+            """
+                SELECT * FROM JobAdvertisementResponse WHERE ad_id = %s AND profile_id = %s
+            """,
+            (ad_id, profile_id),
+        )
+
+        if application:
+            job_ad["has_applied"] = True
+        else:
+            job_ad["has_applied"] = False
 
     return job_advertisement
 

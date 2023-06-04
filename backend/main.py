@@ -73,7 +73,8 @@ from job_ad.job_ad import (
     get_applications_by_ad_id,
     get_applications_by_profile_id,
     get_job_advertisement_by_id,
-    get_job_advertisements, get_job_details,
+    get_job_advertisements,
+    get_job_details,
 )
 from job_ad.models import (
     JobAdFilterRequestModel,
@@ -81,7 +82,8 @@ from job_ad.models import (
     JobAdvertisementResponseModel,
     JobApplicationRequestModel,
     JobApplicationResponseModel,
-    JobApplicationUpdateRequestModel, JobDetailsResponseModel,
+    JobApplicationUpdateRequestModel,
+    JobDetailsResponseModel,
 )
 from post.models import (
     CommentRequestModel,
@@ -104,8 +106,9 @@ from system_report.models import (
     LeastPublishedAdTypeForIntervalResponseModel,
     MinimumAndMaximumPayAveragesResponseModel,
     NumOfUsersEachRoleResponseModel,
+    SystemReportRequestModel,
     SystemReportResponseModel,
-    TotalNumOfAdsResponseModel, SystemReportRequestModel,
+    TotalNumOfAdsResponseModel,
 )
 from system_report.system_report import (
     create_average_number_of_ad_views_for_company_response_model,
@@ -482,9 +485,9 @@ def get_job_ad_api(creator_id: int):
 
 
 @app.get("/api/job_details/{ad_id}", response_model=JobDetailsResponseModel)
-def get_job_ad_detail_api(ad_id: int):
+def get_job_ad_detail_api(ad_id: int, profile_id: int):
 
-    job_ad = get_job_details(ad_id)
+    job_ad = get_job_details(ad_id, profile_id)
 
     if len(job_ad) == 0:
         raise HTTPException(status_code=404, detail="Job ad not found")
@@ -813,34 +816,41 @@ def get_system_reports_api():
     This system reports API allow you to fetch system reports.
     """
     system_reports = {
-        'total_num_of_ads': create_total_num_of_ads_response_model(),
-        'num_of_users_each_role': create_num_of_users_each_role_response_model(),
+        "total_num_of_ads": create_total_num_of_ads_response_model(),
+        "num_of_users_each_role": create_num_of_users_each_role_response_model(),
         # 'highest_applications_each_domain': create_highest_applications_each_domain_response_model(),
-        'average_skill_rating_of_each_skill': create_average_skill_rating_of_each_skill_response_model(),
+        "average_skill_rating_of_each_skill": create_average_skill_rating_of_each_skill_response_model(),
         # 'least_published_ad_type_for_interval': create_least_published_ad_type_for_interval_response_model(),
-        'average_number_of_ad_views_for_company': create_average_number_of_ad_views_for_company_response_model(),
-        'minimum_and_maximum_pay_averages': create_minimum_and_maximum_pay_averages_response_model(),
+        "average_number_of_ad_views_for_company": create_average_number_of_ad_views_for_company_response_model(),
+        "minimum_and_maximum_pay_averages": create_minimum_and_maximum_pay_averages_response_model(),
     }
     return JSONResponse(status_code=200, content=jsonable_encoder(system_reports))
 
 
-@app.post("/api/systemreports/highest_applications_each_domain",
-         response_model=HighestApplicationsEachDomainResponseModel)
+@app.post(
+    "/api/systemreports/highest_applications_each_domain", response_model=HighestApplicationsEachDomainResponseModel
+)
 def get_highest_applications_each_domain_api(dates: SystemReportRequestModel):
     """
     This system reports API allow you to fetch system reports.
     """
-    highest_applications_each_domain = create_highest_applications_each_domain_response_model(dates['start_date'], dates['end_date'])
+    highest_applications_each_domain = create_highest_applications_each_domain_response_model(
+        dates["start_date"], dates["end_date"]
+    )
     return JSONResponse(status_code=200, content=jsonable_encoder(highest_applications_each_domain))
 
 
-@app.post("/api/systemreports/least_published_ad_type_for_interval",
-         response_model=LeastPublishedAdTypeForIntervalResponseModel)
+@app.post(
+    "/api/systemreports/least_published_ad_type_for_interval",
+    response_model=LeastPublishedAdTypeForIntervalResponseModel,
+)
 def get_least_published_ad_type_for_interval_api(dates: SystemReportRequestModel):
     """
     This system reports API allow you to fetch system reports.
     """
-    least_published_ad_type_for_interval = create_least_published_ad_type_for_interval_response_model(dates['start_date'], dates['end_date'])
+    least_published_ad_type_for_interval = create_least_published_ad_type_for_interval_response_model(
+        dates["start_date"], dates["end_date"]
+    )
     return JSONResponse(status_code=200, content=jsonable_encoder(least_published_ad_type_for_interval))
 
 

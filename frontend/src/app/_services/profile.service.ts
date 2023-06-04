@@ -51,13 +51,17 @@ export class ProfileService {
     return null;
   }
 
+  getUserBasicInfoById(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'profile/' + id.toString());
+  }
+
   getUserById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'user/' + id.toString());
   }
 
   updateUser(user_id: number, user: ProfileUpdateRequestModel) {
-    return this.http.put(
-      this.baseUrl + 'user/update/' + user_id.toString(),
+    return this.http.patch(
+      this.baseUrl + 'profile/update?profile_id=' + user_id,
       user
     );
   }

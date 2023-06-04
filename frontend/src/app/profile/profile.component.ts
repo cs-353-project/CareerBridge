@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   EducationalExperienceModel,
   ProfileModel,
+  ProfileUpdateRequestModel,
   SkillModel,
   WorkExperienceModel
 } from '../_models/profile_models';
@@ -13,6 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { WorkExperienceDialogComponent } from './work-experience-dialog/work-experience-dialog.component';
 import { EducationalExperienceDialogComponent } from './educational-experience-dialog/educational-experience-dialog.component';
 import { SkillDialogComponent } from './skill-dialog/skill-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -23,35 +25,64 @@ export class ProfileComponent implements OnInit {
   activeElement = 'information';
   // Get the id from the link in the navbar
   id = this.route.snapshot.paramMap.get('id');
-  profile_user: any;
   userBasicInfo: ProfileModel | null = null;
+
+  profile_name: string;
 
   workExperiences: WorkExperienceModel[] = [];
   educationalExperiences: EducationalExperienceModel[] = [];
   skills: SkillModel[] = [];
 
+  selectedFile: File | null = null;
+  selectedFileURL: string | ArrayBuffer | null = null;
+
   constructor(
     public profileService: ProfileService,
     public authenticationService: AuthenticationService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     console.log(this.id);
-    // this.userBasicInfo = this.profileService.getUserBasicInfo();
   }
 
   ngOnInit(): void {
     this.profileService
-      .getUserById(this.id)
+      .getUserBasicInfoById(+this.id)
       .toPromise()
       .then(
         response => {
-          this.profile_user = response[0];
+          response.forEach(element => {
+            this.userBasicInfo = {
+              profile_id: element.profile_id,
+              user_id: element.user_id,
+              avatar: element.avatar,
+              country: element.country,
+              external_portfolio_url: element.external_portfolio_url,
+              address: element.address,
+              biography: element.biography,
+              is_private: element.is_private,
+              resume: element.resume,
+              phone_number: element.phone_number,
+              is_application_specific: element.is_application_specific,
+              created_at: element.created_at
+            };
+            console.log(this.userBasicInfo);
+          });
         },
         error => {
           console.log(error);
         }
       );
+
+    this.profileService
+      .getUserById(+this.id)
+      .toPromise()
+      .then(response => {
+        response.forEach(element => {
+          this.profile_name = element.first_name + ' ' + element.last_name;
+        });
+      });
 
     this.profileService
       .getWorkExperiences(this.id)
@@ -184,4 +215,26 @@ export class ProfileComponent implements OnInit {
     };
     const dialogRef = this.dialog.open(SkillDialogComponent, dialogConfig);
   }
+
+  uploadResume(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.selectedFile = inputElement.files[0];
+    }
+
+    let updateRequest: ProfileUpdateRequestModel = {
+      resume: this.selectedFile
+    };
+    console.log(this.selectedFile);
+    this.profileService.updateUser(+this.id, this.userBasicInfo).subscribe(
+      response => {
+        this.toastr.success('Resume uploaded successfully!');
+      },
+      error => {
+        this.toastr.error('Resume upload failed!');
+      }
+    );
+  }
+
+  deleteResume() {}
 }

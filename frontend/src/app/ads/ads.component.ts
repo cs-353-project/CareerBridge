@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewAdDialogComponent } from './new-ad-dialog/new-ad-dialog.component';
-import { JobAdFilterRequestModel } from '../_models/job_ad_models';
+import {
+  JobAdFilterRequestModel,
+  JobAdvertisementResponseModel
+} from '../_models/job_ad_models';
 import { AuthenticationService } from '../_services/authentication.service';
+import { JobAdService } from '../_services/job_ad.service';
 @Component({
   selector: 'app-ads',
   templateUrl: './ads.component.html',
@@ -13,6 +17,21 @@ export class AdsComponent implements OnInit {
   id_view: number = 5;
   showFilters: boolean = false;
   id: number;
+  ads_for_you: JobAdvertisementResponseModel[];
+  applied_ads: JobAdvertisementResponseModel[];
+  your_ads: JobAdvertisementResponseModel[];
+  colors: string[] = [
+    'blue',
+    'red',
+    'green',
+    'yellow',
+    'purple',
+    'orange',
+    'pink',
+    'brown',
+    'grey',
+    'black'
+  ];
 
   jobAdFilter: JobAdFilterRequestModel = {
     pay_range_min: 0,
@@ -28,11 +47,79 @@ export class AdsComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private adService: JobAdService
   ) {}
 
   ngOnInit(): void {
     this.id = this.authService.getCurrentUser().user.user_id;
+    this.ads_for_you = [];
+    this.adService
+      .getAllJobAds()
+      .toPromise()
+      .then(response => {
+        response.forEach(element => {
+          let ad = {
+            ad_id: element.ad_id,
+            creator_id: element.creator_id,
+            title: element.title,
+            description: element.description,
+            organization: element.organization,
+            setting: element.setting,
+            location: element.location,
+            type: element.type,
+            pay_range_min: element.pay_range_min,
+            pay_range_max: element.pay_range_max,
+            domain: element.domain,
+            is_open: element.is_open,
+            external_url: element.external_url,
+            application_count: element.application_count,
+            view_count: element.view_count,
+            created_at: element.created_at,
+            skills: element.skills,
+            required_degrees: element.required_degrees
+          };
+          this.ads_for_you.push(ad);
+        });
+      });
+    this.applied_ads = [];
+    this.adService
+      .getJobApplicationsByProfileId(this.id)
+      .toPromise()
+      .then(response => {
+        response.forEach(element => {
+          console.log(element);
+        });
+      });
+    this.your_ads = [];
+    this.adService
+      .getJobAds(this.id)
+      .toPromise()
+      .then(response => {
+        response.forEach(element => {
+          let ad = {
+            ad_id: element.ad_id,
+            creator_id: element.creator_id,
+            title: element.title,
+            description: element.description,
+            organization: element.organization,
+            setting: element.setting,
+            location: element.location,
+            type: element.type,
+            pay_range_min: element.pay_range_min,
+            pay_range_max: element.pay_range_max,
+            domain: element.domain,
+            is_open: element.is_open,
+            external_url: element.external_url,
+            application_count: element.application_count,
+            view_count: element.view_count,
+            created_at: element.created_at,
+            skills: element.skills,
+            required_degrees: element.required_degrees
+          };
+          this.your_ads.push(ad);
+        });
+      });
   }
 
   viewAdDetails() {

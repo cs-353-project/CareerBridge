@@ -79,6 +79,37 @@ def add_job_advertisement(job_advertisement_request: JobAdvertisementRequestMode
     return response
 
 
+def get_job_advertisements():
+    job_advertisement = query_get(
+        """
+            SELECT * FROM JobAdvertisement
+        """,
+        (),
+    )
+    if not job_advertisement:
+        raise HTTPException(status_code=404, detail="Job Advertisement not found")
+
+    for job_ad in job_advertisement:
+        skill_list = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (job_ad["ad_id"]),
+        )
+
+        degree_list = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (job_ad["ad_id"]),
+        )
+
+        job_ad["skills"] = skill_list
+        job_ad["required_degrees"] = degree_list
+
+    return job_advertisement
+
+
 def get_job_advertisement_by_id(creator_id: int):
     job_advertisement = query_get(
         """
@@ -90,22 +121,23 @@ def get_job_advertisement_by_id(creator_id: int):
     if not job_advertisement:
         raise HTTPException(status_code=404, detail="Job Advertisement not found")
 
-    skill_list = query_get(
-        """
-            SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
-        """,
-        (job_advertisement[0]["ad_id"]),
-    )
+    for job_ad in job_advertisement:
+        skill_list = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (job_ad["ad_id"]),
+        )
 
-    degree_list = query_get(
-        """
-            SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
-        """,
-        (job_advertisement[0]["ad_id"]),
-    )
+        degree_list = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (job_ad["ad_id"]),
+        )
 
-    job_advertisement[0]["skills"] = skill_list
-    job_advertisement[0]["required_degrees"] = degree_list
+        job_ad["skills"] = skill_list
+        job_ad["required_degrees"] = degree_list
 
     return job_advertisement
 
@@ -210,6 +242,24 @@ def apply_filter(request: JobAdFilterRequestModel):
 
     job_advertisements = query_get(query, ())
 
+    for job_ad in job_advertisements:
+        skill_list = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (job_ad["ad_id"]),
+        )
+
+        degree_list = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (job_ad["ad_id"]),
+        )
+
+        job_ad["skills"] = skill_list
+        job_ad["required_degrees"] = degree_list
+
     # if not job_advertisements:
     #     raise HTTPException(status_code=404, detail="Job Advertisement not found")
 
@@ -292,6 +342,20 @@ def get_applications_by_ad_id(ad_id: int):
             SELECT * FROM JobAdvertisementResponse WHERE ad_id = %s
         """,
         (ad_id,),
+    )
+
+    if not applications:
+        raise HTTPException(status_code=404, detail="Job Application not found")
+
+    return applications
+
+
+def get_applications_by_profile_id(profile_id: int):
+    applications = query_get(
+        """
+            SELECT * FROM JobAdvertisementResponse WHERE profile_id = %s
+        """,
+        (profile_id,),
     )
 
     if not applications:

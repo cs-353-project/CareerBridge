@@ -20,6 +20,10 @@ export class JobAdService {
 
   constructor(private http: HttpClient) {}
 
+  getAllJobAds(): Observable<any> {
+    return this.http.get(this.baseUrl + 'job_ad');
+  }
+
   getJobAds(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'job_ad/' + id.toString());
   }
@@ -33,7 +37,8 @@ export class JobAdService {
   }
 
   filterJobAds(filter: JobAdFilterRequestModel): Observable<any> {
-    return this.http.post(this.baseUrl + 'jobapplications/filter', filter);
+    // TODO: fix this
+    return this.http.get(this.baseUrl + 'jobapplications/filter');
   }
 
   addJobApplication(
@@ -56,5 +61,9 @@ export class JobAdService {
       this.baseUrl + 'jobapplications/' + application_id,
       response
     );
+  }
+
+  getJobApplicationsByProfileId(profile_id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'jobapplications/' + profile_id.toString());
   }
 }

@@ -7,7 +7,7 @@ import { CommentRequestModel, PostResponseModel } from '../_models/post_models';
 @Injectable({
   providedIn: 'root'
 })
-export class JobAdService {
+export class PostService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}

@@ -7,9 +7,18 @@
       min-height: 600px;
       overflow-y: scroll;
     ">
-    <div class="my-2 ml-4">
+    <div
+      class="mt-4 mb-2 ml-4 mr-4"
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      ">
       <button mat-raised-button color="primary" (click)="filterChange()">
         Show Filter Options
+      </button>
+      <button mat-raised-button color="primary" (click)="createAd()">
+        Create New Ad
       </button>
     </div>
     <div class="mx-4 my-2 d-flex flex-row" *ngIf="this.showFilters">
@@ -88,349 +97,313 @@
       <div class="d-flex flex-column ml-3"></div>
     </div>
     <mat-tab-group #tabGroup>
-      <mat-tab label="Ads For You" style="min-height: 450px">
-        <div
-          class="w-100 d-flex flex-row align-items-center"
-          style="height: 150px; overflow: hidden">
-          <div class="h-100" style="width: 125px !important">
-            <div class="p-3 d-flex flex-column justify-content-center">
-              <img src="assets/images/company.png" alt="placeholder" />
+      <mat-tab label="All Ads" style="min-height: 450px">
+        <div>
+          <div
+            *ngFor="let afy of this.ads_for_you; index as i; first as isFirst"
+            class="w-100 d-flex flex-row align-items-center"
+            style="height: 150px; overflow: hidden">
+            <div class="h-100" style="width: 125px !important">
+              <div class="p-3 d-flex flex-column justify-content-center">
+                <img src="assets/images/company.png" alt="placeholder" />
+              </div>
+              <div class="text-center">
+                <span style="font-size: 10px; color: green">Open</span>
+              </div>
             </div>
-            <div class="text-center">
-              <span style="font-size: 10px; color: green">Open</span>
-            </div>
-          </div>
-          <div class="h-100" style="width: 175px">
-            <div class="p-3 d-flex flex-column">
-              <div class="d-flex flex-column">
-                <span style="font-size: 15px" class="font-weight-bold"
-                  >UI/UX Designer</span
-                >
-                <div>
-                  <span style="font-size: 12px" class="mr-2">Google</span>
-                  <span style="font-size: 12px; color: darkgray"
-                    >California, USA</span
-                  >
-                </div>
+            <div class="h-100" style="width: 175px">
+              <div class="p-3 d-flex flex-column">
+                <div class="d-flex flex-column">
+                  <span style="font-size: 15px" class="font-weight-bold">{{
+                    afy.title
+                  }}</span>
+                  <div>
+                    <span style="font-size: 12px" class="mr-2">Google</span>
+                    <span style="font-size: 12px; color: darkgray">{{
+                      afy.location
+                    }}</span>
+                  </div>
 
+                  <div>
+                    <span style="font-size: 11px"
+                      ><strong
+                        >${{ afy.pay_range_min }}-{{
+                          afy.pay_range_max
+                        }}</strong
+                      ></span
+                    >
+                    <span style="font-size: 12px; color: darkgray">/year</span>
+                  </div>
+                  <div style="font-size: 12px">
+                    <span>{{ afy.domain }}</span>
+                  </div>
+                  <div class="d-flex flex-row" style="font-size: 11px">
+                    <span>Job Ad</span>
+                    <span class="mx-1">&#183;</span>
+                    <span>{{ afy.setting }}</span>
+                  </div>
+                  <div>
+                    <span style="font-size: 10px; color: darkgray"
+                      >25 minutes ago</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: 175px">
+              <div
+                class="d-flex flex-column justify-content-center align-items-center h-100">
+                <div
+                  *ngFor="let skill of afy.skills; index as j"
+                  class="bg-danger py-1 px-2"
+                  style="border-radius: 10px"
+                  [ngStyle]="{ color: this.colors[j] }">
+                  <span class="text-light">{{ skill.skill_name }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: calc(100% - 625px)">
+              <div class="p-3 d-flex flex-column">
                 <div>
+                  <span style="text-decoration: underline"
+                    ><b>Description</b></span
+                  >
+                </div>
+                <div>
+                  <p class="max-lines">
+                    {{ afy.description }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: 150px">
+              <div class="p-3 d-flex flex-column align-items-center">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="mt-2"
+                  (click)="viewAdDetails()">
+                  View Ad Details
+                </button>
+                <div
+                  class="d-flex flex-column justify-content-center align-items-center mt-3">
                   <span style="font-size: 11px"
-                    ><strong>$15000-20000</strong></span
+                    >Application count: {{ afy.application_count }}</span
                   >
-                  <span style="font-size: 12px; color: darkgray">/month</span>
-                </div>
-                <div style="font-size: 12px">
-                  <span>Software Development</span>
-                </div>
-                <div class="d-flex flex-row" style="font-size: 11px">
-                  <span>Job Ad</span>
-                  <span class="mx-1">&#183;</span>
-                  <span>Remote</span>
-                </div>
-                <div>
-                  <span style="font-size: 10px; color: darkgray"
-                    >25 minutes ago</span
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: 175px">
-            <div
-              class="d-flex flex-column justify-content-center align-items-center h-100">
-              <div class="bg-info py-1 px-2" style="border-radius: 10px">
-                <span class="text-light">Figma</span>
-              </div>
-              <div class="bg-danger py-1 px-2 mt-1" style="border-radius: 10px">
-                <span class="text-light">Photoshop</span>
-              </div>
-              <div
-                class="bg-warning py-1 px-2 mt-1"
-                style="border-radius: 10px">
-                <span class="text-light">Angular</span>
-              </div>
-              <div
-                class="bg-primary py-1 px-2 mt-1"
-                style="border-radius: 10px">
-                <span class="text-light">JavaScript</span>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: calc(100% - 625px)">
-            <div class="p-3 d-flex flex-column">
-              <div>
-                <span style="text-decoration: underline"
-                  ><b>Decription</b></span
-                >
-              </div>
-              <div>
-                <p class="max-lines">
-                  orem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic types orem Ipsum is simply dummy
-                  text of the printing and typesetting industry. Lorem Ipsum has
-                  been the industry's standard dummy text ever since the 1500s,
-                  when an unknown printer took a galley of type and scrambled it
-                  to make a type specimen book. It has survived not only
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: 150px">
-            <div class="p-3 d-flex flex-column align-items-center">
-              <button
-                mat-raised-button
-                color="primary"
-                class="mt-2"
-                (click)="viewAdDetails()">
-                View Ad Details
-              </button>
-              <div
-                class="d-flex flex-column justify-content-center align-items-center mt-3">
-                <span style="font-size: 11px">Application count: 82</span>
-                <span style="font-size: 11px">View count: 82</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <mat-divider class="w-100"></mat-divider>
-        <div
-          class="w-100 d-flex flex-row align-items-center"
-          style="height: 150px; overflow: hidden">
-          <div class="h-100" style="width: 125px !important">
-            <div class="p-3 d-flex flex-column justify-content-center">
-              <img src="assets/images/company.png" alt="placeholder" />
-            </div>
-            <div class="text-center">
-              <span style="font-size: 10px; color: green">Open</span>
-            </div>
-          </div>
-          <div class="h-100" style="width: 175px">
-            <div class="p-3 d-flex flex-column">
-              <div class="d-flex flex-column">
-                <span style="font-size: 15px" class="font-weight-bold"
-                  >UI/UX Designer</span
-                >
-                <div>
-                  <span style="font-size: 12px" class="mr-2">Google</span>
-                  <span style="font-size: 12px; color: darkgray"
-                    >California, USA</span
-                  >
-                </div>
-
-                <div>
                   <span style="font-size: 11px"
-                    ><strong>$15000-20000</strong></span
-                  >
-                  <span style="font-size: 12px; color: darkgray">/month</span>
-                </div>
-                <div style="font-size: 12px">
-                  <span>Software Development</span>
-                </div>
-                <div class="d-flex flex-row" style="font-size: 11px">
-                  <span>Job Ad</span>
-                  <span class="mx-1">&#183;</span>
-                  <span>Remote</span>
-                </div>
-                <div>
-                  <span style="font-size: 10px; color: darkgray"
-                    >25 minutes ago</span
+                    >View count: {{ afy.view_count }}</span
                   >
                 </div>
               </div>
             </div>
           </div>
-          <div class="h-100" style="width: 175px">
-            <div
-              class="d-flex flex-column justify-content-center align-items-center h-100">
-              <div class="bg-info py-1 px-2" style="border-radius: 10px">
-                <span class="text-light">Figma</span>
-              </div>
-              <div class="bg-danger py-1 px-2 mt-1" style="border-radius: 10px">
-                <span class="text-light">Photoshop</span>
-              </div>
-              <div
-                class="bg-warning py-1 px-2 mt-1"
-                style="border-radius: 10px">
-                <span class="text-light">Angular</span>
-              </div>
-              <div
-                class="bg-primary py-1 px-2 mt-1"
-                style="border-radius: 10px">
-                <span class="text-light">JavaScript</span>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: calc(100% - 625px)">
-            <div class="p-3 d-flex flex-column">
-              <div>
-                <span style="text-decoration: underline"
-                  ><b>Decription</b></span
-                >
-              </div>
-              <div>
-                <p class="max-lines">
-                  orem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic types orem Ipsum is simply dummy
-                  text of the printing and typesetting industry. Lorem Ipsum has
-                  been the industry's standard dummy text ever since the 1500s,
-                  when an unknown printer took a galley of type and scrambled it
-                  to make a type specimen book. It has survived not only
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: 150px">
-            <div class="p-3 d-flex flex-column align-items-center">
-              <button
-                mat-raised-button
-                color="primary"
-                class="mt-2"
-                (click)="viewAdDetails()">
-                View Ad Details
-              </button>
-              <div
-                class="d-flex flex-column justify-content-center align-items-center mt-3">
-                <span style="font-size: 11px">Application count: 82</span>
-                <span style="font-size: 11px">View count: 82</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <mat-divider class="w-100"></mat-divider>
-        <div
-          class="w-100 d-flex flex-row align-items-center"
-          style="height: 150px; overflow: hidden">
-          <div class="h-100" style="width: 125px !important">
-            <div class="p-3 d-flex flex-column justify-content-center">
-              <img src="assets/images/company.png" alt="placeholder" />
-            </div>
-            <div class="text-center">
-              <span style="font-size: 10px; color: green">Open</span>
-            </div>
-          </div>
-          <div class="h-100" style="width: 175px">
-            <div class="p-3 d-flex flex-column">
-              <div class="d-flex flex-column">
-                <span style="font-size: 15px" class="font-weight-bold"
-                  >UI/UX Designer</span
-                >
-                <div>
-                  <span style="font-size: 12px" class="mr-2">Google</span>
-                  <span style="font-size: 12px; color: darkgray"
-                    >California, USA</span
-                  >
-                </div>
-
-                <div>
-                  <span style="font-size: 11px"
-                    ><strong>$15000-20000</strong></span
-                  >
-                  <span style="font-size: 12px; color: darkgray">/month</span>
-                </div>
-                <div style="font-size: 12px">
-                  <span>Software Development</span>
-                </div>
-                <div class="d-flex flex-row" style="font-size: 11px">
-                  <span>Job Ad</span>
-                  <span class="mx-1">&#183;</span>
-                  <span>Remote</span>
-                </div>
-                <div>
-                  <span style="font-size: 10px; color: darkgray"
-                    >25 minutes ago</span
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: 175px">
-            <div
-              class="d-flex flex-column justify-content-center align-items-center h-100">
-              <div class="bg-info py-1 px-2" style="border-radius: 10px">
-                <span class="text-light">Figma</span>
-              </div>
-              <div class="bg-danger py-1 px-2 mt-1" style="border-radius: 10px">
-                <span class="text-light">Photoshop</span>
-              </div>
-              <div
-                class="bg-warning py-1 px-2 mt-1"
-                style="border-radius: 10px">
-                <span class="text-light">Angular</span>
-              </div>
-              <div
-                class="bg-primary py-1 px-2 mt-1"
-                style="border-radius: 10px">
-                <span class="text-light">JavaScript</span>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: calc(100% - 625px)">
-            <div class="p-3 d-flex flex-column">
-              <div>
-                <span style="text-decoration: underline"
-                  ><b>Decription</b></span
-                >
-              </div>
-              <div>
-                <p class="max-lines">
-                  orem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic types orem Ipsum is simply dummy
-                  text of the printing and typesetting industry. Lorem Ipsum has
-                  been the industry's standard dummy text ever since the 1500s,
-                  when an unknown printer took a galley of type and scrambled it
-                  to make a type specimen book. It has survived not only
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: 150px">
-            <div class="p-3 d-flex flex-column align-items-center">
-              <button
-                mat-raised-button
-                color="primary"
-                class="mt-2"
-                (click)="viewAdDetails()">
-                View Ad Details
-              </button>
-              <div
-                class="d-flex flex-column justify-content-center align-items-center mt-3">
-                <span style="font-size: 11px">Application count: 82</span>
-                <span style="font-size: 11px">View count: 82</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <mat-divider class="w-100"></mat-divider>
-        <div
-          class="d-flex flex-row justify-content-center align-items-center mb-3">
-          <button mat-raised-button color="primary" class="mt-2">1</button>
-          <button mat-raised-button class="mt-2 mx-1">2</button>
-          <button mat-raised-button class="mt-2">3</button>
-          <button mat-raised-button class="mt-2 mx-1">4</button>
-          <span class="mx-1">&#183;</span>
-          <span class="mx-1">&#183;</span>
-          <span class="mx-1">&#183;</span>
-          <button mat-raised-button class="mt-2 mx-1">55</button>
+          <mat-divider class="w-100"></mat-divider>
         </div>
       </mat-tab>
       <mat-tab label="Applied Ads"></mat-tab>
-      <mat-tab label="All Ads"></mat-tab>
+      <div>
+        <div
+          *ngFor="let appads of this.applied_ads; index as i; first as isFirst"
+          class="w-100 d-flex flex-row align-items-center"
+          style="height: 150px; overflow: hidden">
+          <div class="h-100" style="width: 125px !important">
+            <div class="p-3 d-flex flex-column justify-content-center">
+              <img src="assets/images/company.png" alt="placeholder" />
+            </div>
+            <div class="text-center">
+              <span style="font-size: 10px; color: green">Open</span>
+            </div>
+          </div>
+          <div class="h-100" style="width: 175px">
+            <div class="p-3 d-flex flex-column">
+              <div class="d-flex flex-column">
+                <span style="font-size: 15px" class="font-weight-bold">{{
+                  appads.title
+                }}</span>
+                <div>
+                  <span style="font-size: 12px" class="mr-2">Google</span>
+                  <span style="font-size: 12px; color: darkgray">{{
+                    appads.location
+                  }}</span>
+                </div>
+
+                <div>
+                  <span style="font-size: 11px"
+                    ><strong
+                      >${{ appads.pay_range_min }}-{{
+                        appads.pay_range_max
+                      }}</strong
+                    ></span
+                  >
+                  <span style="font-size: 12px; color: darkgray">/year</span>
+                </div>
+                <div style="font-size: 12px">
+                  <span>{{ appads.domain }}</span>
+                </div>
+                <div class="d-flex flex-row" style="font-size: 11px">
+                  <span>Job Ad</span>
+                  <span class="mx-1">&#183;</span>
+                  <span>{{ appads.setting }}</span>
+                </div>
+                <div>
+                  <span style="font-size: 10px; color: darkgray"
+                    >25 minutes ago</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="h-100" style="width: 175px">
+            <div
+              class="d-flex flex-column justify-content-center align-items-center h-100">
+              <div
+                *ngFor="let skill of appads.skills; index as j"
+                class="bg-danger py-1 px-2"
+                style="border-radius: 10px"
+                [ngStyle]="{ color: this.colors[j] }">
+                <span class="text-light">{{ skill.skill_name }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="h-100" style="width: calc(100% - 625px)">
+            <div class="p-3 d-flex flex-column">
+              <div>
+                <span style="text-decoration: underline"
+                  ><b>Description</b></span
+                >
+              </div>
+              <div>
+                <p class="max-lines">
+                  {{ appads.description }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="h-100" style="width: 150px">
+            <div class="p-3 d-flex flex-column align-items-center">
+              <button
+                mat-raised-button
+                color="primary"
+                class="mt-2"
+                (click)="viewAdDetails()">
+                View Ad Details
+              </button>
+              <div
+                class="d-flex flex-column justify-content-center align-items-center mt-3">
+                <span style="font-size: 11px"
+                  >Application count: {{ appads.application_count }}</span
+                >
+                <span style="font-size: 11px"
+                  >View count: {{ appads.view_count }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-divider class="w-100"></mat-divider>
+      </div>
       <mat-tab label="Your Ads">
-        <button mat-raised-button color="primary" (click)="createAd()">
-          Create New Ad
-        </button>
+        <div>
+          <div
+            *ngFor="let yads of this.your_ads; index as i; first as isFirst"
+            class="w-100 d-flex flex-row align-items-center"
+            style="height: 150px; overflow: hidden">
+            <div class="h-100" style="width: 125px !important">
+              <div class="p-3 d-flex flex-column justify-content-center">
+                <img src="assets/images/company.png" alt="placeholder" />
+              </div>
+              <div class="text-center">
+                <span style="font-size: 10px; color: green">Open</span>
+              </div>
+            </div>
+            <div class="h-100" style="width: 175px">
+              <div class="p-3 d-flex flex-column">
+                <div class="d-flex flex-column">
+                  <span style="font-size: 15px" class="font-weight-bold">{{
+                    yads.title
+                  }}</span>
+                  <div>
+                    <span style="font-size: 12px" class="mr-2">Google</span>
+                    <span style="font-size: 12px; color: darkgray">{{
+                      yads.location
+                    }}</span>
+                  </div>
+
+                  <div>
+                    <span style="font-size: 11px"
+                      ><strong
+                        >${{ yads.pay_range_min }}-{{
+                          yads.pay_range_max
+                        }}</strong
+                      ></span
+                    >
+                    <span style="font-size: 12px; color: darkgray">/year</span>
+                  </div>
+                  <div style="font-size: 12px">
+                    <span>{{ yads.domain }}</span>
+                  </div>
+                  <div class="d-flex flex-row" style="font-size: 11px">
+                    <span>Job Ad</span>
+                    <span class="mx-1">&#183;</span>
+                    <span>{{ yads.setting }}</span>
+                  </div>
+                  <div>
+                    <span style="font-size: 10px; color: darkgray"
+                      >25 minutes ago</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: 175px">
+              <div
+                class="d-flex flex-column justify-content-center align-items-center h-100">
+                <div
+                  *ngFor="let skill of yads.skills; index as j"
+                  class="bg-danger py-1 px-2 mt-1"
+                  style="border-radius: 10px"
+                  [ngStyle]="{ color: this.colors[j] }">
+                  <span class="text-light">{{ skill.skill_name }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: calc(100% - 625px)">
+              <div class="p-3 d-flex flex-column">
+                <div>
+                  <span style="text-decoration: underline"
+                    ><b>Description</b></span
+                  >
+                </div>
+                <div>
+                  <p class="max-lines">
+                    {{ yads.description }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: 150px">
+              <div class="p-3 d-flex flex-column align-items-center">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="mt-2"
+                  (click)="viewAdDetails()">
+                  View Ad Details
+                </button>
+                <div
+                  class="d-flex flex-column justify-content-center align-items-center mt-3">
+                  <span style="font-size: 11px"
+                    >Application count: {{ yads.application_count }}</span
+                  >
+                  <span style="font-size: 11px"
+                    >View count: {{ yads.view_count }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider class="w-100"></mat-divider>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>

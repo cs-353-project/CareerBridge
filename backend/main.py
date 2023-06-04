@@ -72,6 +72,7 @@ from job_ad.job_ad import (
     evaluate_application,
     get_applications_by_ad_id,
     get_job_advertisement_by_id,
+    get_job_advertisements, get_applications_by_profile_id,
 )
 from job_ad.models import (
     JobAdFilterRequestModel,
@@ -457,6 +458,17 @@ def add_job_ad_api(job_ad_details: JobAdvertisementRequestModel):
     return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
 
 
+@app.get("/api/job_ad/", response_model=list[JobAdvertisementResponseModel])
+def get_job_ads_api():
+
+    job_ad = get_job_advertisements()
+
+    if len(job_ad) == 0:
+        raise HTTPException(status_code=404, detail="Job ad not found")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
+
+
 @app.get("/api/job_ad/{creator_id}", response_model=list[JobAdvertisementResponseModel])
 def get_job_ad_api(creator_id: int):
 
@@ -717,6 +729,19 @@ def add_job_application_api(job_application_details: JobApplicationRequestModel)
 
     # if len(job_application) == 0:
     #     raise HTTPException(status_code=404, detail="Error while adding job application")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
+
+
+@app.get("/api/jobapplications/{user_id}", response_model=list[JobApplicationResponseModel])
+def get_job_application_api(user_id: int):
+    """
+    This job application API allow you to fetch specific job application data.
+    """
+    job_application = get_applications_by_profile_id(user_id)
+
+    if len(job_application) == 0:
+        raise HTTPException(status_code=404, detail="Job application not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
 

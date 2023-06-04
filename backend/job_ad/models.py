@@ -1,9 +1,7 @@
-from profile.models import DegreeRequestModel, DegreeResponseModel
+from profile.models import DegreeRequestModel, DegreeResponseModel, ProfileResponseModel
 from typing import Optional
 
 from pydantic import BaseModel, HttpUrl
-
-from backend.profile import ProfileResponseModel
 
 
 class SkillInJobResponseModel(BaseModel):

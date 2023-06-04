@@ -103,9 +103,8 @@
     </div>
     <mat-tab-group #tabGroup>
       <mat-tab label="All Ads" style="min-height: 450px">
-        <div>
+        <div *ngFor="let afy of this.ads_for_you; index as i">
           <div
-            *ngFor="let afy of this.ads_for_you; index as i"
             class="w-100 d-flex flex-row align-items-center"
             style="height: 150px; overflow: hidden">
             <div class="h-100" style="width: 125px !important">
@@ -123,7 +122,9 @@
                     afy.title
                   }}</span>
                   <div>
-                    <span style="font-size: 12px" class="mr-2">Google</span>
+                    <span style="font-size: 12px" class="mr-2">{{
+                      afy.organization
+                    }}</span>
                     <span style="font-size: 12px; color: darkgray">{{
                       afy.location
                     }}</span>
@@ -143,7 +144,7 @@
                     <span>{{ afy.domain }}</span>
                   </div>
                   <div class="d-flex flex-row" style="font-size: 11px">
-                    <span>Job Ad</span>
+                    <span>{{ afy.type }}</span>
                     <span class="mx-1">&#183;</span>
                     <span>{{ afy.setting }}</span>
                   </div>
@@ -188,7 +189,7 @@
                   mat-raised-button
                   color="primary"
                   class="mt-2"
-                  (click)="viewAdDetails()">
+                  (click)="viewAdDetails(afy)">
                   View Ad Details
                 </button>
                 <div
@@ -206,117 +207,117 @@
           <mat-divider class="w-100"></mat-divider>
         </div>
       </mat-tab>
-      <mat-tab label="Applied Ads"></mat-tab>
-      <div>
-        <div
-          *ngFor="let appads of this.applied_ads; index as i"
-          class="w-100 d-flex flex-row align-items-center"
-          style="height: 150px; overflow: hidden">
-          <div class="h-100" style="width: 125px !important">
-            <div class="p-3 d-flex flex-column justify-content-center">
-              <img src="assets/images/company.png" alt="placeholder" />
+      <mat-tab label="Applied Ads">
+        <div *ngFor="let afy of this.applied_ads; index as i">
+          <div
+            class="w-100 d-flex flex-row align-items-center"
+            style="height: 150px; overflow: hidden">
+            <div class="h-100" style="width: 125px !important">
+              <div class="p-3 d-flex flex-column justify-content-center">
+                <img src="assets/images/company.png" alt="placeholder" />
+              </div>
+              <div class="text-center">
+                <span style="font-size: 10px; color: green">Open</span>
+              </div>
             </div>
-            <div class="text-center">
-              <span style="font-size: 10px; color: green">Open</span>
-            </div>
-          </div>
-          <div class="h-100" style="width: 175px">
-            <div class="p-3 d-flex flex-column">
-              <div class="d-flex flex-column">
-                <span style="font-size: 15px" class="font-weight-bold">{{
-                  appads.title
-                }}</span>
-                <div>
-                  <span style="font-size: 12px" class="mr-2">Google</span>
-                  <span style="font-size: 12px; color: darkgray">{{
-                    appads.location
+            <div class="h-100" style="width: 175px">
+              <div class="p-3 d-flex flex-column">
+                <div class="d-flex flex-column">
+                  <span style="font-size: 15px" class="font-weight-bold">{{
+                    afy.title
                   }}</span>
-                </div>
+                  <div>
+                    <span style="font-size: 12px" class="mr-2">{{
+                      afy.organization
+                    }}</span>
+                    <span style="font-size: 12px; color: darkgray">{{
+                      afy.location
+                    }}</span>
+                  </div>
 
+                  <div>
+                    <span style="font-size: 11px"
+                      ><strong
+                        >${{ afy.pay_range_min }}-{{
+                          afy.pay_range_max
+                        }}</strong
+                      ></span
+                    >
+                    <span style="font-size: 12px; color: darkgray">/year</span>
+                  </div>
+                  <div style="font-size: 12px">
+                    <span>{{ afy.domain }}</span>
+                  </div>
+                  <div class="d-flex flex-row" style="font-size: 11px">
+                    <span>{{ afy.type }}</span>
+                    <span class="mx-1">&#183;</span>
+                    <span>{{ afy.setting }}</span>
+                  </div>
+                  <div>
+                    <span style="font-size: 10px; color: darkgray"
+                      >25 minutes ago</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: 175px">
+              <div
+                class="d-flex flex-column justify-content-center align-items-center h-100">
+                <div
+                  *ngFor="let skill of afy.skills; index as j; first as isFirst"
+                  class="bg-danger py-1 px-2"
+                  style="border-radius: 10px"
+                  [ngClass]="{ 'mt-1': !isFirst }"
+                  [ngStyle]="{ color: this.colors[j] }">
+                  <span class="text-light">{{ skill.skill_name }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: calc(100% - 625px)">
+              <div class="p-3 d-flex flex-column">
                 <div>
+                  <span style="text-decoration: underline"
+                    ><b>Description</b></span
+                  >
+                </div>
+                <div>
+                  <p class="max-lines">
+                    {{ afy.description }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="h-100" style="width: 150px">
+              <div class="p-3 d-flex flex-column align-items-center">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="mt-2"
+                  (click)="viewAdDetails(afy)">
+                  View Ad Details
+                </button>
+                <div
+                  class="d-flex flex-column justify-content-center align-items-center mt-3">
                   <span style="font-size: 11px"
-                    ><strong
-                      >${{ appads.pay_range_min }}-{{
-                        appads.pay_range_max
-                      }}</strong
-                    ></span
+                    >Application count: {{ afy.application_count }}</span
                   >
-                  <span style="font-size: 12px; color: darkgray">/year</span>
-                </div>
-                <div style="font-size: 12px">
-                  <span>{{ appads.domain }}</span>
-                </div>
-                <div class="d-flex flex-row" style="font-size: 11px">
-                  <span>Job Ad</span>
-                  <span class="mx-1">&#183;</span>
-                  <span>{{ appads.setting }}</span>
-                </div>
-                <div>
-                  <span style="font-size: 10px; color: darkgray"
-                    >25 minutes ago</span
+                  <span style="font-size: 11px"
+                    >View count: {{ afy.view_count }}</span
                   >
                 </div>
               </div>
             </div>
           </div>
-          <div class="h-100" style="width: 175px">
-            <div
-              class="d-flex flex-column justify-content-center align-items-center h-100">
-              <div
-                *ngFor="
-                  let skill of appads.skills;
-                  index as j;
-                  first as isFirst
-                "
-                class="bg-danger py-1 px-2"
-                style="border-radius: 10px"
-                [ngClass]="{ 'mt-1': !isFirst }"
-                [ngStyle]="{ 'background-color': this.colors[j] }">
-                <span class="text-light">{{ skill.skill_name }}</span>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: calc(100% - 625px)">
-            <div class="p-3 d-flex flex-column">
-              <div>
-                <span style="text-decoration: underline"
-                  ><b>Description</b></span
-                >
-              </div>
-              <div>
-                <p class="max-lines">
-                  {{ appads.description }}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="h-100" style="width: 150px">
-            <div class="p-3 d-flex flex-column align-items-center">
-              <button
-                mat-raised-button
-                color="primary"
-                class="mt-2"
-                (click)="viewAdDetails()">
-                View Ad Details
-              </button>
-              <div
-                class="d-flex flex-column justify-content-center align-items-center mt-3">
-                <span style="font-size: 11px"
-                  >Application count: {{ appads.application_count }}</span
-                >
-                <span style="font-size: 11px"
-                  >View count: {{ appads.view_count }}</span
-                >
-              </div>
-            </div>
-          </div>
+          <mat-divider class="w-100"></mat-divider>
         </div>
+      </mat-tab>
+      <div>
         <mat-divider class="w-100"></mat-divider>
       </div>
       <mat-tab label="Your Ads">
-        <div>
+        <div *ngFor="let yads of this.your_ads; index as i">
           <div
-            *ngFor="let yads of this.your_ads; index as i"
             class="w-100 d-flex flex-row align-items-center"
             style="height: 150px; overflow: hidden">
             <div class="h-100" style="width: 125px !important">
@@ -334,7 +335,9 @@
                     yads.title
                   }}</span>
                   <div>
-                    <span style="font-size: 12px" class="mr-2">Google</span>
+                    <span style="font-size: 12px" class="mr-2">{{
+                      yads.organization
+                    }}</span>
                     <span style="font-size: 12px; color: darkgray">{{
                       yads.location
                     }}</span>
@@ -354,7 +357,7 @@
                     <span>{{ yads.domain }}</span>
                   </div>
                   <div class="d-flex flex-row" style="font-size: 11px">
-                    <span>Job Ad</span>
+                    <span>{{ yads.type }}</span>
                     <span class="mx-1">&#183;</span>
                     <span>{{ yads.setting }}</span>
                   </div>
@@ -403,7 +406,7 @@
                   mat-raised-button
                   color="primary"
                   class="mt-2"
-                  (click)="viewAdDetails()">
+                  (click)="viewAdDetails(yads)">
                   View Ad Details
                 </button>
                 <div

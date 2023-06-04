@@ -368,6 +368,16 @@ def get_applications_by_profile_id(profile_id: int):
     if not applications:
         raise HTTPException(status_code=404, detail="Job Application not found")
 
+    # Also get the job advertisement details
+    for application in applications:
+        job_ad = query_get(
+            """
+                SELECT * FROM JobAdvertisement WHERE ad_id = %s
+            """,
+            (application["ad_id"]),
+        )
+        application["ad_details"] = job_ad
+
     return applications
 
 

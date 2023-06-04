@@ -93,7 +93,9 @@ export class AdsComponent implements OnInit {
       .toPromise()
       .then(response => {
         response.forEach(element => {
-          console.log(element);
+          let elementt = element.ad_details;
+          this.applied_ads.push(elementt);
+          console.log(this.applied_ads);
         });
       });
     this.your_ads = [];

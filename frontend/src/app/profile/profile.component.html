@@ -134,6 +134,7 @@
         [ngStyle]="{
           display: this.activeElement !== 'work-experience' ? 'none' : ''
         }">
+        >
         <div class="main-content-top">
           <div class="main-content-top-inner">
             <mat-icon>work</mat-icon>
@@ -143,40 +144,31 @@
             Add Experience
           </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>work_outline</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
+        <div class="mt-2" *ngIf="workExperiences?.length == 0">
+          <span>No Work Experience yet.</span>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>work_outline</mat-icon>
+        <div class="mt-2" *ngIf="workExperiences?.length > 0">
+          <div *ngFor="let work_experience of workExperiences">
+            <div class="main-content-item">
+              <div class="main-content-top">
+                <div class="main-content-top-inner">
+                  <mat-icon>work_outline</mat-icon>
+                  <div>
+                    <h3>{{ work_experience.experience.title }}</h3>
+                    <p>{{ work_experience.company_name }}</p>
+                    <p>
+                      <small
+                        >{{ work_experience.experience.start_date }} -
+                        {{ work_experience.experience.end_date }}</small
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+                {{ work_experience.experience.description }}
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -199,40 +191,36 @@
             Add Experience
           </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>location_city</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
+        <div class="mt-2" *ngIf="educationalExperiences?.length == 0">
+          <span>No Educational Experience yet.</span>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>location_city</mat-icon>
+        <div *ngIf="educationalExperiences?.length > 0">
+          <div *ngFor="let edu_experience of educationalExperiences">
+            <div class="main-content-item">
+              <div class="main-content-top">
+                <div class="main-content-top-inner">
+                  <mat-icon>location_city</mat-icon>
+                  <div>
+                    <h3>{{ edu_experience.experience.title }}</h3>
+                    <p>{{ edu_experience.school_name }}</p>
+                    <p>
+                      Degree: {{ edu_experience.degree.name }}, Field of Study:
+                      {{ edu_experience.field_of_study }}, Grade:
+                      {{ edu_experience.grade }}
+                    </p>
+                    <p>
+                      <small
+                        >{{ edu_experience.experience.start_date }}-
+                        {{ edu_experience.experience.end_date }}</small
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+                {{ edu_experience.experience.description }}
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -605,40 +593,23 @@
             Add Skill
           </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>check_circle_outline</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
+        <div class="mt-2" *ngIf="skills?.length == 0">
+          <span>No Skill yet.</span>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>check_circle_outline</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+        <div class="mt-2" *ngIf="workExperiences?.length > 0">
+          <div *ngFor="let skill of skills">
+            <div class="main-content-item">
+              <div class="main-content-top">
+                <div class="main-content-top-inner">
+                  <mat-icon>check_circle_outline</mat-icon>
+                  <div>
+                    <h3>{{ skill.name }}</h3>
+                    <p>Verified : {{ skill.is_verified }}</p>
+                    <p>Is Master Skill : {{ skill.is_master_skill }}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>

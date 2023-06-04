@@ -86,7 +86,7 @@ export class ProfileService {
     return this.http.get(this.baseUrl + 'profile/certification/' + id);
   }
 
-  getSkill(id: string): Observable<any> {
+  getSkills(id: string): Observable<any> {
     return this.http.get(this.baseUrl + 'profile/skill/' + id);
   }
 

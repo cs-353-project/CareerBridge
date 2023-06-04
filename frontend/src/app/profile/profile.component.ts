@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileModel } from '../_models/profile_models';
+import {
+  EducationalExperienceModel,
+  ProfileModel,
+  SkillModel,
+  WorkExperienceModel
+} from '../_models/profile_models';
 import { ProfileService } from '../_services/profile.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { UserAuthResponseModel } from '../_models/user_models';
@@ -18,9 +23,12 @@ export class ProfileComponent implements OnInit {
   activeElement = 'information';
   // Get the id from the link in the navbar
   id = this.route.snapshot.paramMap.get('id');
-
   profile_user: any;
   userBasicInfo: ProfileModel | null = null;
+
+  workExperiences: WorkExperienceModel[] = [];
+  educationalExperiences: EducationalExperienceModel[] = [];
+  skills: SkillModel[] = [];
 
   constructor(
     public profileService: ProfileService,
@@ -48,8 +56,65 @@ export class ProfileComponent implements OnInit {
     this.profileService
       .getWorkExperiences(this.id)
       .toPromise()
-      .then(response => {
-        console.log(response);
+      .then(data => {
+        //console.log(data);
+        data.forEach(element => {
+          console.log(element);
+          let temp: WorkExperienceModel = {
+            experience: {
+              profile_id: element.profile_id,
+              title: element.title,
+              start_date: element.start_date,
+              end_date: element.end_date,
+              description: element.description,
+              current_status: element.current_status
+            },
+            company_name: element.company_name,
+            setting: element.setting,
+            type: element.type
+          };
+          //console.log(element);
+          this.workExperiences.unshift(temp);
+        });
+      });
+
+    this.profileService
+      .getEducationalExperiences(this.id)
+      .toPromise()
+      .then(data => {
+        data.forEach(element => {
+          let temp: EducationalExperienceModel = {
+            experience: {
+              profile_id: element.profile_id,
+              title: element.title,
+              start_date: element.start_date,
+              end_date: element.end_date,
+              description: element.description,
+              current_status: element.current_status
+            },
+            school_name: element.school_name,
+            degree: element.degree,
+            field_of_study: element.field_of_study,
+            grade: element.grade
+          };
+          this.educationalExperiences.unshift(temp);
+        });
+      });
+
+    this.profileService
+      .getSkills(this.id)
+      .toPromise()
+      .then(data => {
+        data.forEach(element => {
+          let temp: SkillModel = {
+            skill_id: element.skill_id,
+            profile_id: element.profile_id,
+            name: element.name,
+            is_verified: element.is_verified,
+            is_master_skill: element.is_master_skill
+          };
+          this.skills.unshift(temp);
+        });
       });
   }
 

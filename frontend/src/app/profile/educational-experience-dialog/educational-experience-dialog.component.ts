@@ -21,4 +21,25 @@ export class EducationalExperienceDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  addEducationalExperience() {
+    // Convert dates to ISO format
+    const a = new Date(this.data.experience.start_date);
+    this.data.experience.start_date = a.toISOString().split('T')[0];
+    const b = new Date(this.data.experience.end_date);
+    this.data.experience.end_date = b.toISOString().split('T')[0];
+
+    this.data.experience.current_status = 'Working'; // temp fix
+
+    this.profileService.addEducationalExperience(this.data).subscribe(
+      response => {
+        this.toastr.success('Educational experience added successfully');
+        this.dialogRef.close();
+      },
+      error => {
+        this.toastr.clear();
+        this.toastr.error('Error adding educational experience');
+      }
+    );
+  }
 }

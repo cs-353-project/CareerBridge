@@ -18,4 +18,17 @@ export class SkillDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  addSkill() {
+    this.profileService.addSkill(this.data).subscribe(
+      response => {
+        this.toastr.success('Skill added successfully');
+        this.dialogRef.close();
+      },
+      error => {
+        this.toastr.clear();
+        this.toastr.error('Error adding skill');
+      }
+    );
+  }
 }

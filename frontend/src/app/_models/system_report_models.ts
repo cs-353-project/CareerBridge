@@ -43,7 +43,7 @@ export interface SystemReportResponseModel {
   total_num_of_ads: TotalNumOfAdsModel;
   num_of_users_each_role: NumOfUsersEachRoleModel;
   // highest_applications_each_domain: HighestApplicationsEachDomainModel;
-  average_skill_rating_of_each_skill: AverageNumberOfAdViewsForCompanyModel;
+  average_skill_rating_of_each_skill: AverageSkillRatingOfEachSkillModel;
   // least_published_ad_type_for_interval: LeastPublishedAdTypeForIntervalModel;
   average_number_of_ad_views_for_company: AverageNumberOfAdViewsForCompanyModel;
   minimum_and_maximum_pay_averages: MinimumAndMaximumPayAveragesModel;

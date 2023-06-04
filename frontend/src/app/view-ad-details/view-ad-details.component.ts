@@ -31,7 +31,7 @@ export class ViewAdDetailsComponent implements OnInit {
     this.user_id = this.authService.getCurrentUser().user.user_id;
 
     this.adService
-      .getJobDetails(this.ad_id)
+      .getJobDetails(this.ad_id, this.user_id)
       .toPromise()
       .then(response => {
         response.forEach(element => {
@@ -56,6 +56,7 @@ export class ViewAdDetailsComponent implements OnInit {
             skills: element.skills,
             required_degrees: element.required_degrees
           };
+          this.is_applied = element.has_applied;
           this.recruiter_name =
             element.creator.first_name + ' ' + element.creator.last_name;
           this.ad = temp;

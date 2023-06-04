@@ -672,6 +672,17 @@ def delete_certification(certification_id: int):
     )
 
 
+def get_exp_by_experience_id(experience_id: int):
+    experience = query_get(
+        """
+            SELECT * FROM Experience WHERE experience_id = %s;
+            """,
+        (experience_id),
+    )
+
+    return experience[0]
+
+
 def get_edu_exp_by_profile_id(profile_id: int):
     edu_exp = query_get(
         """
@@ -681,6 +692,16 @@ def get_edu_exp_by_profile_id(profile_id: int):
             """,
         (profile_id),
     )
+
+    # For every educational experience, get experience id and get all work experience
+    exp_list = []
+    for exp in edu_exp:
+        id = exp["experience_id"]
+        exp_list.append(get_exp_by_experience_id(id))
+
+    # Merge every item in work_exp with the corresponding item in exp_list
+    for i in range(len(edu_exp)):
+        edu_exp[i]["experience"] = exp_list[i]
 
     return edu_exp
 
@@ -695,6 +716,16 @@ def get_work_exp_by_profile_id(profile_id: int):
         (profile_id),
     )
 
+    # For every work experience, get experience id and get all work experience
+    exp_list = []
+    for exp in work_exp:
+        id = exp["experience_id"]
+        exp_list.append(get_exp_by_experience_id(id))
+
+    # Merge every item in work_exp with the corresponding item in exp_list
+    for i in range(len(work_exp)):
+        work_exp[i]["experience"] = exp_list[i]
+
     return work_exp
 
 
@@ -707,6 +738,16 @@ def get_vol_exp_by_profile_id(profile_id: int):
             """,
         (profile_id),
     )
+
+    # For every voluntary experience, get experience id and get all work experience
+    exp_list = []
+    for exp in vol_exp:
+        id = exp["experience_id"]
+        exp_list.append(get_exp_by_experience_id(id))
+
+    # Merge every item in work_exp with the corresponding item in exp_list
+    for i in range(len(vol_exp)):
+        vol_exp[i]["experience"] = exp_list[i]
 
     return vol_exp
 

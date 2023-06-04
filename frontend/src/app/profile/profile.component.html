@@ -11,8 +11,9 @@
       </div>
       <div id="top-inner-2">
         <h1>
-          {{ this.profile_user?.first_name }} {{ this.profile_user?.last_name }}
+          {{ profile_name }}
         </h1>
+
         <div id="top-inner-2-buttons">
           <button mat-button><mat-icon>share</mat-icon></button>
           <button mat-button><mat-icon>more_horiz</mat-icon></button>
@@ -591,6 +592,53 @@
           <button mat-button class="btn-primary" (click)="addSkill()">
             Add Skill
           </button>
+        </div>
+        <div class="mt-2" *ngIf="skills?.length == 0">
+          <span>No Skill yet.</span>
+        </div>
+        <div class="mt-2" *ngIf="workExperiences?.length > 0">
+          <div *ngFor="let skill of skills">
+            <div class="main-content-item">
+              <div class="main-content-top">
+                <div class="main-content-top-inner">
+                  <mat-icon>check_circle_outline</mat-icon>
+                  <div>
+                    <h3>{{ skill.name }}</h3>
+                    <p>Verified : {{ skill.is_verified }}</p>
+                    <p>Is Master Skill : {{ skill.is_master_skill }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="resume"
+        class="main-content-container"
+        [ngStyle]="{ display: this.activeElement !== 'resume' ? 'none' : '' }">
+        <div class="main-content-top">
+          <div class="main-content-top-inner">
+            <mat-icon>description</mat-icon>
+            <h2 class="main-content-header">Resume</h2>
+          </div>
+          <div>
+            <input
+              style="display: none"
+              id="input-file-id"
+              accept="application/pdf"
+              type="file"
+              (change)="uploadResume($event)" />
+            <label
+              for="input-file-id"
+              class="mat-raised-button primary bg-info text-light"
+              >Upload Resume</label
+            >
+            <button mat-button class="ml-2 btn-danger" (click)="deleteResume()">
+              Delete Resume
+            </button>
+          </div>
         </div>
         <div class="mt-2" *ngIf="skills?.length == 0">
           <span>No Skill yet.</span>

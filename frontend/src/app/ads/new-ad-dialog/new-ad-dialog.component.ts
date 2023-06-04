@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { JobAdvertisementRequestModel } from 'src/app/_models/job_ad_models';
+import { JobAdService } from '../../_services/job_ad.service';
+
+import { ToastrService } from 'ngx-toastr';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-ad-dialog',
@@ -6,10 +11,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-ad-dialog.component.css']
 })
 export class NewAdDialogComponent implements OnInit {
+  degrees: string;
+  skills: string;
 
-  constructor() { }
+  constructor(
+    private toastr: ToastrService,
+    private jobAdService: JobAdService,
+    public dialogRef: MatDialogRef<NewAdDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: JobAdvertisementRequestModel
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  postAd() {
+    const skillsList = this.skills.split(',');
+    const degreesList = this.degrees.split(',');
+    for (let i = 0; i < skillsList.length; i++) {
+      this.data.skills.push({ skill_name: skillsList[i].trim() });
+    }
+    for (let i = 0; i < degreesList.length; i++) {
+      this.data.required_degrees.push({ degree_name: degreesList[i].trim() });
+    }
+
+    console.log(this.data);
+    this.jobAdService.addJobAd(this.data).subscribe(
+      res => {
+        this.toastr.success('Job Ad Posted Successfully');
+        this.dialogRef.close();
+      },
+      err => {
+        this.toastr.error('Error Occured');
+        console.log(err);
+      }
+    );
   }
-
 }

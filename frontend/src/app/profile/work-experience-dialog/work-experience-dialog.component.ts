@@ -33,6 +33,7 @@ export class WorkExperienceDialogComponent implements OnInit {
 
     this.data.experience.current_status = 'Working'; // temp fix
 
+    console.log(this.data);
     this.profileService.addWorkExperience(this.data).subscribe(
       response => {
         this.toastr.success('Work experience added successfully');

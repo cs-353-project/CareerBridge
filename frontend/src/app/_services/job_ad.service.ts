@@ -5,6 +5,7 @@ import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
 import {
   JobAdFilterRequestModel,
+  JobAdvertisementRequestModel,
   JobAdvertisementResponseModel,
   JobApplicationResponseModel,
   JobApplicationUpdateRequestModel
@@ -19,15 +20,15 @@ export class JobAdService {
   constructor(private http: HttpClient) {}
 
   getJobAds(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + 'job-ad/' + id.toString());
+    return this.http.get(this.baseUrl + 'job_ad/' + id.toString());
   }
 
-  addJobAd(jobAd: JobAdvertisementResponseModel): Observable<any> {
-    return this.http.post(this.baseUrl + 'job-ad', jobAd);
+  addJobAd(jobAd: JobAdvertisementRequestModel): Observable<any> {
+    return this.http.post(this.baseUrl + 'job_ad', jobAd);
   }
 
   deleteJobAd(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'job-ad/', { body: { ad_id: id } });
+    return this.http.delete(this.baseUrl + 'job_ad/', { body: { ad_id: id } });
   }
 
   filterJobAds(filter: JobAdFilterRequestModel): Observable<any> {
@@ -37,11 +38,11 @@ export class JobAdService {
   addJobApplication(
     job_application: JobApplicationResponseModel
   ): Observable<any> {
-    return this.http.post(this.baseUrl + 'job-applications', job_application);
+    return this.http.post(this.baseUrl + 'jobapplications', job_application);
   }
 
   deleteJobApplication(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'job-applications/', {
+    return this.http.delete(this.baseUrl + 'jobapplications/', {
       body: { application_id: id }
     });
   }
@@ -51,7 +52,7 @@ export class JobAdService {
     response: JobApplicationUpdateRequestModel
   ): Observable<any> {
     return this.http.put(
-      this.baseUrl + 'job-applications/' + application_id,
+      this.baseUrl + 'jobapplications/' + application_id,
       response
     );
   }

@@ -6,52 +6,89 @@
       >
     </div>
     <div class="d-flex flex-row mt-2">
-      <mat-form-field class="w-100 mr-2" appearance="outline">
+      <mat-form-field
+        class="w-100 mr-2"
+        appearance="outline"
+        name="title"
+        ngDefaultControl>
         <mat-label>Title</mat-label>
         <input
           matInput
           class="ml-3"
           style="width: 90%"
           required
-          formControlName="title" />
+          [(ngModel)]="data.title" />
       </mat-form-field>
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Company Name</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        name="company"
+        ngDefaultControl>
+        <mat-label>Organization Name</mat-label>
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.organization" />
       </mat-form-field>
     </div>
     <div class="d-flex flex-row">
-      <mat-form-field class="w-100 mr-2" appearance="outline">
+      <mat-form-field
+        class="w-100 mr-2"
+        appearance="outline"
+        name="location"
+        ngDefaultControl>
         <mat-label>Location</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.location" />
       </mat-form-field>
-      <mat-form-field class="w-100" appearance="outline">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        name="domain"
+        ngDefaultControl>
         <mat-label>Domain</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.domain" />
       </mat-form-field>
     </div>
     <div class="d-flex flex-row">
       <mat-form-field
         class="mr-2 w-100"
         style="width: 300px"
-        appearance="outline">
+        appearance="outline"
+        name="setting"
+        ngDefaultControl>
         <mat-label class="mr-3">Setting</mat-label>
-        <mat-select>
-          <mat-option> Any </mat-option>
-          <mat-option> Software Development </mat-option>
-          <mat-option> Academy </mat-option><mat-option> Job </mat-option>
-          <mat-option> Finance </mat-option>
-          <mat-option> Human Resources </mat-option>
+        <mat-select [(ngModel)]="data.setting">
+          <mat-option value="On-site" selected> On-site</mat-option>
+          <mat-option value="Hybrid">Hybrid</mat-option>
+          <mat-option value="Remote"> Remote </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="w-100" style="width: 300px" appearance="outline">
+      <mat-form-field
+        class="w-100"
+        style="width: 300px"
+        appearance="outline"
+        name="type"
+        ngDefaultControl>
         <mat-label class="mr-3">Type</mat-label>
-        <mat-select>
-          <mat-option> Any </mat-option>
-          <mat-option> Software Development </mat-option>
-          <mat-option> Academy </mat-option><mat-option> Job </mat-option>
-          <mat-option> Finance </mat-option>
-          <mat-option> Human Resources </mat-option>
+        <mat-select [(ngModel)]="data.type">
+          <mat-option value="Any" selected> Any </mat-option>
+          <mat-option value="Internship"> Internship </mat-option>
+          <mat-option value="Part-Time Job"> Part-Time Job </mat-option
+          ><mat-option value="Job"> Job </mat-option>
+          <mat-option value="Contract"> Contract </mat-option>
+          <mat-option value="Project Based"> Project Based </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -60,15 +97,19 @@
         <mat-label class="font-weight-bold mr-3">Pay Range</mat-label>
         <mat-form-field
           style="width: 150px; margin-bottom: -1.25em"
-          appearance="outline">
-          <input matInput placeholder="Min" />
+          appearance="outline"
+          name="min_pay"
+          ngDefaultControl>
+          <input matInput placeholder="Min" [(ngModel)]="data.pay_range_min" />
           <mat-icon matSuffix>attach_money</mat-icon>
         </mat-form-field>
         <mat-form-field
           style="width: 150px; margin-bottom: -1.25em"
           class="ml-2"
-          appearance="outline">
-          <input matInput placeholder="Max" />
+          appearance="outline"
+          name="max_pay"
+          ngDefaultControl>
+          <input matInput placeholder="Max" [(ngModel)]="data.pay_range_max" />
           <mat-icon matSuffix>attach_money</mat-icon>
         </mat-form-field>
       </div>
@@ -79,17 +120,39 @@
       >
     </div>
     <div class="d-flex flex-row">
-      <mat-form-field class="w-100 mr-2" appearance="outline">
+      <mat-form-field
+        class="w-100 mr-2"
+        appearance="outline"
+        name="degrees"
+        ngDefaultControl>
         <mat-label>Degrees Required</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="degrees" />
       </mat-form-field>
-      <mat-form-field class="w-100" appearance="outline">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        name="skills"
+        ngDefaultControl>
         <mat-label>Skills Required</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="skills" />
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field class="w-100" appearance="outline">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        name="desc"
+        ngDefaultControl>
         <mat-label>Description</mat-label>
         <textarea
           class="w-100"
@@ -97,11 +160,12 @@
           cdkTextareaAutosize
           #autosize="cdkTextareaAutosize"
           cdkAutosizeMinRows="6"
-          cdkAutosizeMaxRows="6"></textarea>
+          cdkAutosizeMaxRows="6"
+          [(ngModel)]="data.description"></textarea>
       </mat-form-field>
     </div>
     <div class="w-100 d-flex flex-row justify-content-center">
-      <button mat-raised-button color="accent">Post</button>
+      <button mat-raised-button color="accent" (click)="postAd()">Post</button>
     </div>
   </div>
 </div>

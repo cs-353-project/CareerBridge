@@ -8,49 +8,53 @@
       overflow-y: scroll;
     ">
     <div class="my-2 ml-4">
-      <button mat-raised-button color="primary">Show Filter Options</button>
+      <button mat-raised-button color="primary" (click)="filterChange()">
+        Show Filter Options
+      </button>
     </div>
-    <div class="mx-4 my-2 d-flex flex-row">
+    <div class="mx-4 my-2 d-flex flex-row" *ngIf="this.showFilters">
       <div class="d-flex flex-column">
-        <mat-label class="font-weight-bold">Added</mat-label>
-        <mat-radio-group>
-          <mat-radio-button value="1">Today</mat-radio-button>
-          <mat-radio-button value="2" class="mx-2">Last Week</mat-radio-button>
-          <mat-radio-button value="2">Last Month</mat-radio-button>
-          <mat-radio-button value="2" class="mx-2">Any</mat-radio-button>
-        </mat-radio-group>
         <mat-label class="font-weight-bold">Setting</mat-label>
-        <mat-radio-group>
-          <mat-radio-button value="1">On-site</mat-radio-button>
-          <mat-radio-button value="2" class="mx-2">Hybrid</mat-radio-button>
-          <mat-radio-button value="2">Remote</mat-radio-button>
+        <mat-radio-group [(ngModel)]="jobAdFilter.setting">
+          <mat-radio-button value="On-site">On-site</mat-radio-button>
+          <mat-radio-button value="Hybrid" class="mx-2"
+            >Hybrid</mat-radio-button
+          >
+          <mat-radio-button value="Remote">Remote</mat-radio-button>
         </mat-radio-group>
         <mat-label class="font-weight-bold mt-1">Status</mat-label>
-        <mat-radio-group>
-          <mat-radio-button value="1">Open</mat-radio-button>
-          <mat-radio-button value="2" class="mx-2">Closed</mat-radio-button>
+        <mat-radio-group [(ngModel)]="jobAdFilter.status">
+          <mat-radio-button value="Open">Open</mat-radio-button>
+          <mat-radio-button value="Closed" class="mx-2"
+            >Closed</mat-radio-button
+          >
         </mat-radio-group>
       </div>
       <div class="d-flex flex-column mx-5" style="width: 250px">
         <mat-label class="font-weight-bold">Ad Type</mat-label>
         <mat-form-field>
-          <mat-select>
-            <mat-option> Any </mat-option>
-            <mat-option> Internship </mat-option>
-            <mat-option> Part-Time Job </mat-option
-            ><mat-option> Job </mat-option>
-            <mat-option> Contract </mat-option>
-            <mat-option> Project Based </mat-option>
+          <mat-select [(ngModel)]="jobAdFilter.type">
+            <mat-option value="Any" selected> Any </mat-option>
+            <mat-option value="Internship"> Internship </mat-option>
+            <mat-option value="Part-Time Job"> Part-Time Job </mat-option
+            ><mat-option value="Job"> Job </mat-option>
+            <mat-option value="Contract"> Contract </mat-option>
+            <mat-option value="Project Based"> Project Based </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-label class="font-weight-bold mt-2">Domain</mat-label>
         <mat-form-field>
-          <mat-select>
-            <mat-option> Any </mat-option>
-            <mat-option> Software Development </mat-option>
-            <mat-option> Academy </mat-option><mat-option> Job </mat-option>
-            <mat-option> Finance </mat-option>
-            <mat-option> Human Resources </mat-option>
+          <mat-select
+            [(ngModel)]="domainFilter"
+            [placeHolder]="jobAdFilter.domain">
+            <mat-option value="Any" selected> Any </mat-option>
+            <mat-option value="Software Development">
+              Software Development
+            </mat-option>
+            <mat-option value="Academy"> Academy </mat-option
+            ><mat-option> Job </mat-option>
+            <mat-option value="Finance"> Finance </mat-option>
+            <mat-option value="Human Resources"> Human Resources </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -58,18 +62,27 @@
         <mat-label class="font-weight-bold">Pay Range</mat-label>
         <div class="d-flex flex-row">
           <mat-form-field style="width: 120px">
-            <input matInput placeholder="Min" />
+            <input
+              matInput
+              placeholder="Min"
+              [(ngModel)]="jobAdFilter.pay_range_min" />
             <mat-icon matSuffix>attach_money</mat-icon>
           </mat-form-field>
           <mat-form-field style="width: 120px" class="ml-2">
-            <input matInput placeholder="Max" />
+            <input
+              matInput
+              placeholder="Max"
+              [(ngModel)]="jobAdFilter.pay_range_max" />
             <mat-icon matSuffix>attach_money</mat-icon>
           </mat-form-field>
         </div>
         <mat-label class="font-weight-bold mt-2">Location</mat-label>
         <mat-form-field>
           <mat-icon matPrefix>location_on</mat-icon>
-          <input matInput placeholder="Ankara, Turkey" />
+          <input
+            matInput
+            placeholder="Ankara, Turkey"
+            [(ngModel)]="jobAdFilter.location" />
         </mat-form-field>
       </div>
       <div class="d-flex flex-column ml-3"></div>

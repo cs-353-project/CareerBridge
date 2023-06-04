@@ -54,8 +54,8 @@ export interface JobAdvertisementRequestModel {
   domain: string;
   is_open: boolean;
   external_url: string;
-  skills: SkillInJobResponseModel[];
-  required_degrees: DegreeModel[];
+  skills: SkillInJobRequestModel[];
+  required_degrees: DegreeInJobRequestModel[];
 }
 
 export interface JobApplicationResponseModel {

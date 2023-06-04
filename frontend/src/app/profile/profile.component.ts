@@ -115,7 +115,6 @@ export class ProfileComponent implements OnInit {
             is_master_skill: element.is_master_skill
           };
           this.skills.unshift(temp);
-          console.log(this.skills);
         });
       });
   }

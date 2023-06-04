@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
-import { JobAdvertisementModel } from '../_models/job_ad_models';
+import {
+  JobAdFilterRequestModel,
+  JobAdvertisementResponseModel,
+  JobApplicationResponseModel,
+  JobApplicationUpdateRequestModel
+} from '../_models/job_ad_models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +18,41 @@ export class JobAdService {
 
   constructor(private http: HttpClient) {}
 
-  getJobAds(id: string): Observable<any> {
-    return this.http.get(this.baseUrl + 'job-ad/' + id);
+  getJobAds(id: number): Observable<any> {
+    return this.http.get(this.baseUrl + 'job-ad/' + id.toString());
   }
 
-  addJobAd(jobAd: JobAdvertisementModel): Observable<any> {
+  addJobAd(jobAd: JobAdvertisementResponseModel): Observable<any> {
     return this.http.post(this.baseUrl + 'job-ad', jobAd);
   }
 
-  deleteJobAd(id: string): Observable<any> {
+  deleteJobAd(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'job-ad/', { body: { ad_id: id } });
+  }
+
+  filterJobAds(filter: JobAdFilterRequestModel): Observable<any> {
+    return this.http.post(this.baseUrl + 'jobapplications/filter', filter);
+  }
+
+  addJobApplication(
+    job_application: JobApplicationResponseModel
+  ): Observable<any> {
+    return this.http.post(this.baseUrl + 'job-applications', job_application);
+  }
+
+  deleteJobApplication(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'job-applications/', {
+      body: { application_id: id }
+    });
+  }
+
+  updateJobApplication(
+    application_id: number,
+    response: JobApplicationUpdateRequestModel
+  ): Observable<any> {
+    return this.http.put(
+      this.baseUrl + 'job-applications/' + application_id,
+      response
+    );
   }
 }

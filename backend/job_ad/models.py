@@ -9,17 +9,19 @@ class SkillInJobResponseModel(BaseModel):
     skill_name: str
     ad_id: int
 
+
 class SkillInJobRequestModel(BaseModel):
     skill_name: str
+
 
 class DegreeInJobResponseModel(BaseModel):
     degree_id: int
     degree_name: str
     ad_id: int
 
+
 class DegreeInJobRequestModel(BaseModel):
     degree_name: str
-    
 
 
 class JobAdvertisementResponseModel(BaseModel):

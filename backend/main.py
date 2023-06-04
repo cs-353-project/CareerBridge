@@ -744,7 +744,7 @@ def delete_job_application_api(application_id: int):
     return JSONResponse(status_code=200, content={"message": "Job application deleted successfully"})
 
 
-@app.patch("/api/jobapplications/update", response_model=JobApplicationResponseModel)
+@app.patch("/api/jobapplications/update/{application_id}", response_model=JobApplicationResponseModel)
 def update_job_application_api(application_id: int, application_details: JobApplicationUpdateRequestModel):
     """
     This job application update API allow you to update job application data.

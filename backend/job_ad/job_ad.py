@@ -14,6 +14,7 @@ from .models import (
     JobAdvertisementResponseModel,
     JobApplicationRequestModel,
     JobApplicationResponseModel,
+    JobApplicationResponseModelv2,
     JobApplicationUpdateRequestModel,
     SkillInJobRequestModel,
     SkillInJobResponseModel,
@@ -415,7 +416,7 @@ def apply_for_a_job(job_application_request: JobApplicationRequestModel):
 def get_applications_by_ad_id(ad_id: int):
     applications = query_get(
         """
-            SELECT * FROM JobAdvertisementResponse WHERE ad_id = %s
+            SELECT application_id, profile_id, apply_date, response FROM JobAdvertisementResponse WHERE ad_id = %s
         """,
         (ad_id,),
     )
@@ -423,7 +424,28 @@ def get_applications_by_ad_id(ad_id: int):
     if not applications:
         raise HTTPException(status_code=404, detail="Job Application not found")
 
-    return applications
+    lst = []
+    # Constuct the response
+    for application in applications:
+        # Get user details
+        user = query_get(
+            """
+                SELECT user_id, first_name, last_name, email, password, user_role, is_admin FROM UserLogin WHERE user_id = %s
+            """,
+            (application["profile_id"]),
+        )
+
+        r: JobApplicationResponseModelv2 = JobApplicationResponseModelv2(
+            application_id=application["application_id"],
+            profile_id=application["profile_id"],
+            application_date=str(application["apply_date"]),
+            status=application["response"],
+            user=user[0],
+        )
+
+        lst.append(r)
+
+    return lst
 
 
 def get_applications_by_profile_id(profile_id: int):

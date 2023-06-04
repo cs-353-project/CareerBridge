@@ -88,4 +88,10 @@ export class JobAdService {
         profile_id.toString()
     );
   }
+
+  getCandidateForJob(id: number): Observable<any> {
+    return this.http.get(
+      this.baseUrl + 'jobapplications_for_ad/' + id.toString()
+    );
+  }
 }

@@ -1,7 +1,7 @@
 from profile.models import DegreeRequestModel, DegreeResponseModel, ProfileResponseModel
 from typing import Optional
 
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, EmailStr, HttpUrl
 
 
 class SkillInJobResponseModel(BaseModel):
@@ -80,6 +80,23 @@ class JobApplicationResponseModel(BaseModel):
     response_date: str = None
     response: str
     cv: bytes = None
+
+
+class UserResponseModelInJobApplication(BaseModel):
+    user_id: int
+    first_name: str
+    last_name: str
+    email: EmailStr
+    user_role: str
+    is_admin: bool
+
+
+class JobApplicationResponseModelv2(BaseModel):
+    application_id: int
+    profile_id: int
+    application_date: str
+    user: UserResponseModelInJobApplication
+    status: str
 
 
 class JobApplicationUpdateRequestModel(BaseModel):

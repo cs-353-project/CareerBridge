@@ -82,6 +82,7 @@ from job_ad.models import (
     JobAdvertisementResponseModel,
     JobApplicationRequestModel,
     JobApplicationResponseModel,
+    JobApplicationResponseModelv2,
     JobApplicationUpdateRequestModel,
     JobDetailsResponseModel,
 )
@@ -761,17 +762,17 @@ def get_job_application_api(user_id: int):
     return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
 
 
-# @app.get("/api/jobapplications/{ad_id}", response_model=list[JobApplicationResponseModel])
-# def get_job_application_api(ad_id: int):
-#     """
-#     This job application API allow you to fetch specific job application data.
-#     """
-#     job_application = get_applications_by_ad_id(ad_id)
+@app.get("/api/jobapplications_for_ad/{ad_id}", response_model=list[JobApplicationResponseModelv2])
+def get_job_applications_for_ad_api(ad_id: int):
+    """
+    This job application API allow you to fetch specific job application data.
+    """
+    job_application = get_applications_by_ad_id(ad_id)
 
-#     if len(job_application) == 0:
-#         raise HTTPException(status_code=404, detail="Job application not found")
+    if len(job_application) == 0:
+        raise HTTPException(status_code=404, detail="Job application not found")
 
-#     return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
+    return JSONResponse(status_code=200, content=jsonable_encoder(job_application))
 
 
 @app.delete("/api/jobapplications")

@@ -26,6 +26,9 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root'
 })
 export class ProfileService {
+  updateBiography(arg0: { biography: string }, user_id: number) {
+    throw new Error('Method not implemented.');
+  }
   baseUrl = environment.apiUrl;
 
   constructor(

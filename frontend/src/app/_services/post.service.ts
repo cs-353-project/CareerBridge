@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CommentRequestModel, PostResponseModel } from '../_models/post_models';
+import {
+  CommentRequestModel,
+  PostRequestModel,
+  PostResponseModel
+} from '../_models/post_models';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +30,7 @@ export class PostService {
     });
   }
 
-  addPost(post: PostResponseModel): Observable<any> {
+  addPost(post: PostRequestModel): Observable<any> {
     return this.http.post(this.baseUrl + 'post', post);
   }
 

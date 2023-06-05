@@ -16,6 +16,21 @@ export class BiographyDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  submit() {
+    console.log(this.data.biography);
+    this.profileService
+      .updateBio({ biography: this.data.biography }, this.data.user_id)
+      .subscribe(
+        response => {
+          this.toastr.success('Biography updated successfully!');
+          this.dialogRef.close(this.data.biography);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
 }
 
 export interface Biography {

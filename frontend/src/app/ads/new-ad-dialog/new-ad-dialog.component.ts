@@ -33,6 +33,7 @@ export class NewAdDialogComponent implements OnInit {
       this.data.required_degrees.push({ degree_name: degreesList[i].trim() });
     }
 
+    this.data.is_open = true;
     console.log(this.data);
     this.jobAdService.addJobAd(this.data).subscribe(
       res => {

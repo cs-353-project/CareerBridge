@@ -19,19 +19,39 @@ export class TestScoreDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addTestScore() {
-    // Convert dates to ISO format
-    const a = new Date(this.data.test_date);
-    this.data.test_date = a.toISOString().split('T')[0];
+    if (!this.isErrorExists()) {
+      // Convert dates to ISO format
+      const a = new Date(this.data.test_date);
+      this.data.test_date = a.toISOString().split('T')[0];
 
-    this.profileService.addTestScore(this.data).subscribe(
-      response => {
-        this.toastr.success('Test score added successfully');
-        this.dialogRef.close(this.data);
-      },
-      error => {
-        this.toastr.clear();
-        this.toastr.error('Error adding test score');
-      }
-    );
+      this.profileService.addTestScore(this.data).subscribe(
+        response => {
+          this.toastr.success('Test score added successfully');
+          this.dialogRef.close(this.data);
+        },
+        error => {
+          this.toastr.clear();
+          this.toastr.error('Error adding test score');
+        }
+      );
+    }
+  }
+
+  isErrorExists() {
+    let flag = false;
+    if (!this.data.test_name) {
+      this.toastr.error('Test Name is required');
+      flag = true;
+    }
+    if (!this.data.score) {
+      this.toastr.error('Score is required');
+      flag = true;
+    }
+    if (!this.data.test_date) {
+      this.toastr.error('Test Date is required');
+      flag = true;
+    }
+
+    return flag;
   }
 }

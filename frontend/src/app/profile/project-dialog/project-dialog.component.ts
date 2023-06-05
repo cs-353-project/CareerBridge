@@ -9,8 +9,6 @@ import { ProfileService } from '../../_services/profile.service';
   styleUrls: ['./project-dialog.component.css']
 })
 export class ProjectDialogComponent implements OnInit {
-  is_ongoing = false;
-  end_date = 'End Date';
   constructor(
     private toastr: ToastrService,
     private profileService: ProfileService,
@@ -21,31 +19,46 @@ export class ProjectDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addProject() {
-    // Convert dates to ISO format
-    const a = new Date(this.data.start_date);
-    this.data.start_date = a.toISOString().split('T')[0];
-    const b = new Date(this.data.end_date);
-    this.data.end_date = b.toISOString().split('T')[0];
+    if (!this.isErrorExists()) {
+      // Convert dates to ISO format
+      const a = new Date(this.data.start_date);
+      this.data.start_date = a.toISOString().split('T')[0];
+      const b = new Date(this.data.end_date);
+      this.data.end_date = b.toISOString().split('T')[0];
 
-    console.log(this.data);
-    this.profileService.addProject(this.data).subscribe(
-      response => {
-        this.toastr.success('Project added successfully');
-        this.dialogRef.close(this.data);
-      },
-      error => {
-        this.toastr.clear();
-        this.toastr.error('Error adding project');
-      }
-    );
+      console.log(this.data);
+      this.profileService.addProject(this.data).subscribe(
+        response => {
+          this.toastr.success('Project added successfully');
+          this.dialogRef.close(this.data);
+        },
+        error => {
+          this.toastr.clear();
+          this.toastr.error('Error adding project');
+        }
+      );
+    }
   }
 
-  changeOngoing() {
-    if (this.is_ongoing) {
-      this.data.end_date = '';
-      this.end_date = 'Present';
-    } else {
-      this.end_date = 'End Date';
+  isErrorExists() {
+    let flag = false;
+    if (!this.data.title) {
+      this.toastr.error('Title is required');
+      flag = true;
     }
+    if (!this.data.project_url) {
+      this.toastr.error('Project URL is required');
+      flag = true;
+    }
+    if (!this.data.start_date) {
+      this.toastr.error('Start Date is required');
+      flag = true;
+    }
+    if (!this.data.end_date) {
+      this.toastr.error('End Date is required');
+      flag = true;
+    }
+
+    return flag;
   }
 }

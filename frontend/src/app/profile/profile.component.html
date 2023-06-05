@@ -225,10 +225,23 @@
                           <span class="mx-1">&#183;</span>
                           <span style="font-size: 12px">{{ exp.setting }}</span>
                         </div>
-                        <div>
+                        <div *ngIf="exp.experience.current_status != 'Working'">
                           <span style="font-size: 12px"
-                            >{{ exp.experience.start_date }} -
-                            {{ exp.experience.end_date }}</span
+                            >{{
+                              exp.experience.start_date | date : "mediumDate"
+                            }}
+                            -
+                            {{
+                              exp.experience.end_date | date : "mediumDate"
+                            }}</span
+                          >
+                        </div>
+                        <div *ngIf="exp.experience.current_status == 'Working'">
+                          <span style="font-size: 12px"
+                            >{{
+                              exp.experience.start_date | date : "mediumDate"
+                            }}
+                            - Present</span
                           >
                         </div>
                       </div>
@@ -315,13 +328,28 @@
                           <span style="font-size: 12px">{{
                             exp.field_of_study
                           }}</span>
-                          <span class="mx-1">&#183;</span>
-                          <span style="font-size: 12px">{{ exp.grade }}</span>
+                          <span class="mx-1" *ngIf="!!exp.grade">&#183;</span>
+                          <span style="font-size: 12px" *ngIf="!!exp.grade">{{
+                            exp.grade
+                          }}</span>
                         </div>
-                        <div>
+                        <div *ngIf="exp.experience.current_status != 'Working'">
                           <span style="font-size: 12px"
-                            >{{ exp.experience.start_date }} -
-                            {{ exp.experience.end_date }}</span
+                            >{{
+                              exp.experience.start_date | date : "mediumDate"
+                            }}
+                            -
+                            {{
+                              exp.experience.end_date | date : "mediumDate"
+                            }}</span
+                          >
+                        </div>
+                        <div *ngIf="exp.experience.current_status == 'Working'">
+                          <span style="font-size: 12px"
+                            >{{
+                              exp.experience.start_date | date : "mediumDate"
+                            }}
+                            - Present</span
                           >
                         </div>
                       </div>
@@ -405,10 +433,23 @@
                             exp.responsibility
                           }}</span>
                         </div>
-                        <div>
+                        <div *ngIf="exp.experience.current_status != 'Working'">
                           <span style="font-size: 12px"
-                            >{{ exp.experience.start_date }} -
-                            {{ exp.experience.end_date }}</span
+                            >{{
+                              exp.experience.start_date | date : "mediumDate"
+                            }}
+                            -
+                            {{
+                              exp.experience.end_date | date : "mediumDate"
+                            }}</span
+                          >
+                        </div>
+                        <div *ngIf="exp.experience.current_status == 'Working'">
+                          <span style="font-size: 12px"
+                            >{{
+                              exp.experience.start_date | date : "mediumDate"
+                            }}
+                            - Present</span
                           >
                         </div>
                       </div>
@@ -491,8 +532,8 @@
                       <div class="d-flex flex-column align-items-end">
                         <div>
                           <span style="font-size: 12px"
-                            >{{ project?.start_date }} -
-                            {{ project?.end_date }}</span
+                            >{{ project?.start_date | date : "mediumDate" }} -
+                            {{ project?.end_date | date : "mediumDate" }}</span
                           >
                         </div>
                       </div>
@@ -573,8 +614,11 @@
                       <div class="d-flex flex-column align-items-end">
                         <div>
                           <span style="font-size: 12px"
-                            >{{ certificate?.issue_date }} -
-                            {{ certificate?.expiration_date }}</span
+                            >{{ certificate?.issue_date | date : "mediumDate" }}
+                            -
+                            {{
+                              certificate?.expiration_date | date : "mediumDate"
+                            }}</span
                           >
                         </div>
                         <div>
@@ -659,7 +703,7 @@
                       <div class="d-flex flex-row align-items-end">
                         <div>
                           <span style="font-size: 12px">{{
-                            award?.issue_date
+                            award?.issue_date | date : "mediumDate"
                           }}</span>
                         </div>
                       </div>
@@ -736,7 +780,7 @@
                       <div class="d-flex flex-row align-items-end">
                         <div>
                           <span style="font-size: 12px">{{
-                            test?.test_date
+                            test?.test_date | date : "mediumDate"
                           }}</span>
                         </div>
                       </div>
@@ -815,7 +859,10 @@
                       <div class="d-flex flex-column align-items-end">
                         <div>
                           <span style="font-size: 12px"
-                            >{{ publication?.publication_date }}
+                            >{{
+                              publication?.publication_date
+                                | date : "mediumDate"
+                            }}
                           </span>
                         </div>
                         <div>

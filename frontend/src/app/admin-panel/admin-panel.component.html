@@ -93,38 +93,7 @@
             Interval</span
           >
         </div>
-        <div class="d-flex flex-row justify-content-center">
-          <div class="h-100">
-            <mat-form-field appearance="standard">
-              <mat-label>Start Date</mat-label>
-              <input
-                readonly
-                matInput
-                [matDatepicker]="picker"
-                [value]="domainApplicationsStartDate"
-                (click)="picker.open()" />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="ml-3">
-            <mat-form-field appearance="standard">
-              <mat-label>End Date</mat-label>
-              <input
-                readonly
-                matInput
-                [matDatepicker]="picker2"
-                [value]="domainApplicationsEndDate"
-                (click)="picker2.open()" />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
+        
         <div class="d-flex justify-content-center">
           <table
             mat-table
@@ -253,36 +222,7 @@
           >
         </div>
         <div class="d-flex flex-row justify-content-center">
-          <div class="h-100">
-            <mat-form-field appearance="standard">
-              <mat-label>Start Date</mat-label>
-              <input
-                readonly
-                matInput
-                [matDatepicker]="picker3"
-                [value]="leastPublishedAdsStartDate"
-                (click)="picker3.open()" />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker3"></mat-datepicker-toggle>
-              <mat-datepicker #picker3></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="ml-3">
-            <mat-form-field appearance="standard">
-              <mat-label>End Date</mat-label>
-              <input
-                readonly
-                matInput
-                [matDatepicker]="picker4"
-                [value]="leastPublishedAdsEndDate"
-                (click)="picker4.open()" />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker4"></mat-datepicker-toggle>
-              <mat-datepicker #picker4></mat-datepicker>
-            </mat-form-field>
-          </div>
+          
         </div>
         <div class="h-100 text-center text-light mt-2">
           <span class="p-3 bg-info" style="font-size: 18px; border-radius: 15px"

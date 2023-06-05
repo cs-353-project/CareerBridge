@@ -534,17 +534,18 @@ def add_project_api(project_details: ProjectRequestModel):
 
 
 @app.patch("/api/update_bio/{profile_id}", response_model=None)
-def update_bio_api(profile_id: int, bio_details):
+def update_bio_api(profile_id: int, bio_details: BioUpdateRequestModel):
     """
     This bio update API allow you to update bio data.
     """
+
     update_bio(bio_details, profile_id)
 
     return JSONResponse(status_code=200, content={"message": "Bio updated successfully"})
 
 
 @app.patch("/api/update_basic_info/{profile_id}", response_model=None)
-def update_basic_info_api(basic_info_details: BasicInfoUpdateRequestModel, profile_id: int):
+def update_basic_info_api(profile_id: int, basic_info_details: BasicInfoUpdateRequestModel):
     """
     This basic info update API allow you to update basic info data.
     """
@@ -872,9 +873,9 @@ def get_system_reports_api():
     system_reports = {
         "total_num_of_ads": create_total_num_of_ads_response_model(),
         "num_of_users_each_role": create_num_of_users_each_role_response_model(),
-        # 'highest_applications_each_domain': create_highest_applications_each_domain_response_model(),
+        'highest_applications_each_domain': create_highest_applications_each_domain_response_model(),
         "average_skill_rating_of_each_skill": create_average_skill_rating_of_each_skill_response_model(),
-        # 'least_published_ad_type_for_interval': create_least_published_ad_type_for_interval_response_model(),
+        'least_published_ad_type_for_interval': create_least_published_ad_type_for_interval_response_model(),
         "average_number_of_ad_views_for_company": create_average_number_of_ad_views_for_company_response_model(),
         "minimum_and_maximum_pay_averages": create_minimum_and_maximum_pay_averages_response_model(),
     }

@@ -23,24 +23,34 @@ export class EducationalExperienceDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addEducationalExperience() {
-    // Convert dates to ISO format
-    const a = new Date(this.data.experience.start_date);
-    this.data.experience.start_date = a.toISOString().split('T')[0];
-    const b = new Date(this.data.experience.end_date);
-    this.data.experience.end_date = b.toISOString().split('T')[0];
+    if (!this.isErrorExists()) {
+      const a = new Date(this.data.experience.start_date);
+      this.data.experience.start_date = a.toISOString().split('T')[0];
 
-    this.data.experience.current_status = 'Working'; // temp fix
-    console.log(this.data);
-    this.profileService.addEducationalExperience(this.data).subscribe(
-      response => {
-        this.toastr.success('Educational experience added successfully');
-        this.dialogRef.close(this.data);
-      },
-      error => {
-        this.toastr.clear();
-        this.toastr.error('Error adding educational experience');
+      if (!this.data.experience.end_date && !this.is_ongoing) {
+        this.toastr.error('End Date is required if not ongoing');
+        return;
       }
-    );
+      if (this.is_ongoing) {
+        this.data.experience.end_date = new Date().toISOString().split('T')[0];
+        this.data.experience.current_status = 'Working';
+      } else {
+        const b = new Date(this.data.experience.end_date);
+        this.data.experience.end_date = b.toISOString().split('T')[0];
+        this.data.experience.current_status = 'Past Working Experience';
+      }
+      console.log(this.data);
+      this.profileService.addEducationalExperience(this.data).subscribe(
+        response => {
+          this.toastr.success('Educational experience added successfully');
+          this.dialogRef.close(this.data);
+        },
+        error => {
+          this.toastr.clear();
+          this.toastr.error('Error adding educational experience');
+        }
+      );
+    }
   }
 
   changeOngoing() {
@@ -50,5 +60,31 @@ export class EducationalExperienceDialogComponent implements OnInit {
     } else {
       this.end_date = 'End Date';
     }
+  }
+
+  isErrorExists() {
+    let flag = false;
+
+    if (!this.data.experience.title) {
+      this.toastr.error('Title is required');
+      flag = true;
+    }
+    if (!this.data.school_name) {
+      this.toastr.error('School Name is required');
+      flag = true;
+    }
+    if (!this.data.field_of_study) {
+      this.toastr.error('Field of Study is required');
+      flag = true;
+    }
+    if (!this.data.degree.name) {
+      this.toastr.error('Degree is required');
+      flag = true;
+    }
+    if (!this.data.experience.start_date) {
+      this.toastr.error('Start Date is required');
+      flag = true;
+    }
+    return flag;
   }
 }

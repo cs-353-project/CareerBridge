@@ -259,7 +259,6 @@ def get_profile_main_api(user_id: int):
     else:
         profile[0]["resume"] = 0
 
-
     return JSONResponse(status_code=200, content=jsonable_encoder(profile))
 
 
@@ -873,9 +872,9 @@ def get_system_reports_api():
     system_reports = {
         "total_num_of_ads": create_total_num_of_ads_response_model(),
         "num_of_users_each_role": create_num_of_users_each_role_response_model(),
-        'highest_applications_each_domain': create_highest_applications_each_domain_response_model(),
+        "highest_applications_each_domain": create_highest_applications_each_domain_response_model(),
         "average_skill_rating_of_each_skill": create_average_skill_rating_of_each_skill_response_model(),
-        'least_published_ad_type_for_interval': create_least_published_ad_type_for_interval_response_model(),
+        "least_published_ad_type_for_interval": create_least_published_ad_type_for_interval_response_model(),
         "average_number_of_ad_views_for_company": create_average_number_of_ad_views_for_company_response_model(),
         "minimum_and_maximum_pay_averages": create_minimum_and_maximum_pay_averages_response_model(),
     }
@@ -947,6 +946,21 @@ def delete_resume_api(user_id: int):
     delete_resume(user_id)
 
     return JSONResponse(status_code=200, content={"message": "Resume deleted successfully"})
+
+
+@app.get("/api/notifications/{user_id}", response_model=None)
+def get_notification_api(user_id: int):
+    """
+    This get notification API allow you to get notification.
+    """
+    notification = query_get(
+        """
+        SELECT * FROM Notification WHERE user_id = %s
+        """,
+        (user_id,),
+    )
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(notification))
 
 
 # Test Endpoints

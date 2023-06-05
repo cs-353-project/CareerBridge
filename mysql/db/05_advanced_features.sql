@@ -15,4 +15,3 @@ BEGIN
     WHERE ad_id = ad_id_param;
 END//
 delimiter ;
-

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, EmailStr, HttpUrl
 
 
 class ProfileResponseModel(BaseModel):
@@ -221,3 +221,15 @@ class SkillRequestModel(BaseModel):
     name: str
     is_verified: bool
     is_master_skill: bool
+
+
+class BasicInfoUpdateRequestModel(BaseModel):
+    email: Optional[EmailStr] = None
+    phone_number: Optional[str] = None
+    address: Optional[str] = None
+    country: Optional[str] = None
+    website: Optional[HttpUrl] = None
+
+
+class BioUpdateRequestModel(BaseModel):
+    biography: Optional[str] = None

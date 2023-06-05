@@ -1,6 +1,8 @@
 from profile.models import (
     AwardRequestModel,
     AwardResponseModel,
+    BasicInfoUpdateRequestModel,
+    BioUpdateRequestModel,
     CertificationRequestModel,
     CertificationResponseModel,
     EducationalExperienceRequestModel,
@@ -51,6 +53,8 @@ from profile.profile import (
     get_test_score_by_profile_id,
     get_vol_exp_by_profile_id,
     get_work_exp_by_profile_id,
+    update_basic_info,
+    update_bio,
     update_profile_base,
 )
 
@@ -517,6 +521,26 @@ def add_project_api(project_details: ProjectRequestModel):
     #     raise HTTPException(status_code=404, detail="Error while adding project")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(project))
+
+
+@app.patch("/api/update_bio/{profile_id}", response_model=None)
+def update_bio_api(profile_id: int, bio_details: BioUpdateRequestModel):
+    """
+    This bio update API allow you to update bio data.
+    """
+    update_bio(bio_details, profile_id)
+
+    return JSONResponse(status_code=200, content={"message": "Bio updated successfully"})
+
+
+@app.patch("/api/update_basic_info/{profile_id}", response_model=None)
+def update_basic_info_api(basic_info_details: BasicInfoUpdateRequestModel, profile_id: int):
+    """
+    This basic info update API allow you to update basic info data.
+    """
+    update_basic_info(basic_info_details, profile_id)
+
+    return JSONResponse(status_code=200, content={"message": "Basic info updated successfully"})
 
 
 @app.get("/api/profile/project/{profile_id}", response_model=list[ProjectResponseModel])

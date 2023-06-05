@@ -149,4 +149,12 @@ export class ProfileService {
   addSkill(skill: any) {
     return this.http.post(this.baseUrl + 'profile/skill', skill);
   }
+
+  updateBio(bio: any, id: number) {
+    return this.http.patch(this.baseUrl + 'update_bio/' + id, bio);
+  }
+
+  updateBasicInfo(basicInfo: any, id: number) {
+    return this.http.patch(this.baseUrl + 'update_basic_info/' + id, basicInfo);
+  }
 }

@@ -6,6 +6,8 @@ from user.user import get_user_by_id
 from .models import (
     AwardRequestModel,
     AwardResponseModel,
+    BasicInfoUpdateRequestModel,
+    BioUpdateRequestModel,
     CertificationRequestModel,
     CertificationResponseModel,
     DegreeResponseModel,
@@ -68,6 +70,76 @@ def update_profile_base(profile_model: ProfileUpdateRequestModel, profile_id: in
     profile = get_profile_by_profile_id(profile_id)
 
     return profile
+
+
+def update_bio(bio_model: BioUpdateRequestModel, profile_id: int):
+    if bio_model.biography is not None:
+        query_update(
+            """
+                UPDATE Profile
+                    SET biography = %s
+                    WHERE profile_id = %s;
+            """,
+            (
+                bio_model.biography,
+                profile_id,
+            ),
+        )
+
+    return True
+
+
+def update_basic_info(update_model: BasicInfoUpdateRequestModel, profile_id: int):
+    query = """
+        UPDATE Profile
+    """
+
+    params = []
+
+    if update_model.phone_number is not None:
+        query += " SET phone_number = %s"
+        params.append(update_model.phone_number)
+
+    if update_model.address is not None:
+        query += " SET address = %s"
+        params.append(update_model.address)
+
+    if update_model.country is not None:
+        query += " SET country = %s"
+        params.append(update_model.country)
+
+    if update_model.website is not None:
+        query += " SET external_portfolio_url = %s"
+        params.append(update_model.website)
+
+    if (
+        update_model.phone_number is not None
+        or update_model.address is not None
+        or update_model.country is not None
+        or update_model.website is not None
+    ):
+        query += " WHERE profile_id = %s" % profile_id
+
+        query_update(
+            query,
+            params,
+        )
+
+    # Change the email address
+    if update_model.email is not None:
+        query_update(
+            """
+                UPDATE User
+                    SET email = %s
+                    WHERE user_id = %s;
+            """,
+            (
+                update_model.email,
+                profile_id,
+            ),
+        )
+
+    return True
 
 
 def create_profile(user_id: int):

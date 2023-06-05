@@ -15,6 +15,9 @@ import { WorkExperienceDialogComponent } from './work-experience-dialog/work-exp
 import { EducationalExperienceDialogComponent } from './educational-experience-dialog/educational-experience-dialog.component';
 import { SkillDialogComponent } from './skill-dialog/skill-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { BasicInfoDialogComponent } from './basic-info-dialog/basic-info-dialog.component';
+import { BiographyDialogComponent } from './biography-dialog/biography-dialog.component';
+import { VoluntaryExperienceDialogComponent } from './voluntary-experience-dialog/voluntary-experience-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -28,6 +31,7 @@ export class ProfileComponent implements OnInit {
   userBasicInfo: ProfileModel | null = null;
 
   profile_name: string;
+  email: string;
 
   workExperiences: WorkExperienceModel[] = [];
   educationalExperiences: EducationalExperienceModel[] = [];
@@ -81,6 +85,7 @@ export class ProfileComponent implements OnInit {
       .then(response => {
         response.forEach(element => {
           this.profile_name = element.first_name + ' ' + element.last_name;
+          this.email = element.email;
         });
       });
 
@@ -237,4 +242,52 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteResume() {}
+
+  editBasicInfo() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      user_id: this.id,
+      email: this.email,
+      phone_number: this.userBasicInfo.phone_number,
+      address: this.userBasicInfo.address,
+      country: this.userBasicInfo.country,
+      external_portfolio_url: this.userBasicInfo.external_portfolio_url
+    };
+    const dialogRef = this.dialog.open(BasicInfoDialogComponent, dialogConfig);
+  }
+
+  editBiography() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      user_id: this.id,
+      biography: this.userBasicInfo.biography
+    };
+    const dialogRef = this.dialog.open(BiographyDialogComponent, dialogConfig);
+  }
+
+  addVoluntaryExperience() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      experience: {
+        profile_id: this.id,
+        title: '',
+        start_date: '',
+        end_date: '',
+        description: '',
+        current_status: ''
+      },
+      responsibility: '',
+      organization_name: ''
+    };
+    const dialogRef = this.dialog.open(
+      VoluntaryExperienceDialogComponent,
+      dialogConfig
+    );
+  }
 }

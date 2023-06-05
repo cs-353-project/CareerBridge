@@ -52,6 +52,10 @@ import { NewAdDialogComponent } from './ads/new-ad-dialog/new-ad-dialog.componen
 import { EducationalExperienceDialogComponent } from './profile/educational-experience-dialog/educational-experience-dialog.component';
 import { SkillDialogComponent } from './profile/skill-dialog/skill-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ResponseDialogComponent } from './ads/response-dialog/response-dialog.component';
+import { BasicInfoDialogComponent } from './profile/basic-info-dialog/basic-info-dialog.component';
+import { BiographyDialogComponent } from './profile/biography-dialog/biography-dialog.component';
+import { VoluntaryExperienceDialogComponent } from './profile/voluntary-experience-dialog/voluntary-experience-dialog.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +77,11 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     NewAdDialogComponent,
     EducationalExperienceDialogComponent,
     SkillDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ResponseDialogComponent,
+    BasicInfoDialogComponent,
+    BiographyDialogComponent,
+    VoluntaryExperienceDialogComponent
   ],
   imports: [
     BrowserModule,

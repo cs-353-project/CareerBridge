@@ -1,0 +1,35 @@
+<div class="container" style="width: 350px; height: 275px">
+  <div class="d-flex flex-column justify-content-between h-100">
+    <div class="text-center">
+      <span style="font-size: 16px" class="font-weight-bold"
+        >Application Response</span
+      >
+    </div>
+    <div>
+      <span> For: {{ data.name }} </span>
+    </div>
+    <div>
+      <mat-form-field
+        class="mr-2 w-100"
+        appearance="outline"
+        name="setting"
+        ngDefaultControl>
+        <mat-label class="mr-3">Response</mat-label>
+        <mat-select [(ngModel)]="data.status">
+          <mat-option value="Waiting">Waiting</mat-option>
+          <mat-option value="Interview">Interview</mat-option>
+          <mat-option value="Accepted">Accepted</mat-option>
+          <mat-option value="Rejected">Rejected</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="w-100 d-flex flex-row justify-content-center">
+      <button mat-flat-button color="primary" class="mr-2" matDialogClose>
+        Cancel
+      </button>
+      <button mat-flat-button color="primary" class="mr-2" (click)="submit()">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

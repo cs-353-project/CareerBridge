@@ -2,7 +2,7 @@
   <div class="h-100 v-100 d-flex flex-column">
     <div class="w-100 text-center">
       <span class="font-weight-bold" style="font-size: 20pt"
-        >New Work Experience</span
+        >New Voluntary Experience</span
       >
     </div>
     <div class="d-flex flex-row mt-2">
@@ -20,58 +20,45 @@
           [(ngModel)]="data.experience.title" />
       </mat-form-field>
       <mat-form-field
-        ngDefaultControl
-        name="company_name"
         class="w-100"
         appearance="outline"
-        required
-        [(ngModel)]="data.company_name">
-        <mat-label>Company Name</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        name="school_name"
+        ngDefaultControl>
+        <mat-label>Organization Name</mat-label>
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.organization_name" />
       </mat-form-field>
     </div>
-    <div class="d-flex flex-row">
+    <div>
       <mat-form-field
-        ngDefaultControl
-        class="mr-2 w-100"
-        style="width: 300px"
-        appearance="outline"
-        name="setting">
-        <mat-label class="mr-3">Setting</mat-label>
-        <mat-select [(ngModel)]="data.setting" required>
-          <mat-option value="On-site"> On-site </mat-option>
-          <mat-option value="Remote"> Remote </mat-option>
-          <mat-option value="Hybrid"> Hybrid </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field
-        ngDefaultControl
         class="w-100"
-        style="width: 300px"
         appearance="outline"
-        name="type">
-        <mat-label class="mr-3">Type</mat-label>
-        <mat-select [(ngModel)]="data.type" required>
-          <mat-option value="Internship"> Internship </mat-option>
-          <mat-option value="Part-time Job"> Part-time Job </mat-option>
-          <mat-option value="Job"> Job </mat-option>
-          <mat-option value="Contract"> Contract </mat-option>
-          <mat-option value="Project-based"> Project-based </mat-option>
-        </mat-select>
+        name="school_name"
+        ngDefaultControl>
+        <mat-label>Responsibility</mat-label>
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.responsibility" />
       </mat-form-field>
     </div>
     <div class="d-flex flex-row">
       <div class="h-100">
         <mat-form-field
-          ngDefaultControl
           appearance="standard"
           style="width: 100%"
-          name="start_date">
+          name="start_date"
+          ngDefaultControl>
           <mat-label>Start Date</mat-label>
           <input
             readonly
             matInput
-            required
             [matDatepicker]="picker"
             [(ngModel)]="data.experience.start_date"
             (click)="picker.open()" />
@@ -82,13 +69,15 @@
         </mat-form-field>
       </div>
       <div class="ml-3">
-        <mat-form-field appearance="standard" class="w-100" name="end_date">
+        <mat-form-field
+          appearance="standard"
+          class="w-100"
+          name="end_date"
+          ngDefaultControl>
           <mat-label>End Date</mat-label>
           <input
             readonly
             matInput
-            required
-            ngDefaultControl
             [matDatepicker]="picker2"
             [(ngModel)]="data.experience.end_date"
             (click)="picker2.open()" />
@@ -99,7 +88,7 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="mt-2">
+    <div>
       <mat-form-field
         class="w-100"
         appearance="outline"
@@ -120,7 +109,10 @@
       <button mat-raised-button class="mr-2 btn-danger" matDialogClose>
         Cancel
       </button>
-      <button mat-raised-button color="primary" (click)="addWorkExperience()">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="addVoluntaryExperience()">
         Add
       </button>
     </div>

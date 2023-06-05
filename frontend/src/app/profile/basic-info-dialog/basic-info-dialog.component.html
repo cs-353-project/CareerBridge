@@ -1,0 +1,80 @@
+<div class="container" style="width: 700px; height: 475px">
+  <div class="h-100 v-100 d-flex flex-column">
+    <div class="w-100 text-center">
+      <span class="font-weight-bold" style="font-size: 20pt"
+        >Edit Basic Info</span
+      >
+    </div>
+    <mat-form-field
+      class="w-100 mr-2 mt-2"
+      appearance="outline"
+      name="email"
+      ngDefaultControl>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        class="ml-3"
+        style="width: 90%"
+        required
+        [(ngModel)]="data.email" />
+    </mat-form-field>
+    <mat-form-field
+      class="w-100 mr-2"
+      appearance="outline"
+      name="phone"
+      ngDefaultControl>
+      <mat-label>Phone Number</mat-label>
+      <input
+        matInput
+        class="ml-3"
+        style="width: 90%"
+        required
+        [(ngModel)]="data.phone_number" />
+    </mat-form-field>
+    <mat-form-field
+      class="w-100 mr-2"
+      appearance="outline"
+      name="email"
+      ngDefaultControl>
+      <mat-label>Address</mat-label>
+      <input
+        matInput
+        class="ml-3"
+        style="width: 90%"
+        required
+        [(ngModel)]="data.address" />
+    </mat-form-field>
+    <mat-form-field
+      class="w-100 mr-2"
+      appearance="outline"
+      name="country"
+      ngDefaultControl>
+      <mat-label>Country</mat-label>
+      <input
+        matInput
+        class="ml-3"
+        style="width: 90%"
+        required
+        [(ngModel)]="data.country" />
+    </mat-form-field>
+    <mat-form-field
+      class="w-100 mr-2"
+      appearance="outline"
+      name="email"
+      ngDefaultControl>
+      <mat-label>External Portfolio URL</mat-label>
+      <input
+        matInput
+        class="ml-3"
+        style="width: 90%"
+        required
+        [(ngModel)]="data.external_portfolio_url" />
+    </mat-form-field>
+    <div class="h-100 d-flex flex-row align-items-end justify-content-center">
+      <button mat-raised-button class="mr-2 btn-danger" matDialogClose>
+        Cancel
+      </button>
+      <button mat-raised-button class="ml-2" color="primary">Submit</button>
+    </div>
+  </div>
+</div>

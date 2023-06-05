@@ -94,4 +94,12 @@ export class JobAdService {
       this.baseUrl + 'jobapplications_for_ad/' + id.toString()
     );
   }
+
+  respondToCandidate(id: number, response: any): Observable<any> {
+    console.log(this.baseUrl + 'jobapplications/update/' + id.toString());
+    return this.http.patch(
+      this.baseUrl + 'jobapplications/update/' + id.toString(),
+      response
+    );
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobAdService } from '../_services/job_ad.service';
 import { JobAdvertisementResponseModel } from '../_models/job_ad_models';
@@ -6,6 +6,9 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { ResponseDialogComponent } from '../ads/response-dialog/response-dialog.component';
 @Component({
   selector: 'app-view-ad-details',
   templateUrl: './view-ad-details.component.html',
@@ -15,6 +18,13 @@ export class ViewAdDetailsComponent implements OnInit {
   user_id: number;
   is_applied: boolean = false;
   ad_id: number = +this.route.snapshot.paramMap.get('id');
+  candidates: Candidate[] = [];
+
+  dataSource: MatTableDataSource<Candidate>;
+  @ViewChild('paginator') paginator: MatPaginator;
+  @ViewChild(MatTable) CandidateTable!: MatTable<Candidate>;
+
+  displayedColumns = ['name', 'status', 'application_time', 'actions'];
 
   recruiter_name: string;
   ad: JobAdvertisementResponseModel;
@@ -28,6 +38,22 @@ export class ViewAdDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.adService.getCandidateForJob(this.ad_id).subscribe(res => {
+      console.log(res);
+      res.forEach(element => {
+        let temp = {
+          application_id: element.application_id,
+          user_id: element.user.user_id,
+          name: element.user.first_name + ' ' + element.user.last_name,
+          status: element.status,
+          application_time: element.application_date
+        };
+        this.candidates.push(temp);
+      });
+      this.dataSource = new MatTableDataSource(this.candidates);
+      this.dataSource.paginator = this.paginator;
+    });
+
     this.user_id = this.authService.getCurrentUser().user.user_id;
 
     this.adService
@@ -98,4 +124,31 @@ export class ViewAdDetailsComponent implements OnInit {
       }
     });
   }
+  respondApplication(candidate: Candidate) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      application_id: candidate.application_id,
+      user_id: candidate.user_id,
+      name: candidate.name,
+      status: candidate.status,
+      application_time: candidate.application_time
+    };
+    const dialogRef = this.dialog.open(ResponseDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        candidate.status = result;
+      }
+    });
+  }
+}
+
+export interface Candidate {
+  application_id: number;
+  user_id: number;
+  name: string;
+  status: string;
+  application_time: string;
 }

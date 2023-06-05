@@ -158,14 +158,7 @@
             Edit Biography
           </button>
         </div>
-        <div
-          id="biography-bottom"
-          class="p-3"
-          style="
-            background-color: #f6f6f6;
-            border-radius: 15px;
-            width: calc(100% - 35px);
-          ">
+        <div id="biography-bottom">
           <p *ngIf="userBasicInfo?.biography == null">No biography yet.</p>
           <p *ngIf="userBasicInfo?.biography != null">
             {{ userBasicInfo?.biography }}

@@ -42,6 +42,7 @@ from profile.profile import (
     delete_publication,
     delete_skill,
     delete_test_score,
+    download_resume,
     get_awards_by_profile_id,
     get_certification_by_profile_id,
     get_edu_exp_by_profile_id,
@@ -59,7 +60,7 @@ from profile.profile import (
     upload_resume,
 )
 
-from fastapi import FastAPI, HTTPException, Security, UploadFile
+from fastapi import FastAPI, HTTPException, Response, Security, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -902,6 +903,26 @@ def upload_resume_api(user_id: int, file: UploadFile):
     upload_resume(user_id, file)
 
     return JSONResponse(status_code=200, content={"message": "Resume uploaded successfully"})
+
+
+@app.get("/api/download_resume/{user_id}", response_model=None)
+def download_resume_api(user_id: int):
+    """
+    This download resume API allow you to download resume.
+    """
+    a = download_resume(user_id)
+
+    if a:
+        headers = {
+            "Content-Disposition": "attachment",
+            "Content-Type": "application/octet-stream",
+            "filename": "resume.pdf",
+        }
+
+        return Response(content=a, headers=headers)
+
+    else:
+        raise HTTPException(status_code=404, detail="Resume not found")
 
 
 # Test Endpoints

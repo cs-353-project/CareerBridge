@@ -164,4 +164,8 @@ export class ProfileService {
   uploadResume(formData: any, id: number) {
     return this.http.post(this.baseUrl + 'upload_resume/' + id, formData);
   }
+
+  downloadResume(id: number) {
+    return this.http.get(this.baseUrl + 'download_resume/' + id);
+  }
 }

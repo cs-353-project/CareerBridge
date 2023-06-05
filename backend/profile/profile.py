@@ -956,3 +956,26 @@ def upload_resume(profile_id: int, resume: UploadFile):
     )
 
     return resume
+
+
+def download_resume(profile_id: int):
+    # Check if the profile exists
+    profile = query_get(
+        """
+            SELECT * FROM Profile WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    if len(profile) == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
+    # Update the resume
+    resume = query_get(
+        """
+            SELECT resume FROM Profile WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    return resume[0]["resume"]

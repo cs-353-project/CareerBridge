@@ -13,7 +13,7 @@ CREATE TABLE `AppUser` (
   `user_role` varchar(50) NOT NULL,
   FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`) ON DELETE CASCADE,
   PRIMARY KEY (`user_id`),
-  CHECK (`user_role` IN ('Professional', 'Recruiter', 'Skill Assessor', 'CareerExpert'))
+  CHECK (`user_role` IN ('Professional', 'Recruiter', 'Skill Assessor', 'CareerExpert', 'Admin'))
 );
 
 CREATE TABLE `Admin` (

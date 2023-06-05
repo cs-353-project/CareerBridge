@@ -81,14 +81,14 @@ def create_num_of_users_each_role_response_model():
     # return "Roles: " + str(roles) + "\nNum Of Users: " + str(num_of_users)
 
 
-def create_highest_applications_each_domain_response_model(start_time: datetime.datetime, end_time: datetime.datetime):
+def create_highest_applications_each_domain_response_model():
 
     list_of_data = query_get(
         """
             WITH domain_counts AS (
                 SELECT JA.domain AS domain_name, JA.ad_id AS ad_id, COUNT(*) as application_count
                 FROM JobAdvertisement JA, JobAdvertisementResponse JAR
-                WHERE JA.ad_id = JAR.ad_id AND JAR.apply_date BETWEEN %s AND %s
+                WHERE JA.ad_id = JAR.ad_id 
                 GROUP BY JA.domain, JA.ad_id)
             SELECT DC.domain_name, DC.ad_id, JA.title, JA.organization, DC.application_count
             FROM domain_counts DC, JobAdvertisement JA
@@ -97,7 +97,7 @@ def create_highest_applications_each_domain_response_model(start_time: datetime.
                 FROM domain_counts)
             ORDER BY DC.application_count DESC;
         """,
-        (start_time, end_time),
+        (),
     )
 
     domains = []
@@ -105,10 +105,10 @@ def create_highest_applications_each_domain_response_model(start_time: datetime.
     organizations = []
     num_of_applications = []
     for data in list_of_data:
-        domains.append(data[0]["domain_name"])
-        titles.append(data[0]["title"])
-        organizations.append(data[0]["organization"])
-        num_of_applications.append(data[0]["application_count"])
+        domains.append(data["domain_name"])
+        titles.append(data["title"])
+        organizations.append(data["organization"])
+        num_of_applications.append(data["application_count"])
 
     response: HighestApplicationsEachDomainResponseModel = HighestApplicationsEachDomainResponseModel(
         domains=domains, titles=titles, organizations=organizations, num_of_applications=num_of_applications
@@ -145,16 +145,13 @@ def create_average_skill_rating_of_each_skill_response_model():
     # return "Skill Names: " + str(skill_names) + "\nAverage Ratings: " + str(average_ratings)
 
 
-def create_least_published_ad_type_for_interval_response_model(
-    start_time: datetime.datetime, end_time: datetime.datetime
-):
+def create_least_published_ad_type_for_interval_response_model():
 
     list_of_data = query_get(
         """
             WITH ad_counts AS (SELECT JA.type AS ad_type, COUNT(*) as application_count
                 FROM JobAdvertisement JA, JobAdvertisementResponse JAR
                 WHERE JA.ad_id = JAR.ad_id
-                AND JAR.apply_date BETWEEN %s AND %s
                 GROUP BY JA.type)
             SELECT AC.ad_type, AC.application_count
             FROM ad_counts AC
@@ -162,14 +159,17 @@ def create_least_published_ad_type_for_interval_response_model(
                 SELECT MIN(application_count)
                 FROM ad_counts);
         """,
-        (start_time, end_time),
+        (),
     )
 
+    lst = []
     if list_of_data:
-        response: LeastPublishedAdTypeForIntervalResponseModel = LeastPublishedAdTypeForIntervalResponseModel(
-            ad_type=list_of_data[0]["ad_type"], num_of_ad=list_of_data[0]["application_count"]
-        )
-        return response
+        for data in list_of_data:
+            response: LeastPublishedAdTypeForIntervalResponseModel = LeastPublishedAdTypeForIntervalResponseModel(
+                ad_type=data["ad_type"], num_of_ad=data["application_count"]
+            )
+            lst.append(response)
+        return lst
     else:
         return "No data found"
 
@@ -189,7 +189,7 @@ def create_average_number_of_ad_views_for_company_response_model():
     company_names = []
     average_view_counts = []
     for data in list_of_data:
-        company_names.append(data["company_names"])
+        company_names.append(data["organization"])
         average_view_counts.append(data["average_view_count"])
 
     response: AverageNumberOfAdViewsForCompanyResponseModel = AverageNumberOfAdViewsForCompanyResponseModel(

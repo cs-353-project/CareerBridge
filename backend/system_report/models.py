@@ -56,5 +56,5 @@ class SystemReportResponseModel(BaseModel):
 
 
 class SystemReportRequestModel(BaseModel):
-    start_time: datetime.datetime
-    end_time: datetime.datetime
+    start_time: None
+    end_time: None

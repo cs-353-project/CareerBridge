@@ -20,7 +20,7 @@ export class BiographyDialogComponent implements OnInit {
   submit() {
     console.log(this.data.biography);
     this.profileService
-      .updateBio({ biography: this.data.biography }, this.data.user_id)
+      .updateBio(this.data.biography, this.data.user_id)
       .subscribe(
         response => {
           this.toastr.success('Biography updated successfully!');

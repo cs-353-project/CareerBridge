@@ -13,15 +13,15 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   addComment(comment: CommentRequestModel): Observable<any> {
-    return this.http.post(this.baseUrl + 'comment', comment);
+    return this.http.post(this.baseUrl + 'post/comment', comment);
   }
 
   getComments(post_id: string): Observable<any> {
-    return this.http.get(this.baseUrl + 'comment/' + post_id);
+    return this.http.get(this.baseUrl + 'post/comment/' + post_id);
   }
 
   deleteComment(comment_id: string): Observable<any> {
-    return this.http.delete(this.baseUrl + 'comment/', {
+    return this.http.delete(this.baseUrl + 'post/comment/', {
       body: { comment_id: comment_id }
     });
   }
@@ -38,5 +38,9 @@ export class PostService {
     return this.http.delete(this.baseUrl + 'post/', {
       body: { post_id: post_id }
     });
+  }
+
+  getAllPosts(): Observable<any> {
+    return this.http.get(this.baseUrl + 'posts/all');
   }
 }

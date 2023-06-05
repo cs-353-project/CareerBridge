@@ -3,30 +3,65 @@ from fastapi import HTTPException
 
 from database.query import query_get, query_put, query_update
 
-from .models import( PostResponseModel,
+from .models import (PostResponseModel,
                      PostRequestModel,
                      CommentRequestModel,
                      CommentResponseModel)
 
-def add_post(post_request: PostRequestModel):
 
+def get_all_posts():
+    posts = query_get(
+        """
+            SELECT * FROM Post ORDER BY post_date DESC
+        """,
+        ()
+    )
+
+    for post in posts:
+        post['comments'] = query_get(
+            """
+                SELECT * FROM Comment WHERE post_id = %s
+            """,
+            (post['post_id'],)
+        )
+
+        for comment in post['comments']:
+            comment['user'] = query_get(
+                """
+                    SELECT * FROM User WHERE user_id = %s
+                """,
+                (comment['user_id'],)
+            )[0]
+
+        post['user'] = query_get(
+            """
+                SELECT * FROM User WHERE user_id = %s
+            """,
+            (post['user_id'],)
+        )
+    return posts
+
+
+def add_post(post_request: PostRequestModel):
     post_id = query_put(
         """
-            INSERT INTO Post (user_id, content, attachment, post_date)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO Post (user_id, title, content, attachment, post_date)
+            VALUES (%s, %s, %s, %s, %s)
         """,
         (
             post_request.user_id,
+            post_request.title,
             post_request.content,
             post_request.attachment,
             post_request.post_date,
         ),
     )
 
-    #Construct Response Model   
+    # Construct Response Model
     response: PostResponseModel = PostResponseModel(
         post_id=post_id,
         user_id=post_request.user_id,
+        title=post_request.title,
         content=post_request.content,
         attachment=post_request.attachment,
         post_date=post_request.post_date,
@@ -34,7 +69,8 @@ def add_post(post_request: PostRequestModel):
 
     return response
 
-def get_post_by_id(user_id: int):   
+
+def get_post_by_id(user_id: int):
     post = query_get(
         """
             SELECT * FROM Post WHERE user_id = %s
@@ -42,6 +78,7 @@ def get_post_by_id(user_id: int):
         (user_id,),
     )
     return post
+
 
 def delete_post(post_id: int):
     query_update(
@@ -52,8 +89,8 @@ def delete_post(post_id: int):
     )
     return {"message": "Post deleted successfully."}
 
-def add_comment(comment_request: CommentRequestModel):
 
+def add_comment(comment_request: CommentRequestModel):
     comment_id = query_put(
         """
             INSERT INTO Comment (user_id, post_id, content, commented_at)
@@ -67,7 +104,7 @@ def add_comment(comment_request: CommentRequestModel):
         ),
     )
 
-    #Construct Response Model   
+    # Construct Response Model
     response: CommentResponseModel = CommentResponseModel(
         comment_id=comment_id,
         user_id=comment_request.user_id,
@@ -78,7 +115,8 @@ def add_comment(comment_request: CommentRequestModel):
 
     return response
 
-def get_comment_by_id(post_id: int):   
+
+def get_comment_by_id(post_id: int):
     comment = query_get(
         """
             SELECT * FROM Comment WHERE post_id = %s
@@ -86,6 +124,7 @@ def get_comment_by_id(post_id: int):
         (post_id,),
     )
     return comment
+
 
 def delete_comment(comment_id: int):
     query_update(

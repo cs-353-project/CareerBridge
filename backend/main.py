@@ -98,7 +98,7 @@ from post.post import (
     delete_comment,
     delete_post,
     get_comment_by_id,
-    get_post_by_id,
+    get_post_by_id, get_all_posts,
 )
 from system_report.models import (
     AverageNumberOfAdViewsForCompanyResponseModel,
@@ -623,6 +623,19 @@ def add_post_api(post_details: PostRequestModel):
 
     # if len(post) == 0:
     #     raise HTTPException(status_code=404, detail="Error while adding post")
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(post))
+
+
+@app.get("/api/posts/all", response_model=list[PostResponseModel])
+def get_all_post_api():
+    """
+    This post API allow you to fetch all post data.
+    """
+    post = get_all_posts()
+
+    if len(post) == 0:
+        raise HTTPException(status_code=404, detail="Post not found")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(post))
 

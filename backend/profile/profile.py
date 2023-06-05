@@ -90,39 +90,56 @@ def update_bio(bio_model: BioUpdateRequestModel, profile_id: int):
 
 
 def update_basic_info(update_model: BasicInfoUpdateRequestModel, profile_id: int):
-    query = """
-        UPDATE Profile
-    """
-
-    params = []
-
     if update_model.phone_number is not None:
-        query += " SET phone_number = %s"
-        params.append(update_model.phone_number)
+        query_update(
+            """
+                UPDATE Profile
+                    SET phone_number = %s
+                    WHERE profile_id = %s;
+            """,
+            (
+                update_model.phone_number,
+                profile_id,
+            ),
+        )
 
     if update_model.address is not None:
-        query += " SET address = %s"
-        params.append(update_model.address)
+        query_update(
+            """
+                UPDATE Profile
+                    SET address = %s
+                    WHERE profile_id = %s;
+            """,
+            (
+                update_model.address,
+                profile_id,
+            ),
+        )
 
     if update_model.country is not None:
-        query += " SET country = %s"
-        params.append(update_model.country)
+        query_update(
+            """
+                UPDATE Profile
+                    SET country = %s
+                    WHERE profile_id = %s;
+            """,
+            (
+                update_model.country,
+                profile_id,
+            ),
+        )
 
     if update_model.website is not None:
-        query += " SET external_portfolio_url = %s"
-        params.append(update_model.website)
-
-    if (
-        update_model.phone_number is not None
-        or update_model.address is not None
-        or update_model.country is not None
-        or update_model.website is not None
-    ):
-        query += " WHERE profile_id = %s" % profile_id
-
         query_update(
-            query,
-            params,
+            """
+                UPDATE Profile
+                    SET external_portfolio_url = %s
+                    WHERE profile_id = %s;
+            """,
+            (
+                update_model.website,
+                profile_id,
+            ),
         )
 
     # Change the email address

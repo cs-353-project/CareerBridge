@@ -267,6 +267,12 @@ export class ProfileComponent implements OnInit {
       biography: this.userBasicInfo.biography
     };
     const dialogRef = this.dialog.open(BiographyDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userBasicInfo.biography = result.biography;
+      }
+    });
   }
 
   addVoluntaryExperience() {

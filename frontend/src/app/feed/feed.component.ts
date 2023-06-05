@@ -6,7 +6,7 @@ import { UserAuthResponseModel } from '../_models/user_models';
 import { PostService } from '../_services/post.service';
 import { CommentRequestModel } from '../_models/post_models';
 import { ToastrService } from 'ngx-toastr';
-import {ProfileService} from "../_services/profile.service";
+import { ProfileService } from '../_services/profile.service';
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
@@ -37,6 +37,7 @@ export class FeedComponent implements OnInit {
           let postObj = {
             post_id: post.post_id,
             user_id: post.user_id,
+            title: post.title,
             content: post.content,
             attachment: post.attachment,
             post_date: post.post_date,
@@ -53,7 +54,13 @@ export class FeedComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
-    dialogConfig.data = null;
+    dialogConfig.data = {
+      user_id: this.user.user.user_id,
+      content: '',
+      title: '',
+      attachment: '',
+      post_date: ''
+    };
     const dialogRef = this.dialog.open(CreatePostDialogComponent, dialogConfig);
   }
 

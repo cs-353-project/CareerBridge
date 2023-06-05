@@ -2,6 +2,7 @@ export interface PostResponseModel {
   post_id?: number;
   user_id: number;
   content: string;
+  title: string;
   attachment?: string;
   post_date: string;
 }
@@ -9,6 +10,7 @@ export interface PostResponseModel {
 export interface PostRequestModel {
   user_id: number;
   content: string;
+  title: string;
   attachment?: string;
   post_date: string;
 }

@@ -101,7 +101,6 @@
                 {{ userBasicInfo.country }}
               </p>
               <p *ngIf="userBasicInfo?.country == null">No country provided</p>
-              <p>{{ userBasicInfo?.country }}</p>
             </div>
           </div>
           <div id="basic-information-right">
@@ -149,7 +148,7 @@
         <div id="biography-bottom">
           <p *ngIf="userBasicInfo?.biography == null">No biography yet.</p>
           <p *ngIf="userBasicInfo?.biography != null">
-            {{ userBasicInfo?.biography }}/p>
+            {{ userBasicInfo?.biography }}
           </p>
         </div>
       </div>

@@ -18,7 +18,25 @@ export class BasicInfoDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  submit() {}
+  submit() {
+    let temp = {
+      email: this.data.email,
+      phone_number: this.data.phone_number,
+      address: this.data.address,
+      country: this.data.country,
+      website: this.data.external_portfolio_url
+    };
+    console.log(temp);
+    this.profileService.updateBasicInfo(temp, this.data.user_id).subscribe(
+      response => {
+        this.toastr.success('Basic info updated successfully!');
+        this.dialogRef.close(this.data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }
 
 export interface BasicInfo {

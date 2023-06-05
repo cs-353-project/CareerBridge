@@ -524,7 +524,7 @@ def add_project_api(project_details: ProjectRequestModel):
 
 
 @app.patch("/api/update_bio/{profile_id}", response_model=None)
-def update_bio_api(profile_id: int, bio_details: BioUpdateRequestModel):
+def update_bio_api(profile_id: int, bio_details):
     """
     This bio update API allow you to update bio data.
     """

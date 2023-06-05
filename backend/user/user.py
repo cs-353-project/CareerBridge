@@ -68,15 +68,14 @@ def update_user(user_model: UserUpdateRequestModel, user_id: int):
             UPDATE User
                 SET first_name = %s,
                     last_name = %s,
-                    email = %s,
-                    password = %s
+                    email = %s
                 WHERE user_id = %s;
             """,
         (
             user_model.first_name if user_model.first_name is not None else prev_user["first_name"],
             user_model.last_name if user_model.last_name is not None else prev_user["last_name"],
             user_model.email if user_model.email is not None else prev_user["email"],
-            user_model.password if user_model.password is not None else prev_user["password"],
+            #user_model.password if user_model.password is not None else prev_user["password"],
             user_id,
         ),
     )

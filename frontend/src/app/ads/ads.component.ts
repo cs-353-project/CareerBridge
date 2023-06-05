@@ -33,6 +33,8 @@ export class AdsComponent implements OnInit {
     'black'
   ];
 
+  is_open = 'Open';
+
   options = { year: 'numeric', month: 'long', day: 'numeric' };
 
   skills = '';
@@ -43,7 +45,7 @@ export class AdsComponent implements OnInit {
     pay_range_max: 10000000,
     type: '',
     location: '',
-    setting: '',
+    setting: 'On-site',
     domain: '',
     is_open: 1,
     skills: [],
@@ -201,7 +203,11 @@ export class AdsComponent implements OnInit {
   filterAds() {
     this.jobAdFilter.pay_range_min = +this.jobAdFilter.pay_range_min;
     this.jobAdFilter.pay_range_max = +this.jobAdFilter.pay_range_max;
-    this.jobAdFilter.is_open = +this.jobAdFilter.is_open;
+    if (this.is_open == 'Open') {
+      this.jobAdFilter.is_open = 1;
+    } else {
+      this.jobAdFilter.is_open = 0;
+    }
 
     if (this.skills != '') {
       this.jobAdFilter.skills = this.skills.split(',');

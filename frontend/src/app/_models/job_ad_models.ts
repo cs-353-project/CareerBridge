@@ -1,4 +1,4 @@
-import {DegreeModel, ProfileModel} from './profile_models';
+import { DegreeModel, ProfileModel } from './profile_models';
 
 export interface SkillInJobResponseModel {
   skill_id?: number;

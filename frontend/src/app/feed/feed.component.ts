@@ -16,6 +16,8 @@ export class FeedComponent implements OnInit {
   public user: UserAuthResponseModel =
     this.authenticationService.getCurrentUser();
 
+  comment_index = -1;
+
   posts: any[];
 
   constructor(
@@ -45,7 +47,7 @@ export class FeedComponent implements OnInit {
             new_comment: '',
             user: post.user[0]
           };
-          this.posts.push(postObj);
+          this.posts.unshift(postObj);
         });
       });
   }
@@ -62,6 +64,12 @@ export class FeedComponent implements OnInit {
       post_date: ''
     };
     const dialogRef = this.dialog.open(CreatePostDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        window.location.reload();
+      }
+    });
   }
 
   addComment(post: any) {
@@ -81,10 +89,19 @@ export class FeedComponent implements OnInit {
         request['user'] = this.user.user;
         post.comments.push(request);
         this.toastr.success('Comment added successfully', 'Success');
+        this.comment_index = -1;
       },
       error => {
         this.toastr.error('Comment could not be added', 'Error');
       }
     );
+  }
+
+  toggleComment(index: number) {
+    if (index == this.comment_index) {
+      this.comment_index = -1;
+    } else {
+      this.comment_index = index;
+    }
   }
 }

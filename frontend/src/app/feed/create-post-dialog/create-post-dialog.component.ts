@@ -61,7 +61,7 @@ export class CreatePostDialogComponent implements OnInit {
     this.postService.addPost(this.data).subscribe(
       response => {
         this.toastr.success('Post created successfully');
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       },
       error => {
         this.toastr.error('Something went wrong');

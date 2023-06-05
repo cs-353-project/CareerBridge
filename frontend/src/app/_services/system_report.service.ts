@@ -16,21 +16,4 @@ export class SystemReportService {
     return this.http.get(this.baseUrl + 'systemreports');
   }
 
-  getHighestApplicationsEachDomain(
-    dates: SystemReportRequestModel
-  ): Observable<any> {
-    return this.http.post(
-      this.baseUrl + 'systemreports/highest_applications_each_domain',
-      dates
-    );
-  }
-
-  getLeastPublishedAdTypeForInterval(
-    dates: SystemReportRequestModel
-  ): Observable<any> {
-    return this.http.post(
-      this.baseUrl + 'systemreports/least_published_ad_type_for_interval',
-      dates
-    );
-  }
 }

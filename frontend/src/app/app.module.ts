@@ -62,6 +62,7 @@ import { AwardDialogComponent } from './profile/award-dialog/award-dialog.compon
 import { TestScoreDialogComponent } from './profile/test-score-dialog/test-score-dialog.component';
 import { PublicationDialogComponent } from './profile/publication-dialog/publication-dialog.component';
 import { LanguageDialogComponent } from './profile/language-dialog/language-dialog.component';
+import { AssessSkillDialogComponent } from './assess-skill-dialog/assess-skill-dialog.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { LanguageDialogComponent } from './profile/language-dialog/language-dial
     AwardDialogComponent,
     TestScoreDialogComponent,
     PublicationDialogComponent,
-    LanguageDialogComponent
+    LanguageDialogComponent,
+    AssessSkillDialogComponent
   ],
   imports: [
     BrowserModule,

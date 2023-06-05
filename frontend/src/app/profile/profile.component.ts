@@ -31,6 +31,7 @@ import { AwardDialogComponent } from './award-dialog/award-dialog.component';
 import { TestScoreDialogComponent } from './test-score-dialog/test-score-dialog.component';
 import { PublicationDialogComponent } from './publication-dialog/publication-dialog.component';
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component';
+import { AssessSkillDialogComponent } from '../assess-skill-dialog/assess-skill-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -66,7 +67,7 @@ export class ProfileComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {
     console.log(this.id);
   }
@@ -541,23 +542,19 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(LanguageDialogComponent, dialogConfig);
   }
 
-  assessSkill(skill_id) {
-    let rating;
-    this.profileService
-      .getSkillAssessments(skill_id)
-      .toPromise()
-      .then(response => {
-        rating = response[0].rating;
-      });
+  assessSkill(skill: SkillModel) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
     dialogConfig.data = {
-      skill_id: skill_id,
-      assessor_user_id: this.id,
-      assessor_profile_id: this.id,
-      rating: rating
+      skill_id: skill.skill_id,
+      skill_name: skill.name,
+      rating: 0,
+      assessor_id: this.id
     };
-    const dialogRef = this.dialog.open(LanguageDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(
+      AssessSkillDialogComponent,
+      dialogConfig
+    );
   }
 }

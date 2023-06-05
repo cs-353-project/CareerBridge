@@ -216,9 +216,16 @@ export class AdsComponent implements OnInit {
       this.jobAdFilter.degrees = this.degrees.split(',');
     }
 
+    if (this.jobAdFilter.type == 'Any') {
+      this.jobAdFilter.type = null;
+    }
+
+    console.log(this.jobAdFilter);
+
     // return;
     this.adService.filterJobAds(this.jobAdFilter).subscribe(response => {
       // Update the ads_for_you array
+      console.log(response);
       this.ads_for_you = [];
       response.forEach(element => {
         let date = new Date();

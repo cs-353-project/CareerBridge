@@ -76,6 +76,7 @@
           <button
             mat-raised-button
             class="btn-primary"
+            *ngIf="this.id == this.visited_id"
             (click)="editBasicInfo()">
             Edit Info
           </button>
@@ -154,6 +155,7 @@
           <button
             mat-raised-button
             class="btn-primary"
+            *ngIf="this.id == this.visited_id"
             (click)="editBiography()">
             Edit Biography
           </button>
@@ -177,7 +179,11 @@
             <mat-icon>work</mat-icon>
             <h2 class="main-content-header">Work Experience</h2>
           </div>
-          <button mat-button class="btn-primary" (click)="addWorkExperience()">
+          <button
+            mat-button
+            class="btn-primary"
+            *ngIf="this.id == this.visited_id"
+            (click)="addWorkExperience()">
             Add Experience
           </button>
         </div>
@@ -227,7 +233,10 @@
                         </div>
                       </div>
                       <div class="ml-3 mr-1">
-                        <button mat-raised-button class="btn-danger">
+                        <button
+                          mat-raised-button
+                          *ngIf="this.id == this.visited_id"
+                          class="btn-danger">
                           Delete
                         </button>
                       </div>
@@ -260,6 +269,7 @@
           <button
             mat-button
             class="btn-primary"
+            *ngIf="this.id == this.visited_id"
             (click)="addEducationalExperience()">
             Add Experience
           </button>
@@ -316,7 +326,10 @@
                         </div>
                       </div>
                       <div class="ml-3 mr-1">
-                        <button mat-raised-button class="btn-danger">
+                        <button
+                          mat-raised-button
+                          class="btn-danger"
+                          *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
                       </div>
@@ -349,6 +362,7 @@
           <button
             mat-button
             class="btn-primary"
+            *ngIf="this.id == this.visited_id"
             (click)="addVoluntaryExperience()">
             Add Experience
           </button>
@@ -399,7 +413,10 @@
                         </div>
                       </div>
                       <div class="ml-3 mr-1">
-                        <button mat-raised-button class="btn-danger">
+                        <button
+                          mat-raised-button
+                          class="btn-danger"
+                          *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
                       </div>
@@ -429,7 +446,11 @@
             <mat-icon> layers</mat-icon>
             <h2 class="main-content-header">Projects</h2>
           </div>
-          <button mat-button class="btn-primary" (click)="addProject()">
+          <button
+            mat-button
+            class="btn-primary"
+            (click)="addProject()"
+            *ngIf="this.id == this.visited_id">
             Add Project
           </button>
         </div>
@@ -476,7 +497,10 @@
                         </div>
                       </div>
                       <div class="ml-3 mr-1">
-                        <button mat-raised-button class="btn-danger">
+                        <button
+                          mat-raised-button
+                          class="btn-danger"
+                          *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
                       </div>
@@ -506,7 +530,11 @@
             <mat-icon>description</mat-icon>
             <h2 class="main-content-header">Certifications</h2>
           </div>
-          <button mat-button class="btn-primary" (click)="addCertificate()">
+          <button
+            mat-button
+            class="btn-primary"
+            (click)="addCertificate()"
+            *ngIf="this.id == this.visited_id">
             Add Certification
           </button>
         </div>
@@ -560,7 +588,10 @@
                         </div>
                       </div>
                       <div class="ml-3 mr-1">
-                        <button mat-raised-button class="btn-danger">
+                        <button
+                          mat-raised-button
+                          class="btn-danger"
+                          *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
                       </div>
@@ -588,7 +619,11 @@
             <mat-icon> military_tech</mat-icon>
             <h2 class="main-content-header">Awards</h2>
           </div>
-          <button mat-button class="btn-primary" (click)="addAward()">
+          <button
+            mat-button
+            class="btn-primary"
+            (click)="addAward()"
+            *ngIf="this.id == this.visited_id">
             Add Awards
           </button>
         </div>
@@ -629,7 +664,10 @@
                         </div>
                       </div>
                       <div class="ml-3 mr-1">
-                        <button mat-raised-button class="btn-danger">
+                        <button
+                          mat-raised-button
+                          class="btn-danger"
+                          *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
                       </div>
@@ -659,7 +697,11 @@
             <mat-icon>grade</mat-icon>
             <h2 class="main-content-header">Test Scores</h2>
           </div>
-          <button mat-button class="btn-primary" (click)="addTestScore()">
+          <button
+            mat-button
+            class="btn-primary"
+            (click)="addTestScore()"
+            *ngIf="this.id == this.visited_id">
             Add Score
           </button>
         </div>
@@ -699,7 +741,10 @@
                         </div>
                       </div>
                       <div class="ml-3 mr-1">
-                        <button mat-raised-button class="btn-danger">
+                        <button
+                          mat-raised-button
+                          class="btn-danger"
+                          *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
                       </div>
@@ -729,7 +774,11 @@
             <mat-icon>public</mat-icon>
             <h2 class="main-content-header">Publications</h2>
           </div>
-          <button mat-button class="btn-primary" (click)="addPublication()">
+          <button
+            mat-button
+            class="btn-primary"
+            (click)="addPublication()"
+            *ngIf="this.id == this.visited_id">
             Add Publication
           </button>
         </div>
@@ -781,7 +830,10 @@
                       </div>
 
                       <div class="ml-3 mr-1">
-                        <button mat-raised-button class="btn-danger">
+                        <button
+                          mat-raised-button
+                          class="btn-danger"
+                          *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
                       </div>
@@ -811,7 +863,11 @@
             <mat-icon>language</mat-icon>
             <h2 class="main-content-header">Publications</h2>
           </div>
-          <button mat-button class="btn-primary" (click)="addLanguage()">
+          <button
+            mat-button
+            class="btn-primary"
+            (click)="addLanguage()"
+            *ngIf="this.id == this.visited_id">
             Add Language
           </button>
         </div>
@@ -862,7 +918,11 @@
             <mat-icon>check_circle</mat-icon>
             <h2 class="main-content-header">Skills</h2>
           </div>
-          <button mat-button class="btn-primary" (click)="addSkill()">
+          <button
+            mat-button
+            class="btn-primary"
+            (click)="addSkill()"
+            *ngIf="this.id == this.visited_id">
             Add Skill
           </button>
         </div>
@@ -913,7 +973,10 @@
                       </div>
                     </div>
                     <div>
-                      <button mat-raised-button class="btn-danger mr-1">
+                      <button
+                        mat-raised-button
+                        class="btn-danger mr-1"
+                        *ngIf="this.id == this.visited_id">
                         Delete
                       </button>
                     </div>
@@ -947,17 +1010,19 @@
               id="input-file-id"
               accept="application/pdf"
               type="file"
+              *ngIf="this.id == this.visited_id"
               (change)="uploadResume($event)" />
             <label
               for="input-file-id"
               class="mat-raised-button primary bg-info text-light"
+              *ngIf="this.id == this.visited_id"
               >Upload Resume</label
             >
             <button
               mat-button
               class="ml-2 btn-danger"
               (click)="deleteResume()"
-              *ngIf="userBasicInfo?.resume === 1">
+              *ngIf="userBasicInfo?.resume === 1 && this.id == this.visited_id">
               Delete Resume
             </button>
           </div>

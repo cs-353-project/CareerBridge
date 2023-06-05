@@ -21,6 +21,7 @@ import {
   WorkExperienceModel
 } from '../_models/profile_models';
 import { AuthenticationService } from './authentication.service';
+import { AssessSkillModel } from '../_models/functionality_models';
 
 @Injectable({
   providedIn: 'root'
@@ -187,5 +188,12 @@ export class ProfileService {
 
   deleteResume(id: number) {
     return this.http.delete(this.baseUrl + 'delete_resume/' + id);
+  }
+
+  assessSkill(skill_assessment: AssessSkillModel) {
+    return this.http.post(
+      this.baseUrl + 'profile/skill/assess',
+      skill_assessment
+    );
   }
 }

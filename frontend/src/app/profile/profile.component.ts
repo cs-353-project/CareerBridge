@@ -40,7 +40,8 @@ import { LanguageDialogComponent } from './language-dialog/language-dialog.compo
 export class ProfileComponent implements OnInit {
   activeElement = 'information';
   // Get the id from the link in the navbar
-  id = this.route.snapshot.paramMap.get('id');
+  id = this.authenticationService.getCurrentUser().user.user_id.toString();
+  visited_id = this.route.snapshot.paramMap.get('id');
   userBasicInfo: ProfileModel | null = null;
 
   profile_name: string;
@@ -72,7 +73,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileService
-      .getUserBasicInfoById(+this.id)
+      .getUserBasicInfoById(+this.visited_id)
       .toPromise()
       .then(
         response => {
@@ -100,7 +101,7 @@ export class ProfileComponent implements OnInit {
       );
 
     this.profileService
-      .getUserById(+this.id)
+      .getUserById(+this.visited_id)
       .toPromise()
       .then(response => {
         response.forEach(element => {
@@ -110,7 +111,7 @@ export class ProfileComponent implements OnInit {
       });
 
     this.profileService
-      .getWorkExperiences(this.id)
+      .getWorkExperiences(this.visited_id)
       .toPromise()
       .then(data => {
         data.forEach(element => {
@@ -133,7 +134,7 @@ export class ProfileComponent implements OnInit {
       });
 
     this.profileService
-      .getEducationalExperiences(this.id)
+      .getEducationalExperiences(this.visited_id)
       .toPromise()
       .then(data => {
         data.forEach(element => {
@@ -159,7 +160,7 @@ export class ProfileComponent implements OnInit {
       });
 
     this.profileService
-      .getWorkExperiences(this.id)
+      .getWorkExperiences(this.visited_id)
       .toPromise()
       .then(data => {
         data.forEach(element => {
@@ -182,7 +183,7 @@ export class ProfileComponent implements OnInit {
       });
 
     this.profileService
-      .getSkills(this.id)
+      .getSkills(this.visited_id)
       .toPromise()
       .then(data => {
         data.forEach(element => {
@@ -197,7 +198,7 @@ export class ProfileComponent implements OnInit {
         });
       });
 
-    this.profileService.getProjects(this.id).subscribe(data => {
+    this.profileService.getProjects(this.visited_id).subscribe(data => {
       data.forEach(element => {
         let temp: ProjectModel = {
           project_id: element.project_id,
@@ -212,7 +213,7 @@ export class ProfileComponent implements OnInit {
       });
     });
 
-    this.profileService.getCertification(this.id).subscribe(data => {
+    this.profileService.getCertification(this.visited_id).subscribe(data => {
       data.forEach(element => {
         let temp: CertificationModel = {
           certification_id: element.certification_id,
@@ -228,7 +229,7 @@ export class ProfileComponent implements OnInit {
       });
     });
 
-    this.profileService.getAward(this.id).subscribe(data => {
+    this.profileService.getAward(this.visited_id).subscribe(data => {
       data.forEach(element => {
         let temp: AwardModel = {
           award_id: element.award_id,
@@ -242,7 +243,7 @@ export class ProfileComponent implements OnInit {
       });
     });
 
-    this.profileService.getTestScores(this.id).subscribe(data => {
+    this.profileService.getTestScores(this.visited_id).subscribe(data => {
       data.forEach(element => {
         let temp: TestScoreModel = {
           test_score_id: element.test_score_id,
@@ -256,7 +257,7 @@ export class ProfileComponent implements OnInit {
       });
     });
 
-    this.profileService.getPublication(this.id).subscribe(data => {
+    this.profileService.getPublication(this.visited_id).subscribe(data => {
       data.forEach(element => {
         let temp: PublicationModel = {
           publication_id: element.publication_id,

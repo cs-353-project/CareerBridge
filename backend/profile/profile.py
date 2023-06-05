@@ -979,3 +979,26 @@ def download_resume(profile_id: int):
     )
 
     return resume[0]["resume"]
+
+
+def delete_resume(profile_id: int):
+    # Check if the profile exists
+    profile = query_get(
+        """
+            SELECT * FROM Profile WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    if len(profile) == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
+    # Update the resume
+    query_put(
+        """
+            UPDATE Profile SET resume = NULL WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    return profile

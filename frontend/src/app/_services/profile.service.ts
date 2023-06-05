@@ -168,4 +168,8 @@ export class ProfileService {
   downloadResume(id: number) {
     return this.http.get(this.baseUrl + 'download_resume/' + id);
   }
+
+  deleteResume(id: number) {
+    return this.http.delete(this.baseUrl + 'delete_resume/' + id);
+  }
 }

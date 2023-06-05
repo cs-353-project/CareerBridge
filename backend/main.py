@@ -40,6 +40,7 @@ from profile.profile import (
     delete_experience,
     delete_project,
     delete_publication,
+    delete_resume,
     delete_skill,
     delete_test_score,
     download_resume,
@@ -923,6 +924,16 @@ def download_resume_api(user_id: int):
 
     else:
         raise HTTPException(status_code=404, detail="Resume not found")
+
+
+@app.delete("/api/delete_resume/{user_id}", response_model=None)
+def delete_resume_api(user_id: int):
+    """
+    This delete resume API allow you to delete resume.
+    """
+    delete_resume(user_id)
+
+    return JSONResponse(status_code=200, content={"message": "Resume deleted successfully"})
 
 
 # Test Endpoints

@@ -1,8 +1,8 @@
-<div class="container" style="width: 700px; height: 450px">
+<div class="container" style="width: 700px; height: 550px">
   <div class="h-100 v-100 d-flex flex-column">
     <div class="w-100 text-center">
       <span class="font-weight-bold" style="font-size: 20pt"
-        >New Voluntary Experience</span
+        >New Certificate</span
       >
     </div>
     <div class="d-flex flex-row mt-2">
@@ -11,41 +11,43 @@
         appearance="outline"
         name="title"
         ngDefaultControl>
-        <mat-label>Title</mat-label>
+        <mat-label>Certification Name</mat-label>
         <input
           matInput
           class="ml-3"
           style="width: 90%"
           required
-          [(ngModel)]="data.experience.title" />
-      </mat-form-field>
-      <mat-form-field
-        class="w-100"
-        appearance="outline"
-        name="school_name"
-        ngDefaultControl>
-        <mat-label>Organization Name</mat-label>
-        <input
-          matInput
-          class="ml-3"
-          style="width: 90%"
-          required
-          [(ngModel)]="data.organization_name" />
+          [(ngModel)]="data.certification_name" />
       </mat-form-field>
     </div>
-    <div>
+    <div class="d-flex flex-row">
       <mat-form-field
         class="w-100"
         appearance="outline"
-        name="school_name"
+        name="grade"
         ngDefaultControl>
-        <mat-label>Responsibility</mat-label>
+        <mat-label>Issuer</mat-label>
         <input
           matInput
           class="ml-3"
           style="width: 90%"
           required
-          [(ngModel)]="data.responsibility" />
+          [(ngModel)]="data.issuer" />
+      </mat-form-field>
+    </div>
+    <div class="d-flex flex-row mt-2">
+      <mat-form-field
+        class="w-100 mr-2"
+        appearance="outline"
+        name="title"
+        ngDefaultControl>
+        <mat-label>Credential URL</mat-label>
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.credential_url" />
       </mat-form-field>
     </div>
     <div class="d-flex flex-row">
@@ -55,12 +57,12 @@
           style="width: 100%"
           name="start_date"
           ngDefaultControl>
-          <mat-label>Start Date</mat-label>
+          <mat-label>Issue Date</mat-label>
           <input
             readonly
             matInput
             [matDatepicker]="picker"
-            [(ngModel)]="data.experience.start_date"
+            [(ngModel)]="data.issue_date"
             (click)="picker.open()" />
           <mat-datepicker-toggle
             matSuffix
@@ -74,13 +76,13 @@
           class="w-100"
           name="end_date"
           ngDefaultControl>
-          <mat-label>{{ end_date }}</mat-label>
+          <mat-label>{{ expiration_date }}</mat-label>
           <input
             readonly
             matInput
-            [disabled]="is_ongoing"
             [matDatepicker]="picker2"
-            [(ngModel)]="data.experience.end_date"
+            [disabled]="is_expirable"
+            [(ngModel)]="data.expiration_date"
             (click)="picker2.open()" />
           <mat-datepicker-toggle
             matSuffix
@@ -91,9 +93,9 @@
       <div class="d-flex flex-row align-items-center ml-3">
         <mat-checkbox
           class="example-margin"
-          [(ngModel)]="is_ongoing"
-          (change)="changeOngoing()"
-          >Is it ongoing?</mat-checkbox
+          [(ngModel)]="is_expirable"
+          (change)="changeExpirable()"
+          >Is it expirable?</mat-checkbox
         >
       </div>
     </div>
@@ -108,7 +110,7 @@
           class="w-100"
           matInput
           cdkTextareaAutosize
-          [(ngModel)]="data.experience.description"
+          [(ngModel)]="data.description"
           #autosize="cdkTextareaAutosize"
           cdkAutosizeMinRows="6"
           cdkAutosizeMaxRows="6"></textarea>
@@ -118,10 +120,7 @@
       <button mat-raised-button class="mr-2 btn-danger" matDialogClose>
         Cancel
       </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="addVoluntaryExperience()">
+      <button mat-raised-button color="primary" (click)="addCertification()">
         Add
       </button>
     </div>

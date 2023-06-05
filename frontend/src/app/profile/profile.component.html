@@ -191,9 +191,6 @@
         <div class="mt-2" *ngIf="workExperiences?.length == 0">
           <span>No Work Experience yet.</span>
         </div>
-        <div class="w-100" *ngFor="let work_experience of workExperiences">
-          <div class="w-100" style="background-color: #f6f6f6"></div>
-        </div>
         <div
           *ngIf="workExperiences?.length > 0"
           style="width: calc(100% - 35px)">
@@ -246,7 +243,9 @@
                 </div>
                 <mat-divider class="w-100 my-1"></mat-divider>
                 <div class="w-100 px-2">
-                  <span>{{ exp.experience.description }}</span>
+                  <span style="overflow-wrap: anywhere">{{
+                    exp.experience.description
+                  }}</span>
                 </div>
               </div>
             </div>
@@ -333,7 +332,9 @@
                 </div>
                 <mat-divider class="w-100 my-1"></mat-divider>
                 <div class="w-100 px-2">
-                  <span>{{ exp.experience.description }}</span>
+                  <span style="overflow-wrap: anywhere">{{
+                    exp.experience.description
+                  }}</span>
                 </div>
               </div>
             </div>
@@ -414,7 +415,9 @@
                 </div>
                 <mat-divider class="w-100 my-1"></mat-divider>
                 <div class="w-100 px-2">
-                  <span>{{ exp.experience.description }}</span>
+                  <span style="overflow-wrap: anywhere">{{
+                    exp.experience.description
+                  }}</span>
                 </div>
               </div>
             </div>
@@ -433,42 +436,68 @@
             <mat-icon> layers</mat-icon>
             <h2 class="main-content-header">Projects</h2>
           </div>
-          <button mat-button class="btn-primary">Add Project</button>
+          <button mat-button class="btn-primary" (click)="addProject()">
+            Add Project
+          </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon> local_offer</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+        <div class="mt-2" *ngIf="projects?.length == 0">
+          <span>No projects yet.</span>
+        </div>
+        <div *ngIf="projects?.length > 0" style="width: calc(100% - 35px)">
+          <div class="w-100" *ngFor="let project of projects">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
+                  <div>
+                    <mat-icon class="item-icon">work_outline</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ project?.title }}</span
+                        >
+                      </div>
+                      <div>
+                        <a
+                          style="font-size: 14px"
+                          *ngIf="project?.project_url != null"
+                          target="_blank"
+                          [href]="project?.project_url">
+                          view project
+                        </a>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column align-items-end">
+                        <div>
+                          <span style="font-size: 12px"
+                            >{{ project?.start_date }} -
+                            {{ project?.end_date }}</span
+                          >
+                        </div>
+                      </div>
+                      <div class="ml-3 mr-1">
+                        <button mat-raised-button class="btn-danger">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider class="w-100 my-1"></mat-divider>
+                <div class="w-100 px-2">
+                  <span style="overflow-wrap: anywhere">{{
+                    project?.description
+                  }}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
-        </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon> local_offer</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -484,42 +513,75 @@
             <mat-icon>description</mat-icon>
             <h2 class="main-content-header">Certifications</h2>
           </div>
-          <button mat-button class="btn-primary">Add Certification</button>
+          <button mat-button class="btn-primary" (click)="addCertificate()">
+            Add Certification
+          </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>receipt</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+        <div class="mt-2" *ngIf="certifications?.length == 0">
+          <span>No certifications yet.</span>
+        </div>
+        <div
+          *ngIf="certifications?.length > 0"
+          style="width: calc(100% - 35px)">
+          <div class="w-100" *ngFor="let certificate of certifications">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
+                  <div>
+                    <mat-icon class="item-icon">receipt</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ certificate?.certification_name }}</span
+                        >
+                      </div>
+                      <div>
+                        <span style="font-size: 14px">{{
+                          certificate?.issuer
+                        }}</span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column align-items-end">
+                        <div>
+                          <span style="font-size: 12px"
+                            >{{ certificate?.issue_date }} -
+                            {{ certificate?.expiration_date }}</span
+                          >
+                        </div>
+                        <div>
+                          <a
+                            style="font-size: 14px"
+                            *ngIf="certificate?.credential_url != null"
+                            target="_blank"
+                            [href]="certificate?.credential_url">
+                            view certificate
+                          </a>
+                        </div>
+                      </div>
+                      <div class="ml-3 mr-1">
+                        <button mat-raised-button class="btn-danger">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider class="w-100 my-1"></mat-divider>
+                <div class="w-100 px-2">
+                  <span style="overflow-wrap: anywhere">{{
+                    certificate?.description
+                  }}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
-        </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>receipt</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -530,45 +592,65 @@
         [ngStyle]="{ display: this.activeElement !== 'awards' ? 'none' : '' }">
         <div class="main-content-top">
           <div class="main-content-top-inner">
-            <mat-icon> score</mat-icon>
+            <mat-icon> military_tech</mat-icon>
             <h2 class="main-content-header">Awards</h2>
           </div>
-          <button mat-button class="btn-primary">Add Awards</button>
+          <button mat-button class="btn-primary" (click)="addAward()">
+            Add Awards
+          </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon> show_chart</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+
+        <div class="mt-2" *ngIf="awards?.length == 0">
+          <span>No certifications yet.</span>
+        </div>
+        <div *ngIf="awards?.length > 0" style="width: calc(100% - 35px)">
+          <div class="w-100" *ngFor="let award of awards">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
+                  <div>
+                    <mat-icon class="item-icon">receipt</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ award?.title }}</span
+                        >
+                      </div>
+                      <div>
+                        <span style="font-size: 14px">{{ award?.issuer }}</span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-row align-items-end">
+                        <div>
+                          <span style="font-size: 12px">{{
+                            award?.issue_date
+                          }}</span>
+                        </div>
+                      </div>
+                      <div class="ml-3 mr-1">
+                        <button mat-raised-button class="btn-danger">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider class="w-100 my-1"></mat-divider>
+                <div class="w-100 px-2">
+                  <span style="overflow-wrap: anywhere">{{
+                    award?.description
+                  }}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
-        </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon> show_chart</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -584,42 +666,61 @@
             <mat-icon>grade</mat-icon>
             <h2 class="main-content-header">Test Scores</h2>
           </div>
-          <button mat-button class="btn-primary">Add Score</button>
+          <button mat-button class="btn-primary" (click)="addTestScore()">
+            Add Score
+          </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>timeline</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+        <div class="mt-2" *ngIf="test_scores?.length == 0">
+          <span>No certifications yet.</span>
+        </div>
+        <div *ngIf="test_scores?.length > 0" style="width: calc(100% - 35px)">
+          <div class="w-100" *ngFor="let test of test_scores">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
+                  <div>
+                    <mat-icon class="item-icon">timeline</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ test?.test_name }}</span
+                        >
+                      </div>
+                      <div>
+                        <span style="font-size: 14px">{{ test?.score }}</span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-row align-items-end">
+                        <div>
+                          <span style="font-size: 12px">{{
+                            test?.test_date
+                          }}</span>
+                        </div>
+                      </div>
+                      <div class="ml-3 mr-1">
+                        <button mat-raised-button class="btn-danger">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider class="w-100 my-1"></mat-divider>
+                <div class="w-100 px-2" style="white-space: pre-line">
+                  <span style="overflow-wrap: anywhere">{{
+                    test?.description
+                  }}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
-        </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>timeline</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -635,42 +736,73 @@
             <mat-icon>public</mat-icon>
             <h2 class="main-content-header">Publications</h2>
           </div>
-          <button mat-button class="btn-primary">Add Publication</button>
+          <button mat-button class="btn-primary" (click)="addPublication()">
+            Add Publication
+          </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon> rate_review</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+        <div class="mt-2" *ngIf="publications?.length == 0">
+          <span>No certifications yet.</span>
+        </div>
+        <div *ngIf="publications?.length > 0" style="width: calc(100% - 35px)">
+          <div class="w-100" *ngFor="let publication of publications">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
+                  <div>
+                    <mat-icon class="item-icon">article</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ publication?.title }}</span
+                        >
+                      </div>
+                      <div>
+                        <span style="font-size: 14px">{{
+                          publication?.publisher
+                        }}</span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column align-items-end">
+                        <div>
+                          <span style="font-size: 12px"
+                            >{{ publication?.publication_date }}
+                          </span>
+                        </div>
+                        <div>
+                          <a
+                            style="font-size: 14px"
+                            *ngIf="publication?.publication_url != null"
+                            target="_blank"
+                            [href]="publication?.publication_url">
+                            view publication
+                          </a>
+                        </div>
+                      </div>
+
+                      <div class="ml-3 mr-1">
+                        <button mat-raised-button class="btn-danger">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider class="w-100 my-1"></mat-divider>
+                <div class="w-100 px-2" style="white-space: pre-line">
+                  <span style="overflow-wrap: anywhere">{{
+                    publication?.description
+                  }}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
-        </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon> rate_review</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -686,7 +818,9 @@
             <mat-icon>language</mat-icon>
             <h2 class="main-content-header">Publications</h2>
           </div>
-          <button mat-button class="btn-primary">Add Language</button>
+          <button mat-button class="btn-primary" (click)="addLanguage()">
+            Add Language
+          </button>
         </div>
         <div class="main-content-item">
           <div class="main-content-top">

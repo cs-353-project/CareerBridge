@@ -13,6 +13,9 @@ import { ProfileService } from '../../_services/profile.service';
   styleUrls: ['./voluntary-experience-dialog.component.css']
 })
 export class VoluntaryExperienceDialogComponent implements OnInit {
+  is_ongoing = false;
+  end_date = 'End Date';
+
   constructor(
     private toastr: ToastrService,
     private profileService: ProfileService,
@@ -41,5 +44,14 @@ export class VoluntaryExperienceDialogComponent implements OnInit {
         this.toastr.error('Error adding voluntary experience');
       }
     );
+  }
+
+  changeOngoing() {
+    if (this.is_ongoing) {
+      this.data.experience.end_date = '';
+      this.end_date = 'Present';
+    } else {
+      this.end_date = 'End Date';
+    }
   }
 }

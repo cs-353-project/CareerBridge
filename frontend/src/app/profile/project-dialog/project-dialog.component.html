@@ -1,9 +1,7 @@
 <div class="container" style="width: 700px; height: 450px">
   <div class="h-100 v-100 d-flex flex-column">
     <div class="w-100 text-center">
-      <span class="font-weight-bold" style="font-size: 20pt"
-        >New Voluntary Experience</span
-      >
+      <span class="font-weight-bold" style="font-size: 20pt">New Project</span>
     </div>
     <div class="d-flex flex-row mt-2">
       <mat-form-field
@@ -17,37 +15,25 @@
           class="ml-3"
           style="width: 90%"
           required
-          [(ngModel)]="data.experience.title" />
+          [(ngModel)]="data.title" />
       </mat-form-field>
+    </div>
+    <div class="d-flex flex-row">
       <mat-form-field
         class="w-100"
         appearance="outline"
-        name="school_name"
+        name="grade"
         ngDefaultControl>
-        <mat-label>Organization Name</mat-label>
+        <mat-label>Project URL</mat-label>
         <input
           matInput
           class="ml-3"
           style="width: 90%"
           required
-          [(ngModel)]="data.organization_name" />
+          [(ngModel)]="data.project_url" />
       </mat-form-field>
     </div>
-    <div>
-      <mat-form-field
-        class="w-100"
-        appearance="outline"
-        name="school_name"
-        ngDefaultControl>
-        <mat-label>Responsibility</mat-label>
-        <input
-          matInput
-          class="ml-3"
-          style="width: 90%"
-          required
-          [(ngModel)]="data.responsibility" />
-      </mat-form-field>
-    </div>
+
     <div class="d-flex flex-row">
       <div class="h-100">
         <mat-form-field
@@ -60,7 +46,7 @@
             readonly
             matInput
             [matDatepicker]="picker"
-            [(ngModel)]="data.experience.start_date"
+            [(ngModel)]="data.start_date"
             (click)="picker.open()" />
           <mat-datepicker-toggle
             matSuffix
@@ -80,7 +66,7 @@
             matInput
             [disabled]="is_ongoing"
             [matDatepicker]="picker2"
-            [(ngModel)]="data.experience.end_date"
+            [(ngModel)]="data.end_date"
             (click)="picker2.open()" />
           <mat-datepicker-toggle
             matSuffix
@@ -108,7 +94,7 @@
           class="w-100"
           matInput
           cdkTextareaAutosize
-          [(ngModel)]="data.experience.description"
+          [(ngModel)]="data.description"
           #autosize="cdkTextareaAutosize"
           cdkAutosizeMinRows="6"
           cdkAutosizeMaxRows="6"></textarea>
@@ -118,10 +104,7 @@
       <button mat-raised-button class="mr-2 btn-danger" matDialogClose>
         Cancel
       </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="addVoluntaryExperience()">
+      <button mat-raised-button color="primary" (click)="addProject()">
         Add
       </button>
     </div>

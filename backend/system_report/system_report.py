@@ -131,12 +131,16 @@ def create_average_skill_rating_of_each_skill_response_model():
         (),
     )
 
+    if not (list_of_data):
+        return []
+    
     skill_names = []
     average_ratings = []
     for data in list_of_data:
         skill_names.append(data[0]["skill_name"])
         average_ratings.append(data[0]["average_rating"])
 
+    
     response: AverageSkillRatingOfEachSkillResponseModel = AverageSkillRatingOfEachSkillResponseModel(
         skill_names=skill_names, average_ratings=average_ratings
     )

@@ -3,3 +3,28 @@
     border-radius: 4px;
     box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
   }
+
+  
+  table {
+    width: 100%;
+  }
+
+  .mat-row.hovered {
+    background: #eee;
+    cursor: pointer !important;
+  }
+
+  .mat-row.highlighted {
+    background: #eee;
+  }
+  .mat-row {
+    height: auto;
+  }
+  
+  .mat-cell {
+    padding: 8px 35px;
+  }
+
+  .mat-header-cell {
+    padding: 8px 35px;
+  }

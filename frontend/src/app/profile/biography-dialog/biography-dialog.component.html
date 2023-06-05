@@ -1,0 +1,30 @@
+<div class="container" style="width: 700px; height: 275px">
+  <div class="h-100 v-100 d-flex flex-column">
+    <div class="w-100 text-center">
+      <span class="font-weight-bold" style="font-size: 20pt"
+        >Edit Biography</span
+      >
+    </div>
+    <mat-form-field
+      class="w-100 mt-2"
+      appearance="outline"
+      name="description"
+      ngDefaultControl>
+      <mat-label>Biography</mat-label>
+      <textarea
+        class="w-100"
+        matInput
+        cdkTextareaAutosize
+        [(ngModel)]="data.biography"
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="8"
+        cdkAutosizeMaxRows="8"></textarea>
+    </mat-form-field>
+    <div class="h-100 d-flex flex-row align-items-end justify-content-center">
+      <button mat-raised-button class="mr-2 btn-danger" matDialogClose>
+        Cancel
+      </button>
+      <button mat-raised-button class="ml-2" color="primary">Submit</button>
+    </div>
+  </div>
+</div>

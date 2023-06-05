@@ -73,31 +73,54 @@
               <p>Update profile information</p>
             </div>
           </div>
-          <button mat-button><mat-icon>edit</mat-icon></button>
+          <button
+            mat-raised-button
+            class="btn-primary"
+            (click)="editBasicInfo()">
+            Edit Info
+          </button>
         </div>
         <div id="basic-information-bottom">
           <div id="basic-information-left">
             <div>
               <p>Email Address</p>
-              <p>email@address.com</p>
+              <p>{{ email }}</p>
             </div>
             <div>
               <p>Phone Number</p>
-              <p>+90 919 191 91 91</p>
+              <p *ngIf="userBasicInfo?.phone_number != null">
+                {{ userBasicInfo?.phone_number }}
+              </p>
+              <p *ngIf="userBasicInfo?.phone_number == null">
+                No phone provided
+              </p>
             </div>
             <div>
               <p>Country</p>
-              <p>Turkiye</p>
+              <p *ngIf="userBasicInfo?.country != null">
+                {{ userBasicInfo.country }}
+              </p>
+              <p *ngIf="userBasicInfo?.country == null">No country provided</p>
+              <p>{{ userBasicInfo?.country }}</p>
             </div>
           </div>
           <div id="basic-information-right">
             <div>
               <p>Website</p>
-              <p>website.com</p>
+              <p *ngIf="userBasicInfo?.external_portfolio_url != null">
+                {{ userBasicInfo?.external_portfolio_url }}
+              </p>
+              <p *ngIf="userBasicInfo?.external_portfolio_url == null">
+                No website provided
+              </p>
             </div>
+
             <div>
               <p>Address</p>
-              <p>address address address</p>
+              <p *ngIf="userBasicInfo?.address != null">
+                {{ userBasicInfo?.address }}
+              </p>
+              <p *ngIf="userBasicInfo?.address == null">No address provided</p>
             </div>
           </div>
         </div>
@@ -116,15 +139,17 @@
               <p>Update profile information</p>
             </div>
           </div>
-          <button mat-button><mat-icon>edit</mat-icon></button>
+          <button
+            mat-raised-button
+            class="btn-primary"
+            (click)="editBiography()">
+            Edit Biography
+          </button>
         </div>
         <div id="biography-bottom">
-          <p>
-            AaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAAAaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaA
-            AaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAAaaAAAaaAAaaaAAAaaaAAaaaAAAAaaAaaAAAAaaAAa
-            aAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaAaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAA
-            AaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAAAaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaa
-            AaaAaaAAAAaaAAaaAAAAAaaaaAAAaaAAAaAAaAaaaaAAAaaAAaaaAAAaaaAAaaaAAAaAAAaaAAaaaAAAaaaAAaaaAAAaaAAaaaAAAaaaaAa
+          <p *ngIf="userBasicInfo?.biography == null">No biography yet.</p>
+          <p *ngIf="userBasicInfo?.biography != null">
+            {{ userBasicInfo?.biography }}/p>
           </p>
         </div>
       </div>
@@ -236,7 +261,12 @@
             <mat-icon> money_off</mat-icon>
             <h2 class="main-content-header">Voluntary Experience</h2>
           </div>
-          <button mat-button class="btn-primary">Add Experience</button>
+          <button
+            mat-button
+            class="btn-primary"
+            (click)="addVoluntaryExperience()">
+            Add Experience
+          </button>
         </div>
         <div class="main-content-item">
           <div class="main-content-top">

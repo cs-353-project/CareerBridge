@@ -34,7 +34,7 @@ export class EducationalExperienceDialogComponent implements OnInit {
     this.profileService.addEducationalExperience(this.data).subscribe(
       response => {
         this.toastr.success('Educational experience added successfully');
-        this.dialogRef.close();
+        this.dialogRef.close(this.data);
       },
       error => {
         this.toastr.clear();

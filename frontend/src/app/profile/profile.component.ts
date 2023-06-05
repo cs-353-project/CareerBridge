@@ -18,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BasicInfoDialogComponent } from './basic-info-dialog/basic-info-dialog.component';
 import { BiographyDialogComponent } from './biography-dialog/biography-dialog.component';
 import { VoluntaryExperienceDialogComponent } from './voluntary-experience-dialog/voluntary-experience-dialog.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -45,7 +46,8 @@ export class ProfileComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private http: HttpClient
   ) {
     console.log(this.id);
   }
@@ -180,6 +182,12 @@ export class ProfileComponent implements OnInit {
       WorkExperienceDialogComponent,
       dialogConfig
     );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.workExperiences.push(result);
+      }
+    });
   }
 
   addEducationalExperience() {
@@ -226,22 +234,40 @@ export class ProfileComponent implements OnInit {
     if (inputElement.files && inputElement.files.length > 0) {
       this.selectedFile = inputElement.files[0];
     }
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
 
-    let updateRequest: ProfileUpdateRequestModel = {
-      resume: this.selectedFile
-    };
-    console.log(this.selectedFile);
-    this.profileService.updateUser(+this.id, this.userBasicInfo).subscribe(
+    this.profileService.uploadResume(formData, +this.id).subscribe(
       response => {
         this.toastr.success('Resume uploaded successfully!');
       },
       error => {
-        this.toastr.error('Resume upload failed!');
+        this.toastr.error('Error uploading resume!');
       }
     );
   }
 
-  deleteResume() {}
+  downloadResume() {
+    this.profileService.downloadResume(+this.id).subscribe((data: Blob) => {
+      const downloadURL = URL.createObjectURL(data);
+      const link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = 'resume.pdf';
+      link.click();
+      URL.revokeObjectURL(downloadURL);
+    });
+  }
+
+  deleteResume() {
+    this.profileService.deleteResume(+this.id).subscribe(
+      response => {
+        this.toastr.success('Resume deleted successfully!');
+      },
+      error => {
+        this.toastr.error('Error deleting resume!');
+      }
+    );
+  }
 
   editBasicInfo() {
     const dialogConfig = new MatDialogConfig();
@@ -256,6 +282,16 @@ export class ProfileComponent implements OnInit {
       external_portfolio_url: this.userBasicInfo.external_portfolio_url
     };
     const dialogRef = this.dialog.open(BasicInfoDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userBasicInfo.phone_number = result.phone_number;
+        this.userBasicInfo.address = result.address;
+        this.userBasicInfo.country = result.country;
+        this.userBasicInfo.external_portfolio_url =
+          result.external_portfolio_url;
+      }
+    });
   }
 
   editBiography() {

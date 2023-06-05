@@ -166,7 +166,9 @@ export class ProfileService {
   }
 
   downloadResume(id: number) {
-    return this.http.get(this.baseUrl + 'download_resume/' + id);
+    return this.http.get(this.baseUrl + 'download_resume/' + id, {
+      responseType: 'blob'
+    });
   }
 
   deleteResume(id: number) {

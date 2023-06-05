@@ -7,7 +7,7 @@ export interface ProfileModel {
   address: string;
   biography: string;
   is_private: boolean;
-  resume: Blob;
+  resume: any;
   phone_number: string;
   is_application_specific: boolean;
   created_at: string;
@@ -20,7 +20,7 @@ export interface ProfileUpdateRequestModel {
   address?: string;
   biography?: string;
   is_private?: boolean;
-  resume?: Blob;
+  resume?: any;
   phone_number?: string;
   is_application_specific?: boolean;
 }

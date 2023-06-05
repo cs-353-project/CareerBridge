@@ -26,7 +26,6 @@ export class BasicInfoDialogComponent implements OnInit {
       country: this.data.country,
       website: this.data.external_portfolio_url
     };
-    console.log(temp);
     this.profileService.updateBasicInfo(temp, this.data.user_id).subscribe(
       response => {
         this.toastr.success('Basic info updated successfully!');

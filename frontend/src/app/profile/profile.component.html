@@ -664,13 +664,23 @@
               class="mat-raised-button primary bg-info text-light"
               >Upload Resume</label
             >
-            <button mat-button class="ml-2 btn-danger" (click)="deleteResume()">
+            <button
+              mat-button
+              class="ml-2 btn-danger"
+              (click)="deleteResume()"
+              *ngIf="userBasicInfo.resume === 1">
               Delete Resume
             </button>
           </div>
         </div>
         <div class="mt-2" *ngIf="skills?.length == 0">
-          <span>No Skill yet.</span>
+          <button
+            mat-button
+            class="ml-2 btn-warning"
+            (click)="downloadResume()"
+            *ngIf="userBasicInfo.resume === 1">
+            Download Resume
+          </button>
         </div>
         <div class="mt-2" *ngIf="workExperiences?.length > 0">
           <div *ngFor="let skill of skills">

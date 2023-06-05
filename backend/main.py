@@ -244,7 +244,7 @@ def update_user_api(user_id: int, user_details: UserUpdateRequestModel):
 # Profile Endpoints
 
 
-@app.get("/api/profile/{user_id}", response_model=ProfileResponseModel)
+@app.get("/api/profile/{user_id}", response_model=None)
 def get_profile_main_api(user_id: int):
     """
     This profile API allow you to fetch specific profile data.
@@ -253,6 +253,12 @@ def get_profile_main_api(user_id: int):
 
     if len(profile) == 0:
         raise HTTPException(status_code=404, detail="Profile not found")
+
+    if profile[0]["resume"] is not None:
+        profile[0]["resume"] = 1
+    else:
+        profile[0]["resume"] = 0
+
 
     return JSONResponse(status_code=200, content=jsonable_encoder(profile))
 

@@ -82,12 +82,16 @@
         </div>
         <div id="basic-information-bottom">
           <div id="basic-information-left">
-            <div>
-              <p>Email Address</p>
+            <div
+              class="p-3"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <p class="font-weight-bold">Email Address</p>
               <p>{{ email }}</p>
             </div>
-            <div>
-              <p>Phone Number</p>
+            <div
+              class="p-3"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <p class="font-weight-bold">Phone Number</p>
               <p *ngIf="userBasicInfo?.phone_number != null">
                 {{ userBasicInfo?.phone_number }}
               </p>
@@ -95,8 +99,10 @@
                 No phone provided
               </p>
             </div>
-            <div>
-              <p>Country</p>
+            <div
+              class="p-3"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <p class="font-weight-bold">Country</p>
               <p *ngIf="userBasicInfo?.country != null">
                 {{ userBasicInfo.country }}
               </p>
@@ -104,18 +110,25 @@
             </div>
           </div>
           <div id="basic-information-right">
-            <div>
-              <p>Website</p>
-              <p *ngIf="userBasicInfo?.external_portfolio_url != null">
+            <div
+              class="p-3"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <p class="font-weight-bold">Website</p>
+              <a
+                *ngIf="userBasicInfo?.external_portfolio_url != null"
+                target="_blank"
+                [href]="userBasicInfo?.external_portfolio_url">
                 {{ userBasicInfo?.external_portfolio_url }}
-              </p>
+              </a>
               <p *ngIf="userBasicInfo?.external_portfolio_url == null">
                 No website provided
               </p>
             </div>
 
-            <div>
-              <p>Address</p>
+            <div
+              class="p-3"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <p class="font-weight-bold">Address</p>
               <p *ngIf="userBasicInfo?.address != null">
                 {{ userBasicInfo?.address }}
               </p>
@@ -145,7 +158,14 @@
             Edit Biography
           </button>
         </div>
-        <div id="biography-bottom">
+        <div
+          id="biography-bottom"
+          class="p-3"
+          style="
+            background-color: #f6f6f6;
+            border-radius: 15px;
+            width: calc(100% - 35px);
+          ">
           <p *ngIf="userBasicInfo?.biography == null">No biography yet.</p>
           <p *ngIf="userBasicInfo?.biography != null">
             {{ userBasicInfo?.biography }}
@@ -171,26 +191,63 @@
         <div class="mt-2" *ngIf="workExperiences?.length == 0">
           <span>No Work Experience yet.</span>
         </div>
-        <div class="mt-2" *ngIf="workExperiences?.length > 0">
-          <div *ngFor="let work_experience of workExperiences">
-            <div class="main-content-item">
-              <div class="main-content-top">
-                <div class="main-content-top-inner">
-                  <mat-icon>work_outline</mat-icon>
+        <div class="w-100" *ngFor="let work_experience of workExperiences">
+          <div class="w-100" style="background-color: #f6f6f6"></div>
+        </div>
+        <div
+          *ngIf="workExperiences?.length > 0"
+          style="width: calc(100% - 35px)">
+          <div class="w-100" *ngFor="let exp of workExperiences">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
                   <div>
-                    <h3>{{ work_experience.experience.title }}</h3>
-                    <p>{{ work_experience.company_name }}</p>
-                    <p>
-                      <small
-                        >{{ work_experience.experience.start_date }} -
-                        {{ work_experience.experience.end_date }}</small
-                      >
-                    </p>
+                    <mat-icon class="item-icon">work_outline</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ exp.experience.title }}</span
+                        >
+                      </div>
+                      <div>
+                        <span style="font-size: 14px">{{
+                          exp.company_name
+                        }}</span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column align-items-end">
+                        <div>
+                          <span style="font-size: 12px">{{ exp.type }}</span>
+                          <span class="mx-1">&#183;</span>
+                          <span style="font-size: 12px">{{ exp.setting }}</span>
+                        </div>
+                        <div>
+                          <span style="font-size: 12px"
+                            >{{ exp.experience.start_date }} -
+                            {{ exp.experience.end_date }}</span
+                          >
+                        </div>
+                      </div>
+                      <div class="ml-3 mr-1">
+                        <button mat-raised-button class="btn-danger">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                {{ work_experience.experience.description }}
+                <mat-divider class="w-100 my-1"></mat-divider>
+                <div class="w-100 px-2">
+                  <span>{{ exp.experience.description }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -218,31 +275,66 @@
         <div class="mt-2" *ngIf="educationalExperiences?.length == 0">
           <span>No Educational Experience yet.</span>
         </div>
-        <div *ngIf="educationalExperiences?.length > 0">
-          <div *ngFor="let edu_experience of educationalExperiences">
-            <div class="main-content-item">
-              <div class="main-content-top">
-                <div class="main-content-top-inner">
-                  <mat-icon>location_city</mat-icon>
+        <div
+          *ngIf="educationalExperiences?.length > 0"
+          style="width: calc(100% - 35px)">
+          <div class="w-100" *ngFor="let exp of educationalExperiences">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
                   <div>
-                    <h3>{{ edu_experience.experience.title }}</h3>
-                    <p>{{ edu_experience.school_name }}</p>
-                    <p>
-                      Degree: {{ edu_experience.degree.name }}, Field of Study:
-                      {{ edu_experience.field_of_study }}, Grade:
-                      {{ edu_experience.grade }}
-                    </p>
-                    <p>
-                      <small
-                        >{{ edu_experience.experience.start_date }}-
-                        {{ edu_experience.experience.end_date }}</small
-                      >
-                    </p>
+                    <mat-icon class="item-icon">location_city</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ exp.experience.title }}</span
+                        >
+                      </div>
+                      <div>
+                        <span style="font-size: 14px">{{
+                          exp.school_name
+                        }}</span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column align-items-end">
+                        <div>
+                          <span style="font-size: 12px">{{
+                            exp.degree.name
+                          }}</span>
+                          <span class="mx-1">&#183;</span>
+                          <span style="font-size: 12px">{{
+                            exp.field_of_study
+                          }}</span>
+                          <span class="mx-1">&#183;</span>
+                          <span style="font-size: 12px">{{ exp.grade }}</span>
+                        </div>
+                        <div>
+                          <span style="font-size: 12px"
+                            >{{ exp.experience.start_date }} -
+                            {{ exp.experience.end_date }}</span
+                          >
+                        </div>
+                      </div>
+                      <div class="ml-3 mr-1">
+                        <button mat-raised-button class="btn-danger">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                {{ edu_experience.experience.description }}
+                <mat-divider class="w-100 my-1"></mat-divider>
+                <div class="w-100 px-2">
+                  <span>{{ exp.experience.description }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -270,27 +362,60 @@
         <div class="mt-2" *ngIf="voluntaryExperiences?.length == 0">
           <span>No Voluntary Experience yet.</span>
         </div>
-        <div *ngIf="voluntaryExperiences?.length > 0">
-          <div *ngFor="let experience of voluntaryExperiences">
-            <div class="main-content-item">
-              <div class="main-content-top">
-                <div class="main-content-top-inner">
-                  <mat-icon> add_location</mat-icon>
+        <div
+          *ngIf="voluntaryExperiences?.length > 0"
+          style="width: calc(100% - 35px)">
+          <div class="w-100" *ngFor="let exp of voluntaryExperiences">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
                   <div>
-                    <h3>{{ experience?.experience.title }}</h3>
-                    <p>{{ experience?.organization_name }}</p>
-                    <p>{{ experience?.responsibility }}</p>
-                    <p>
-                      <small
-                        >{{ experience?.experience?.start_date }}-
-                        {{ experience?.experience?.end_date }}</small
-                      >
-                    </p>
+                    <mat-icon class="item-icon">add_location</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ exp.experience.title }}</span
+                        >
+                      </div>
+                      <div>
+                        <span style="font-size: 14px">{{
+                          exp.organization_name
+                        }}</span>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column align-items-end">
+                        <div>
+                          <span style="font-size: 12px">{{
+                            exp.responsibility
+                          }}</span>
+                        </div>
+                        <div>
+                          <span style="font-size: 12px"
+                            >{{ exp.experience.start_date }} -
+                            {{ exp.experience.end_date }}</span
+                          >
+                        </div>
+                      </div>
+                      <div class="ml-3 mr-1">
+                        <button mat-raised-button class="btn-danger">
+                          Delete
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                {{ experience?.experience?.description }}
+                <mat-divider class="w-100 my-1"></mat-divider>
+                <div class="w-100 px-2">
+                  <span>{{ exp.experience.description }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -617,16 +742,54 @@
         <div class="mt-2" *ngIf="skills?.length == 0">
           <span>No Skill yet.</span>
         </div>
-        <div class="mt-2" *ngIf="workExperiences?.length > 0">
-          <div *ngFor="let skill of skills">
-            <div class="main-content-item">
-              <div class="main-content-top">
-                <div class="main-content-top-inner">
-                  <mat-icon>check_circle_outline</mat-icon>
+        <div
+          *ngIf="skills?.length > 0"
+          style="width: calc(100% - 35px)"
+          class="mt-2">
+          <div class="w-100" *ngFor="let skill of skills">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
                   <div>
-                    <h3>{{ skill.name }}</h3>
-                    <p>Verified : {{ skill.is_verified }}</p>
-                    <p>Is Master Skill : {{ skill.is_master_skill }}</p>
+                    <mat-icon class="item-icon">check_circle_outline</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ skill.name }}</span
+                        >
+                      </div>
+                      <div>
+                        <span
+                          style="font-size: 14px; color: green"
+                          *ngIf="skill.is_verified == 1"
+                          >Verified</span
+                        >
+                        <span
+                          style="font-size: 14px; color: red"
+                          *ngIf="skill.is_verified != 1"
+                          >Not Verified</span
+                        >
+                      </div>
+                      <div>
+                        <span
+                          style="font-size: 14px; color: blue"
+                          *ngIf="skill.is_master_skill == 1"
+                          >Master Skill</span
+                        >
+                      </div>
+                    </div>
+                    <div>
+                      <button mat-raised-button class="btn-danger mr-1">
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -645,6 +808,13 @@
             <h2 class="main-content-header">Resume</h2>
           </div>
           <div>
+            <button
+              mat-button
+              class="mr-2 btn-warning"
+              (click)="downloadResume()"
+              *ngIf="userBasicInfo?.resume == 1">
+              Download Resume
+            </button>
             <input
               style="display: none"
               id="input-file-id"
@@ -663,31 +833,6 @@
               *ngIf="userBasicInfo?.resume === 1">
               Delete Resume
             </button>
-          </div>
-        </div>
-        <div class="mt-2" *ngIf="skills?.length == 0">
-          <button
-            mat-button
-            class="ml-2 btn-warning"
-            (click)="downloadResume()"
-            *ngIf="userBasicInfo?.resume === 1">
-            Download Resume
-          </button>
-        </div>
-        <div class="mt-2" *ngIf="workExperiences?.length > 0">
-          <div *ngFor="let skill of skills">
-            <div class="main-content-item">
-              <div class="main-content-top">
-                <div class="main-content-top-inner">
-                  <mat-icon>check_circle_outline</mat-icon>
-                  <div>
-                    <h3>{{ skill.name }}</h3>
-                    <p>Verified : {{ skill.is_verified }}</p>
-                    <p>Is Master Skill : {{ skill.is_master_skill }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -12,8 +12,8 @@ import { ProfileService } from '../../_services/profile.service';
 export class WorkExperienceDialogComponent implements OnInit {
   userName: string;
 
-  workExperienceStartDate: Date;
-  workExperienceEndDate: Date;
+  is_ongoing = false;
+  end_date = 'End Date';
 
   constructor(
     private toastr: ToastrService,
@@ -44,5 +44,14 @@ export class WorkExperienceDialogComponent implements OnInit {
         this.toastr.error('Error adding work experience');
       }
     );
+  }
+
+  changeOngoing() {
+    if (this.is_ongoing) {
+      this.data.experience.end_date = '';
+      this.end_date = 'Present';
+    } else {
+      this.end_date = 'End Date';
+    }
   }
 }

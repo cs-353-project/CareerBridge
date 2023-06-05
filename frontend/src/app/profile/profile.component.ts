@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AwardModel,
+  CertificationModel,
   EducationalExperienceModel,
   ProfileModel,
   ProfileUpdateRequestModel,
+  ProjectModel,
+  PublicationModel,
   SkillModel,
+  TestScoreModel,
+  VoluntaryExperienceModel,
   WorkExperienceModel
 } from '../_models/profile_models';
 import { ProfileService } from '../_services/profile.service';
@@ -19,6 +25,12 @@ import { BasicInfoDialogComponent } from './basic-info-dialog/basic-info-dialog.
 import { BiographyDialogComponent } from './biography-dialog/biography-dialog.component';
 import { VoluntaryExperienceDialogComponent } from './voluntary-experience-dialog/voluntary-experience-dialog.component';
 import { HttpClient } from '@angular/common/http';
+import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
+import { CertificationDialogComponent } from './certification-dialog/certification-dialog.component';
+import { AwardDialogComponent } from './award-dialog/award-dialog.component';
+import { TestScoreDialogComponent } from './test-score-dialog/test-score-dialog.component';
+import { PublicationDialogComponent } from './publication-dialog/publication-dialog.component';
+import { LanguageDialogComponent } from './language-dialog/language-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -36,7 +48,13 @@ export class ProfileComponent implements OnInit {
 
   workExperiences: WorkExperienceModel[] = [];
   educationalExperiences: EducationalExperienceModel[] = [];
+  voluntaryExperiences: VoluntaryExperienceModel[] = [];
   skills: SkillModel[] = [];
+  projects: ProjectModel[] = [];
+  certifications: CertificationModel[] = [];
+  awards: AwardModel[] = [];
+  test_scores: TestScoreModel[] = [];
+  publications: PublicationModel[] = [];
 
   selectedFile: File | null = null;
   selectedFileURL: string | ArrayBuffer | null = null;
@@ -141,6 +159,29 @@ export class ProfileComponent implements OnInit {
       });
 
     this.profileService
+      .getWorkExperiences(this.id)
+      .toPromise()
+      .then(data => {
+        data.forEach(element => {
+          let temp: VoluntaryExperienceModel = {
+            experience: {
+              experience_id: element.experience.experience_id,
+              profile_id: element.experience.profile_id,
+              title: element.experience.title,
+              start_date: element.experience.start_date,
+              end_date: element.experience.end_date,
+              description: element.experience.description,
+              current_status: element.experience.current_status
+            },
+            organization_name: element.organization_name,
+            responsibility: element.responsibility
+          };
+          this.voluntaryExperiences.push(temp);
+          console.log(this.voluntaryExperiences);
+        });
+      });
+
+    this.profileService
       .getSkills(this.id)
       .toPromise()
       .then(data => {
@@ -155,6 +196,80 @@ export class ProfileComponent implements OnInit {
           this.skills.push(temp);
         });
       });
+
+    this.profileService.getProjects(this.id).subscribe(data => {
+      data.forEach(element => {
+        let temp: ProjectModel = {
+          project_id: element.project_id,
+          profile_id: element.profile_id,
+          title: element.title,
+          start_date: element.start_date,
+          end_date: element.end_date,
+          description: element.description,
+          project_url: element.project_url
+        };
+        this.projects.push(temp);
+      });
+    });
+
+    this.profileService.getCertification(this.id).subscribe(data => {
+      data.forEach(element => {
+        let temp: CertificationModel = {
+          certification_id: element.certification_id,
+          profile_id: element.profile_id,
+          certification_name: element.certification_name,
+          issuer: element.issuer,
+          issue_date: element.issue_date,
+          expiration_date: element.expiration_date,
+          credential_url: element.credential_url,
+          description: element.description
+        };
+        this.certifications.push(temp);
+      });
+    });
+
+    this.profileService.getAward(this.id).subscribe(data => {
+      data.forEach(element => {
+        let temp: AwardModel = {
+          award_id: element.award_id,
+          profile_id: element.profile_id,
+          title: element.title,
+          issuer: element.issuer,
+          issue_date: element.issue_date,
+          description: element.description
+        };
+        this.awards.push(temp);
+      });
+    });
+
+    this.profileService.getTestScores(this.id).subscribe(data => {
+      data.forEach(element => {
+        let temp: TestScoreModel = {
+          test_score_id: element.test_score_id,
+          profile_id: element.profile_id,
+          test_name: element.test_name,
+          score: element.score,
+          test_date: element.test_date,
+          description: element.description
+        };
+        this.test_scores.push(temp);
+      });
+    });
+
+    this.profileService.getPublication(this.id).subscribe(data => {
+      data.forEach(element => {
+        let temp: PublicationModel = {
+          publication_id: element.publication_id,
+          profile_id: element.profile_id,
+          title: element.title,
+          publisher: element.publisher,
+          publication_date: element.publication_date,
+          description: element.description,
+          publication_url: element.publication_url
+        };
+        this.publications.push(temp);
+      });
+    });
   }
 
   setActiveElement(element) {
@@ -331,5 +446,97 @@ export class ProfileComponent implements OnInit {
       VoluntaryExperienceDialogComponent,
       dialogConfig
     );
+  }
+
+  addProject() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      profile_id: this.id,
+      title: '',
+      start_date: '',
+      end_date: '',
+      description: '',
+      project_url: ''
+    };
+    const dialogRef = this.dialog.open(ProjectDialogComponent, dialogConfig);
+  }
+
+  addCertificate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      profile_id: this.id,
+      certification_name: '',
+      issuer: '',
+      issue_date: '',
+      expiration_date: '',
+      credential_url: '',
+      description: ''
+    };
+    const dialogRef = this.dialog.open(
+      CertificationDialogComponent,
+      dialogConfig
+    );
+  }
+
+  addAward() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      profile_id: this.id,
+      title: '',
+      issuer: '',
+      issue_date: '',
+      description: ''
+    };
+    const dialogRef = this.dialog.open(AwardDialogComponent, dialogConfig);
+  }
+
+  addTestScore() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      profile_id: this.id,
+      test_name: '',
+      score: '',
+      test_date: '',
+      description: ''
+    };
+    const dialogRef = this.dialog.open(TestScoreDialogComponent, dialogConfig);
+  }
+
+  addPublication() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      profile_id: this.id,
+      title: '',
+      publisher: '',
+      publication_date: '',
+      description: '',
+      publication_url: ''
+    };
+    const dialogRef = this.dialog.open(
+      PublicationDialogComponent,
+      dialogConfig
+    );
+  }
+
+  addLanguage() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      profile_id: this.id,
+      language_name: '',
+      proficiency: ''
+    };
+    const dialogRef = this.dialog.open(LanguageDialogComponent, dialogConfig);
   }
 }

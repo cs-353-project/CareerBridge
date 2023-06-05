@@ -56,6 +56,12 @@ import { ResponseDialogComponent } from './ads/response-dialog/response-dialog.c
 import { BasicInfoDialogComponent } from './profile/basic-info-dialog/basic-info-dialog.component';
 import { BiographyDialogComponent } from './profile/biography-dialog/biography-dialog.component';
 import { VoluntaryExperienceDialogComponent } from './profile/voluntary-experience-dialog/voluntary-experience-dialog.component';
+import { ProjectDialogComponent } from './profile/project-dialog/project-dialog.component';
+import { CertificationDialogComponent } from './profile/certification-dialog/certification-dialog.component';
+import { AwardDialogComponent } from './profile/award-dialog/award-dialog.component';
+import { TestScoreDialogComponent } from './profile/test-score-dialog/test-score-dialog.component';
+import { PublicationDialogComponent } from './profile/publication-dialog/publication-dialog.component';
+import { LanguageDialogComponent } from './profile/language-dialog/language-dialog.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +87,13 @@ import { VoluntaryExperienceDialogComponent } from './profile/voluntary-experien
     ResponseDialogComponent,
     BasicInfoDialogComponent,
     BiographyDialogComponent,
-    VoluntaryExperienceDialogComponent
+    VoluntaryExperienceDialogComponent,
+    ProjectDialogComponent,
+    CertificationDialogComponent,
+    AwardDialogComponent,
+    TestScoreDialogComponent,
+    PublicationDialogComponent,
+    LanguageDialogComponent
   ],
   imports: [
     BrowserModule,

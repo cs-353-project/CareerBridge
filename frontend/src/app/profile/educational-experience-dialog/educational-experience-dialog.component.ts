@@ -10,8 +10,8 @@ import { ProfileService } from '../../_services/profile.service';
   styleUrls: ['./educational-experience-dialog.component.css']
 })
 export class EducationalExperienceDialogComponent implements OnInit {
-  EducationalExperienceStartDate: Date;
-  EducationalExperienceEndDate: Date;
+  is_ongoing = false;
+  end_date = 'End Date';
 
   constructor(
     private toastr: ToastrService,
@@ -41,5 +41,14 @@ export class EducationalExperienceDialogComponent implements OnInit {
         this.toastr.error('Error adding educational experience');
       }
     );
+  }
+
+  changeOngoing() {
+    if (this.is_ongoing) {
+      this.data.experience.end_date = '';
+      this.end_date = 'Present';
+    } else {
+      this.end_date = 'End Date';
+    }
   }
 }

@@ -153,6 +153,20 @@ export class ProfileService {
     return this.http.post(this.baseUrl + 'profile/skill', skill);
   }
 
+  addLanguage(language: any) {
+    return this.http.post(this.baseUrl + 'profile/language', language);
+  }
+
+  getLanguagesByProfileId(id: string): Observable<any> {
+    return this.http.get(this.baseUrl + 'profile/language/' + id);
+  }
+
+  deleteLanguageById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/language/', {
+      body: { language_id: id }
+    });
+  }
+
   updateBio(bio: any, id: number) {
     return this.http.patch(this.baseUrl + 'update_bio/' + id, bio);
   }

@@ -13,6 +13,9 @@ import { ProfileService } from '../../_services/profile.service';
   styleUrls: ['./voluntary-experience-dialog.component.css']
 })
 export class VoluntaryExperienceDialogComponent implements OnInit {
+  is_ongoing = false;
+  end_date = 'End Date';
+
   constructor(
     private toastr: ToastrService,
     private profileService: ProfileService,
@@ -22,5 +25,33 @@ export class VoluntaryExperienceDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  addVoluntaryExperience() {}
+  addVoluntaryExperience() {
+    // Convert dates to ISO format
+    const a = new Date(this.data.experience.start_date);
+    this.data.experience.start_date = a.toISOString().split('T')[0];
+    const b = new Date(this.data.experience.end_date);
+    this.data.experience.end_date = b.toISOString().split('T')[0];
+
+    this.data.experience.current_status = 'Working'; // temp fix
+    console.log(this.data);
+    this.profileService.addVoluntaryExperience(this.data).subscribe(
+      response => {
+        this.toastr.success('Voluntary experience added successfully');
+        this.dialogRef.close(this.data);
+      },
+      error => {
+        this.toastr.clear();
+        this.toastr.error('Error adding voluntary experience');
+      }
+    );
+  }
+
+  changeOngoing() {
+    if (this.is_ongoing) {
+      this.data.experience.end_date = '';
+      this.end_date = 'Present';
+    } else {
+      this.end_date = 'End Date';
+    }
+  }
 }

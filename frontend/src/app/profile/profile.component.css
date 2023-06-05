@@ -183,6 +183,7 @@
   margin-right: 32px;
 }
 
+
 #basic-information-bottom {
   margin: 2px 8px;
   display: flex;
@@ -289,4 +290,11 @@
 
 .disabled {
   display: none;
+}
+
+.item-icon{
+  font-size:48px !important; 
+  width:48px;             
+  height:48px;              
+
 }

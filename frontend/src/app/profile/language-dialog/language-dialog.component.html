@@ -1,0 +1,45 @@
+<div class="container" style="width: 700px; height: 225px">
+  <div class="h-100 v-100 d-flex flex-column">
+    <div class="w-100 text-center">
+      <span class="font-weight-bold" style="font-size: 20pt">New Language</span>
+    </div>
+    <div class="d-flex flex-row mt-2">
+      <mat-form-field
+        class="w-100 mr-2"
+        appearance="outline"
+        name="title"
+        ngDefaultControl>
+        <mat-label>Language</mat-label>
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.language_name" />
+      </mat-form-field>
+    </div>
+    <div class="d-flex flex-row">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        name="grade"
+        ngDefaultControl>
+        <mat-label>Proficiency</mat-label>
+        <input
+          matInput
+          class="ml-3"
+          style="width: 90%"
+          required
+          [(ngModel)]="data.proficiency" />
+      </mat-form-field>
+    </div>
+    <div class="w-100 d-flex flex-row justify-content-center">
+      <button mat-raised-button class="mr-2 btn-danger" matDialogClose>
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" (click)="addLanguage()">
+        Add
+      </button>
+    </div>
+  </div>
+</div>

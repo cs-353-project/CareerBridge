@@ -4,6 +4,7 @@ import {
   ProfileModel,
   ProfileUpdateRequestModel,
   SkillModel,
+  VoluntaryExperienceModel,
   WorkExperienceModel
 } from '../_models/profile_models';
 import { ProfileService } from '../_services/profile.service';
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
 
   workExperiences: WorkExperienceModel[] = [];
   educationalExperiences: EducationalExperienceModel[] = [];
+  voluntaryExperiences: VoluntaryExperienceModel[] = [];
   skills: SkillModel[] = [];
 
   selectedFile: File | null = null;
@@ -137,6 +139,29 @@ export class ProfileComponent implements OnInit {
             grade: element.grade
           };
           this.educationalExperiences.push(temp);
+        });
+      });
+
+    this.profileService
+      .getWorkExperiences(this.id)
+      .toPromise()
+      .then(data => {
+        data.forEach(element => {
+          let temp: VoluntaryExperienceModel = {
+            experience: {
+              experience_id: element.experience.experience_id,
+              profile_id: element.experience.profile_id,
+              title: element.experience.title,
+              start_date: element.experience.start_date,
+              end_date: element.experience.end_date,
+              description: element.experience.description,
+              current_status: element.experience.current_status
+            },
+            organization_name: element.organization_name,
+            responsibility: element.responsibility
+          };
+          this.voluntaryExperiences.push(temp);
+          console.log(this.voluntaryExperiences);
         });
       });
 

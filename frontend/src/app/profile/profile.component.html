@@ -267,40 +267,32 @@
             Add Experience
           </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon> add_location</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
+        <div class="mt-2" *ngIf="voluntaryExperiences?.length == 0">
+          <span>No Voluntary Experience yet.</span>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon> add_location</mat-icon>
+        <div *ngIf="voluntaryExperiences?.length > 0">
+          <div *ngFor="let experience of voluntaryExperiences">
+            <div class="main-content-item">
+              <div class="main-content-top">
+                <div class="main-content-top-inner">
+                  <mat-icon> add_location</mat-icon>
+                  <div>
+                    <h3>{{ experience?.experience.title }}</h3>
+                    <p>{{ experience?.organization_name }}</p>
+                    <p>{{ experience?.responsibility }}</p>
+                    <p>
+                      <small
+                        >{{ experience?.experience?.start_date }}-
+                        {{ experience?.experience?.end_date }}</small
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+                {{ experience?.experience?.description }}
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -668,7 +660,7 @@
               mat-button
               class="ml-2 btn-danger"
               (click)="deleteResume()"
-              *ngIf="userBasicInfo.resume === 1">
+              *ngIf="userBasicInfo?.resume === 1">
               Delete Resume
             </button>
           </div>
@@ -678,7 +670,7 @@
             mat-button
             class="ml-2 btn-warning"
             (click)="downloadResume()"
-            *ngIf="userBasicInfo.resume === 1">
+            *ngIf="userBasicInfo?.resume === 1">
             Download Resume
           </button>
         </div>

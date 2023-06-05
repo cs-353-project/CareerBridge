@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, UploadFile
 
 from database.query import query_get, query_put, query_update
 from user.user import get_user_by_id
@@ -914,3 +914,28 @@ def get_certification_by_profile_id(profile_id: int):
     #     raise HTTPException(status_code=404, detail="Certification not found")
 
     return certification
+
+
+def upload_resume(profile_id: int, resume: UploadFile):
+    contents = resume.read()
+
+    # Check if the profile exists
+    profile = query_get(
+        """
+            SELECT * FROM Profile WHERE profile_id = %s;
+            """,
+        (profile_id),
+    )
+
+    if len(profile) == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+
+    # Update the resume
+    query_put(
+        """
+            UPDATE Profile SET resume = %s WHERE profile_id = %s;
+            """,
+        (contents, profile_id),
+    )
+
+    return resume

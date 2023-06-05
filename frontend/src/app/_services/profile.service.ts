@@ -157,4 +157,8 @@ export class ProfileService {
   updateBasicInfo(basicInfo: any, id: number) {
     return this.http.patch(this.baseUrl + 'update_basic_info/' + id, basicInfo);
   }
+
+  uploadResume(formData: any, id: number) {
+    return this.http.post(this.baseUrl + 'upload_resume/' + id, formData);
+  }
 }

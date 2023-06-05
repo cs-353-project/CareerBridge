@@ -56,9 +56,10 @@ from profile.profile import (
     update_basic_info,
     update_bio,
     update_profile_base,
+    upload_resume,
 )
 
-from fastapi import FastAPI, HTTPException, Security
+from fastapi import FastAPI, HTTPException, Security, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -101,8 +102,9 @@ from post.post import (
     add_post,
     delete_comment,
     delete_post,
+    get_all_posts,
     get_comment_by_id,
-    get_post_by_id, get_all_posts,
+    get_post_by_id,
 )
 from system_report.models import (
     AverageNumberOfAdViewsForCompanyResponseModel,
@@ -890,6 +892,16 @@ def get_least_published_ad_type_for_interval_api(dates: SystemReportRequestModel
         dates["start_date"], dates["end_date"]
     )
     return JSONResponse(status_code=200, content=jsonable_encoder(least_published_ad_type_for_interval))
+
+
+@app.post("/api/upload_resume/{user_id}", response_model=None)
+def upload_resume_api(user_id: int, file: UploadFile):
+    """
+    This upload resume API allow you to upload resume.
+    """
+    upload_resume(user_id, file)
+
+    return JSONResponse(status_code=200, content={"message": "Resume uploaded successfully"})
 
 
 # Test Endpoints

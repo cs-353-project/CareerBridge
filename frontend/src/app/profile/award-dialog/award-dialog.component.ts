@@ -19,19 +19,39 @@ export class AwardDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addAward() {
-    // Convert dates to ISO format
-    const a = new Date(this.data.issue_date);
-    this.data.issue_date = a.toISOString().split('T')[0];
+    if (!this.isErrorExists()) {
+      // Convert dates to ISO format
+      const a = new Date(this.data.issue_date);
+      this.data.issue_date = a.toISOString().split('T')[0];
 
-    this.profileService.addAward(this.data).subscribe(
-      response => {
-        this.toastr.success('Award added successfully');
-        this.dialogRef.close(this.data);
-      },
-      error => {
-        this.toastr.clear();
-        this.toastr.error('Error adding award');
-      }
-    );
+      this.profileService.addAward(this.data).subscribe(
+        response => {
+          this.toastr.success('Award added successfully');
+          this.dialogRef.close(this.data);
+        },
+        error => {
+          this.toastr.clear();
+          this.toastr.error('Error adding award');
+        }
+      );
+    }
+  }
+
+  isErrorExists() {
+    let flag = false;
+    if (!this.data.title) {
+      this.toastr.error('Title is required');
+      flag = true;
+    }
+    if (!this.data.issuer) {
+      this.toastr.error('Issuer is required');
+      flag = true;
+    }
+    if (!this.data.issue_date) {
+      this.toastr.error('Issue Date is required');
+      flag = true;
+    }
+
+    return flag;
   }
 }

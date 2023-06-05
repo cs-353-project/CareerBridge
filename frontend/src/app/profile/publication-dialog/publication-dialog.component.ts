@@ -19,19 +19,42 @@ export class PublicationDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addPublication() {
-    // Convert dates to ISO format
-    const a = new Date(this.data.publication_date);
-    this.data.publication_date = a.toISOString().split('T')[0];
+    if (!this.isErrorExists()) {
+      // Convert dates to ISO format
+      const a = new Date(this.data.publication_date);
+      this.data.publication_date = a.toISOString().split('T')[0];
 
-    this.profileService.addPublication(this.data).subscribe(
-      response => {
-        this.toastr.success('Publication is added successfully');
-        this.dialogRef.close(this.data);
-      },
-      error => {
-        this.toastr.clear();
-        this.toastr.error('Error adding publication');
-      }
-    );
+      this.profileService.addPublication(this.data).subscribe(
+        response => {
+          this.toastr.success('Publication is added successfully');
+          this.dialogRef.close(this.data);
+        },
+        error => {
+          this.toastr.clear();
+          this.toastr.error('Error adding publication');
+        }
+      );
+    }
+  }
+
+  isErrorExists() {
+    let flag = false;
+    if (!this.data.title) {
+      this.toastr.error('Title is required');
+      flag = true;
+    }
+    if (!this.data.publisher) {
+      this.toastr.error('Publisher is required');
+      flag = true;
+    }
+    if (!this.data.publication_url) {
+      this.toastr.error('Publication URL is required');
+      flag = true;
+    }
+    if (!this.data.publication_date) {
+      this.toastr.error('Publication Date is required');
+      flag = true;
+    }
+    return flag;
   }
 }

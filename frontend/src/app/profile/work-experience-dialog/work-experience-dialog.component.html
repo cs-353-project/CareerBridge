@@ -16,7 +16,6 @@
           matInput
           class="ml-3"
           style="width: 90%"
-          required
           [(ngModel)]="data.experience.title" />
       </mat-form-field>
       <mat-form-field
@@ -24,10 +23,9 @@
         name="company_name"
         class="w-100"
         appearance="outline"
-        required
         [(ngModel)]="data.company_name">
         <mat-label>Company Name</mat-label>
-        <input matInput class="ml-3" style="width: 90%" required />
+        <input matInput class="ml-3" style="width: 90%" />
       </mat-form-field>
     </div>
     <div class="d-flex flex-row">
@@ -38,7 +36,7 @@
         appearance="outline"
         name="setting">
         <mat-label class="mr-3">Setting</mat-label>
-        <mat-select [(ngModel)]="data.setting" required>
+        <mat-select [(ngModel)]="data.setting">
           <mat-option value="On-site"> On-site </mat-option>
           <mat-option value="Remote"> Remote </mat-option>
           <mat-option value="Hybrid"> Hybrid </mat-option>
@@ -51,7 +49,7 @@
         appearance="outline"
         name="type">
         <mat-label class="mr-3">Type</mat-label>
-        <mat-select [(ngModel)]="data.type" required>
+        <mat-select [(ngModel)]="data.type">
           <mat-option value="Internship"> Internship </mat-option>
           <mat-option value="Part-time Job"> Part-time Job </mat-option>
           <mat-option value="Job"> Job </mat-option>
@@ -71,7 +69,6 @@
           <input
             readonly
             matInput
-            required
             [matDatepicker]="picker"
             [(ngModel)]="data.experience.start_date"
             (click)="picker.open()" />
@@ -87,7 +84,6 @@
           <input
             readonly
             matInput
-            required
             [disabled]="is_ongoing"
             ngDefaultControl
             [matDatepicker]="picker2"

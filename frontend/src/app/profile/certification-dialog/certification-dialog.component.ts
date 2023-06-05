@@ -21,22 +21,24 @@ export class CertificationDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addCertification() {
-    // Convert dates to ISO format
-    const a = new Date(this.data.issue_date);
-    this.data.issue_date = a.toISOString().split('T')[0];
-    const b = new Date(this.data.expiration_date);
-    this.data.expiration_date = b.toISOString().split('T')[0];
+    if (!this.isErrorExists()) {
+      // Convert dates to ISO format
+      const a = new Date(this.data.issue_date);
+      this.data.issue_date = a.toISOString().split('T')[0];
+      const b = new Date(this.data.expiration_date);
+      this.data.expiration_date = b.toISOString().split('T')[0];
 
-    this.profileService.addCertification(this.data).subscribe(
-      response => {
-        this.toastr.success('Certificate added successfully');
-        this.dialogRef.close(this.data);
-      },
-      error => {
-        this.toastr.clear();
-        this.toastr.error('Error adding certificate');
-      }
-    );
+      this.profileService.addCertification(this.data).subscribe(
+        response => {
+          this.toastr.success('Certificate added successfully');
+          this.dialogRef.close(this.data);
+        },
+        error => {
+          this.toastr.clear();
+          this.toastr.error('Error adding certificate');
+        }
+      );
+    }
   }
 
   changeExpirable() {
@@ -46,5 +48,27 @@ export class CertificationDialogComponent implements OnInit {
     } else {
       this.expiration_date = 'Expiration Date';
     }
+  }
+
+  isErrorExists() {
+    let flag = false;
+    if (!this.data.certification_name) {
+      this.toastr.error('Certication Name is required');
+      flag = true;
+    }
+    if (!this.data.issuer) {
+      this.toastr.error('Issuer is required');
+      flag = true;
+    }
+    if (!this.data.issue_date) {
+      this.toastr.error('Issue Date is required');
+      flag = true;
+    }
+    if (!this.data.expiration_date) {
+      this.toastr.error('Expiration Date is required');
+      flag = true;
+    }
+
+    return flag;
   }
 }

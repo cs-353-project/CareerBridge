@@ -35,7 +35,7 @@ class ExperienceResponseModel(BaseModel):
     profile_id: int
     title: str
     start_date: str
-    end_date: str
+    end_date: Optional[str] = None
     description: str
     current_status: str
 

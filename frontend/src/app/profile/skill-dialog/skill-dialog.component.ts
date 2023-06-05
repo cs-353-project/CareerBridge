@@ -20,6 +20,10 @@ export class SkillDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addSkill() {
+    if (!this.data.name) {
+      this.toastr.error('Skill name is required');
+      return;
+    }
     this.profileService.addSkill(this.data).subscribe(
       response => {
         this.toastr.success('Skill added successfully');

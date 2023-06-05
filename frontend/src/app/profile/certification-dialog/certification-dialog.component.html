@@ -16,7 +16,6 @@
           matInput
           class="ml-3"
           style="width: 90%"
-          required
           [(ngModel)]="data.certification_name" />
       </mat-form-field>
     </div>
@@ -31,7 +30,6 @@
           matInput
           class="ml-3"
           style="width: 90%"
-          required
           [(ngModel)]="data.issuer" />
       </mat-form-field>
     </div>
@@ -46,7 +44,6 @@
           matInput
           class="ml-3"
           style="width: 90%"
-          required
           [(ngModel)]="data.credential_url" />
       </mat-form-field>
     </div>
@@ -76,12 +73,11 @@
           class="w-100"
           name="end_date"
           ngDefaultControl>
-          <mat-label>{{ expiration_date }}</mat-label>
+          <mat-label>Expiration Date</mat-label>
           <input
             readonly
             matInput
             [matDatepicker]="picker2"
-            [disabled]="is_expirable"
             [(ngModel)]="data.expiration_date"
             (click)="picker2.open()" />
           <mat-datepicker-toggle
@@ -89,14 +85,6 @@
             [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
-      </div>
-      <div class="d-flex flex-row align-items-center ml-3">
-        <mat-checkbox
-          class="example-margin"
-          [(ngModel)]="is_expirable"
-          (change)="changeExpirable()"
-          >Is it expirable?</mat-checkbox
-        >
       </div>
     </div>
     <div>

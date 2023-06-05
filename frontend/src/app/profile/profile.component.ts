@@ -40,7 +40,8 @@ import { LanguageDialogComponent } from './language-dialog/language-dialog.compo
 export class ProfileComponent implements OnInit {
   activeElement = 'information';
   // Get the id from the link in the navbar
-  id = this.authenticationService.getCurrentUser().user.user_id.toString();
+  user = this.authenticationService.getCurrentUser().user;
+  id = this.user.user_id.toString();
   visited_id = this.route.snapshot.paramMap.get('id');
   userBasicInfo: ProfileModel | null = null;
 
@@ -66,7 +67,6 @@ export class ProfileComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private http: HttpClient
   ) {
     console.log(this.id);
   }
@@ -537,6 +537,26 @@ export class ProfileComponent implements OnInit {
       profile_id: this.id,
       language_name: '',
       proficiency: ''
+    };
+    const dialogRef = this.dialog.open(LanguageDialogComponent, dialogConfig);
+  }
+
+  assessSkill(skill_id) {
+    let rating;
+    this.profileService
+      .getSkillAssessments(skill_id)
+      .toPromise()
+      .then(response => {
+        rating = response[0].rating;
+      });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      skill_id: skill_id,
+      assessor_user_id: this.id,
+      assessor_profile_id: this.id,
+      rating: rating
     };
     const dialogRef = this.dialog.open(LanguageDialogComponent, dialogConfig);
   }

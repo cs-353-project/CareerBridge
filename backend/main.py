@@ -68,7 +68,7 @@ from fastapi.responses import JSONResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from database.query import query_get, query_put, query_update
-from functionality.functionality import assess_skill
+from functionality.functionality import assess_skill, get_skill_assessment
 from functionality.models import AssessSkillRequestModel, AssessSkillResponseModel
 from job_ad.job_ad import (
     add_job_advertisement,
@@ -781,6 +781,12 @@ def assess_skill_api(assess_skill_details: AssessSkillRequestModel):
     #     raise HTTPException(status_code=404, detail="Error while assessing skill")
 
     return JSONResponse(status_code=200, content=jsonable_encoder(_as))
+
+
+@app.post("/api/profile/skill_assessments/{skill_id}", response_model=None)
+def get_skill_assessment_api(skill_id):
+    assessments = get_skill_assessment(skill_id)
+    return JSONResponse(status_code=200, content=jsonable_encoder(assessments))
 
 
 @app.post("/api/jobapplications", response_model=JobApplicationResponseModel)

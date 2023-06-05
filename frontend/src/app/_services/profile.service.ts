@@ -190,6 +190,10 @@ export class ProfileService {
     return this.http.delete(this.baseUrl + 'delete_resume/' + id);
   }
 
+  getSkillAssessments(skill_id: number) {
+    return this.http.get(this.baseUrl + 'profile/skill_assessments/' + skill_id.toString())
+  }
+
   assessSkill(skill_assessment: AssessSkillModel) {
     return this.http.post(
       this.baseUrl + 'profile/skill/assess',

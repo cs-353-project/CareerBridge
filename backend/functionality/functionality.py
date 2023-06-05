@@ -54,3 +54,12 @@ def assess_skill(assess_skill_request: AssessSkillRequestModel):
         assessor_user_id=assess_skill_request.assessor_user_id,
         rating=assess_skill_request.rating,
     )
+
+
+def get_skill_assessment(skill_id):
+    return query_get(
+        """
+            SELECT * FROM SkillAssessment WHERE skill_id = id
+        """,
+        (skill_id,)
+    )

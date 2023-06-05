@@ -971,6 +971,17 @@
                           >Master Skill</span
                         >
                       </div>
+                      <button
+                        mat-button
+                        class="btn-primary"
+                        (click)="assessSkill(skill.skill_id)"
+                        *ngIf="
+                          this.id != this.visited_id &&
+                          this.user.user_role === 'Skill Assessor' &&
+                          skill.is_verified != 1
+                        ">
+                        Assess Skill
+                      </button>
                     </div>
                     <div>
                       <button

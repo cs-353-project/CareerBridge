@@ -15,7 +15,9 @@
             <span style="font-size: 14pt">Total Number of Users:</span>
           </div>
           <div class="h-100 mt-1">
-            <span style="font-size: 14pt" class="h-100"> 1823</span>
+            <span style="font-size: 14pt" class="h-100">
+              {{ totalNumber?.total_number_of_users }}</span
+            >
           </div>
         </div>
         <div class="ml-3 p-3 bg-info" style="border-radius: 15px">
@@ -23,7 +25,9 @@
             <span style="font-size: 14pt">Total Number of Ads:</span>
           </div>
           <div class="h-100 mt-1">
-            <span style="font-size: 14pt" class="h-100"> 1823</span>
+            <span style="font-size: 14pt" class="h-100">
+              {{ totalNumber?.total_number_of_ads }}</span
+            >
           </div>
         </div>
         <div class="ml-3 p-3 bg-info" style="border-radius: 15px">
@@ -31,7 +35,9 @@
             <span style="font-size: 14pt">Total Number of Applications:</span>
           </div>
           <div class="h-100 mt-1">
-            <span style="font-size: 14pt" class="h-100"> 1823</span>
+            <span style="font-size: 14pt" class="h-100">
+              {{ totalNumber?.total_number_of_applications }}</span
+            >
           </div>
         </div>
         <div class="ml-3 p-3 bg-info" style="border-radius: 15px">
@@ -39,15 +45,17 @@
             <span style="font-size: 14pt">Total Number of Views:</span>
           </div>
           <div class="h-100 mt-1">
-            <span style="font-size: 14pt" class="h-100"> 1823</span>
+            <span style="font-size: 14pt" class="h-100">
+              {{ totalNumber?.total_number_of_views }}</span
+            >
           </div>
         </div>
       </div>
-      <mat-divider class="h-100 my-4"> </mat-divider>
+      <mat-divider class="w-100 my-4"> </mat-divider>
       <div class="h-100 d-flex justify-content-center">
         <table
           mat-table
-          #RoleCountTable
+          #roleCountTable
           [dataSource]="roleCountSource"
           matSort
           class="mat-elevation-z8">
@@ -85,7 +93,7 @@
             *matRowDef="let row; columns: roleCountDisplayedColumns"></tr>
         </table>
       </div>
-      <mat-divider class="h-100 my-4"> </mat-divider>
+      <mat-divider class="w-100 my-4"> </mat-divider>
       <div class="h-100 d-flex justify-content-center flex-column">
         <div class="text-center h-100">
           <span style="font-size: 14pt"
@@ -93,11 +101,11 @@
             Interval</span
           >
         </div>
-        
+
         <div class="d-flex justify-content-center">
           <table
             mat-table
-            #DomainApplicationTable
+            #domainApplicationTable
             [dataSource]="domainApplicationSource"
             matSort
             class="mat-elevation-z8">
@@ -167,11 +175,11 @@
           </table>
         </div>
       </div>
-      <mat-divider class="h-100 my-4"> </mat-divider>
+      <mat-divider class="w-100 my-4"> </mat-divider>
       <div class="h-100 d-flex justify-content-center">
         <table
           mat-table
-          #SkillAverageRatingTable
+          #skillAverageRatingTable
           [dataSource]="skillAverageRatingSource"
           matSort
           class="mat-elevation-z8">
@@ -214,27 +222,18 @@
             "></tr>
         </table>
       </div>
-      <mat-divider class="h-100 my-4"> </mat-divider>
-      <div class="h-100 d-flex justify-content-center flex-column mb-2">
-        <div class="text-center h-100">
-          <span style="font-size: 14pt"
-            >The Least Published Ad Type For a Time Interval</span
-          >
-        </div>
-        <div class="d-flex flex-row justify-content-center">
-          
-        </div>
-        <div class="h-100 text-center text-light mt-2">
-          <span class="p-3 bg-info" style="font-size: 18px; border-radius: 15px"
-            >Part-Time Job: 4 times</span
-          >
-        </div>
+      <mat-divider class="w-100 my-4"> </mat-divider>
+      <div class="d-flex justify-content-center flex-column mb-2 text-center">
+        <span style="font-size: 14pt"
+          >The Least Published Ad Type For a Time Interval => {{ ad_type }}:
+          {{ ad_type_count }} times</span
+        >
       </div>
-      <mat-divider class="h-100 my-4"> </mat-divider>
+      <mat-divider class="w-100 my-4"> </mat-divider>
       <div class="h-100 d-flex justify-content-center">
         <table
           mat-table
-          #CompanyAverageAdViewTable
+          #companyAverageAdViewTable
           [dataSource]="companyAverageAdViewSource"
           matSort
           class="mat-elevation-z8">
@@ -277,11 +276,11 @@
             "></tr>
         </table>
       </div>
-      <mat-divider class="h-100 my-4"> </mat-divider>
+      <mat-divider class="w-100 my-4"> </mat-divider>
       <div class="h-100 d-flex justify-content-center">
         <table
           mat-table
-          #CompanyMaxMinPayTable
+          #companyMaxMinPayTable
           [dataSource]="companyMaxMinPaySource"
           matSort
           class="mat-elevation-z8">

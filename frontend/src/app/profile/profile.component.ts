@@ -8,7 +8,7 @@ import {
 } from '../_models/profile_models';
 import { ProfileService } from '../_services/profile.service';
 import { AuthenticationService } from '../_services/authentication.service';
-import { UserAuthResponseModel } from '../_models/user_models';
+import {UserModel} from '../_models/user_models';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { WorkExperienceDialogComponent } from './work-experience-dialog/work-experience-dialog.component';
@@ -26,8 +26,7 @@ export class ProfileComponent implements OnInit {
   // Get the id from the link in the navbar
   id = this.route.snapshot.paramMap.get('id');
   userBasicInfo: ProfileModel | null = null;
-
-  profile_name: string;
+  user: UserModel = this.authenticationService.getCurrentUser().user;
 
   workExperiences: WorkExperienceModel[] = [];
   educationalExperiences: EducationalExperienceModel[] = [];
@@ -41,7 +40,8 @@ export class ProfileComponent implements OnInit {
     public authenticationService: AuthenticationService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthenticationService
   ) {
     console.log(this.id);
   }
@@ -74,15 +74,6 @@ export class ProfileComponent implements OnInit {
           console.log(error);
         }
       );
-
-    this.profileService
-      .getUserById(+this.id)
-      .toPromise()
-      .then(response => {
-        response.forEach(element => {
-          this.profile_name = element.first_name + ' ' + element.last_name;
-        });
-      });
 
     this.profileService
       .getWorkExperiences(this.id)

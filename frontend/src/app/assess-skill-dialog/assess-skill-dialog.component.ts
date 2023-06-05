@@ -26,6 +26,7 @@ export class AssessSkillDialogComponent implements OnInit {
     }
     let temp: AssessSkillModel = {
       assessor_user_id: this.data.assessor_id,
+      assessor_profile_id: this.data.assessor_id,
       skill_id: this.data.skill_id,
       rating: this.data.rating
     };

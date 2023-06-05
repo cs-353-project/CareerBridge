@@ -934,7 +934,7 @@ def get_certification_by_profile_id(profile_id: int):
 
 
 def upload_resume(profile_id: int, resume: UploadFile):
-    contents = resume.read()
+    contents = resume.file.read()
 
     # Check if the profile exists
     profile = query_get(

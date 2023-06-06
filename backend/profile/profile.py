@@ -659,7 +659,7 @@ def delete_language_proficiency(language_proficiency_id: int):
     # See if the experience exists
     language_proficiency = query_get(
         """
-            SELECT * FROM LanguageProficiency WHERE language_proficiency_id = %s;
+            SELECT * FROM LanguageProficiency WHERE language_id = %s;
             """,
         (language_proficiency_id),
     )
@@ -669,7 +669,7 @@ def delete_language_proficiency(language_proficiency_id: int):
 
     return query_put(
         """
-            DELETE FROM LanguageProficiency WHERE language_proficiency_id = %s;
+            DELETE FROM LanguageProficiency WHERE language_id = %s;
             """,
         (language_proficiency_id),
     )

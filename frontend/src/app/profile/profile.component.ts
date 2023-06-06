@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit {
   userBasicInfo: ProfileModel | null = null;
 
   profile_name: string;
+  profile_role: string;
   email: string;
 
   workExperiences: WorkExperienceModel[] = [];
@@ -106,8 +107,10 @@ export class ProfileComponent implements OnInit {
       .getUserById(+this.visited_id)
       .toPromise()
       .then(response => {
+        console.log(response);
         response.forEach(element => {
           this.profile_name = element.first_name + ' ' + element.last_name;
+          this.profile_role = element.user_role;
           this.email = element.email;
         });
       });

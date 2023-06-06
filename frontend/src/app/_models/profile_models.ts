@@ -119,6 +119,7 @@ export interface CertificationModel {
 }
 
 export interface SkillModel {
+  rating: string;
   skill_id?: number;
   profile_id: number;
   name: string;

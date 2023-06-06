@@ -17,6 +17,9 @@ import { ResponseDialogComponent } from '../ads/response-dialog/response-dialog.
 export class ViewAdDetailsComponent implements OnInit {
   user_id: number;
   is_applied: boolean = false;
+  is_creator: boolean = false;
+
+  status: string;
   ad_id: number = +this.route.snapshot.paramMap.get('id');
   candidates: Candidate[] = [];
 
@@ -60,6 +63,7 @@ export class ViewAdDetailsComponent implements OnInit {
       .getJobDetails(this.ad_id, this.user_id)
       .toPromise()
       .then(response => {
+        console.log(response);
         response.forEach(element => {
           let temp = {
             ad_id: element.ad_id,
@@ -81,7 +85,9 @@ export class ViewAdDetailsComponent implements OnInit {
             skills: element.skills,
             required_degrees: element.required_degrees
           };
+          this.is_creator = temp.creator_id == this.user_id;
           this.is_applied = element.has_applied;
+          this.status = element.status;
           this.recruiter_name =
             element.creator.first_name + ' ' + element.creator.last_name;
           this.ad = temp;
@@ -140,6 +146,74 @@ export class ViewAdDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         candidate.status = result;
+      }
+    });
+  }
+
+  changeAdStatus() {
+    let text: string;
+    if (this.ad.is_open) {
+      text = 'close this job?';
+    } else {
+      text = 'open this job?';
+    }
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to ' + text
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.adService
+          .updateJobAdStatus(this.ad.ad_id.toString(), {
+            is_open: !this.ad.is_open
+          })
+          .subscribe(
+            res => {
+              if (res) {
+                this.ad.is_open = !this.ad.is_open;
+                this.toastr.success('Status Changed Successfully');
+              }
+            },
+            err => {
+              this.toastr.error('Error Occured');
+            }
+          );
+      }
+    });
+  }
+
+  deleteAd() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete this job?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.adService.deleteJobAd(this.ad.ad_id).subscribe(
+          res => {
+            if (res) {
+              this.toastr.success('Deleted Successfully');
+              this.router.navigate(['/ads']);
+            }
+          },
+          err => {
+            this.toastr.error('Error Occured');
+          }
+        );
       }
     });
   }

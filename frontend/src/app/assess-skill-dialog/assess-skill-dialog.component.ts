@@ -36,6 +36,7 @@ export class AssessSkillDialogComponent implements OnInit {
         this.dialogRef.close();
       },
       error => {
+        console.log(error);
         this.toastr.clear();
         this.toastr.error('Error assessing skill');
       }

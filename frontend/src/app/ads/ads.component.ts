@@ -8,6 +8,7 @@ import {
 } from '../_models/job_ad_models';
 import { AuthenticationService } from '../_services/authentication.service';
 import { JobAdService } from '../_services/job_ad.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-ads',
   templateUrl: './ads.component.html',
@@ -33,6 +34,10 @@ export class AdsComponent implements OnInit {
     'black'
   ];
 
+  user_role: string;
+
+  is_open = 'Open';
+
   options = { year: 'numeric', month: 'long', day: 'numeric' };
 
   skills = '';
@@ -41,9 +46,9 @@ export class AdsComponent implements OnInit {
   jobAdFilter: JobAdFilterRequestModel = {
     pay_range_min: 0,
     pay_range_max: 10000000,
-    type: '',
+    type: 'Any',
     location: '',
-    setting: '',
+    setting: 'On-site',
     domain: '',
     is_open: 1,
     skills: [],
@@ -55,16 +60,19 @@ export class AdsComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
-    private adService: JobAdService
+    private adService: JobAdService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.id = this.authService.getCurrentUser().user.user_id;
+    this.user_role = this.authService.getCurrentUserRole();
     this.ads_for_you = [];
     this.adService
       .getAllJobAds()
       .toPromise()
       .then(response => {
+        console.log(response);
         response.forEach(element => {
           let date = new Date();
           let create_at = new Date(element.created_at);
@@ -192,6 +200,16 @@ export class AdsComponent implements OnInit {
     };
 
     const dialogRef = this.dialog.open(NewAdDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding advertisement!');
+      }
+    );
   }
 
   filterChange() {
@@ -201,7 +219,11 @@ export class AdsComponent implements OnInit {
   filterAds() {
     this.jobAdFilter.pay_range_min = +this.jobAdFilter.pay_range_min;
     this.jobAdFilter.pay_range_max = +this.jobAdFilter.pay_range_max;
-    this.jobAdFilter.is_open = +this.jobAdFilter.is_open;
+    if (this.is_open == 'Open') {
+      this.jobAdFilter.is_open = 1;
+    } else {
+      this.jobAdFilter.is_open = 0;
+    }
 
     if (this.skills != '') {
       this.jobAdFilter.skills = this.skills.split(',');
@@ -210,9 +232,16 @@ export class AdsComponent implements OnInit {
       this.jobAdFilter.degrees = this.degrees.split(',');
     }
 
+    if (this.jobAdFilter.type == 'Any') {
+      this.jobAdFilter.type = null;
+    }
+
+    console.log(this.jobAdFilter);
+
     // return;
     this.adService.filterJobAds(this.jobAdFilter).subscribe(response => {
       // Update the ads_for_you array
+      console.log(response);
       this.ads_for_you = [];
       response.forEach(element => {
         let date = new Date();
@@ -243,5 +272,8 @@ export class AdsComponent implements OnInit {
         this.ads_for_you.push(ad);
       });
     });
+  }
+  refresh() {
+    window.location.reload();
   }
 }

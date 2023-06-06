@@ -569,7 +569,7 @@ def delete_award(award_id: int):
 def add_language_proficiency(language_proficiency_request: LanguageProficiencyRequestModel):
     language_proficiency_id = query_put(
         """
-            INSERT INTO LanguageProficiency (profile_id, language, proficiency)
+            INSERT INTO LanguageProficiency (profile_id, language_name, proficiency)
             VALUES (%s, %s, %s);
 
             """,
@@ -582,9 +582,9 @@ def add_language_proficiency(language_proficiency_request: LanguageProficiencyRe
 
     # construct response
     response: LanguageProficiencyResponseModel = LanguageProficiencyResponseModel(
-        language_proficiency_id=language_proficiency_id,
+        language_id=language_proficiency_id,
         profile_id=language_proficiency_request.profile_id,
-        language=language_proficiency_request.language_name,
+        language_name=language_proficiency_request.language_name,
         proficiency=language_proficiency_request.proficiency,
     )
 
@@ -621,6 +621,20 @@ def get_skills_by_profile_id(profile_id: int):
         (profile_id),
     )
 
+    # Also get the ratings from SkillAssessment table
+    for skill in skills:
+        skill_assessments = query_get(
+            """
+                SELECT * FROM SkillAssessment WHERE skill_id = %s;
+                """,
+            (skill["skill_id"]),
+        )
+
+        if len(skill_assessments) == 0:
+            skill["rating"] = "0"
+        else:
+            skill["rating"] = skill_assessments[0]["rating"]
+
     # if len(skills) == 0:
     #     raise HTTPException(status_code=404, detail="Skills not found")
 
@@ -645,7 +659,7 @@ def delete_language_proficiency(language_proficiency_id: int):
     # See if the experience exists
     language_proficiency = query_get(
         """
-            SELECT * FROM LanguageProficiency WHERE language_proficiency_id = %s;
+            SELECT * FROM LanguageProficiency WHERE language_id = %s;
             """,
         (language_proficiency_id),
     )
@@ -655,7 +669,7 @@ def delete_language_proficiency(language_proficiency_id: int):
 
     return query_put(
         """
-            DELETE FROM LanguageProficiency WHERE language_proficiency_id = %s;
+            DELETE FROM LanguageProficiency WHERE language_id = %s;
             """,
         (language_proficiency_id),
     )

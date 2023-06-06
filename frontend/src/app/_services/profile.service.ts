@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -82,6 +82,42 @@ export class ProfileService {
     return this.http.get(this.baseUrl + 'profile/voluntary-experience/' + id);
   }
 
+  deleteExperienceById(id: string) {
+    return this.http.delete(
+      this.baseUrl + 'profile/experience?experience_id=' + id
+    );
+  }
+
+  deleteProjectById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/project?project_id=' + id);
+  }
+
+  deleteAwardById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/award?award_id=' + id);
+  }
+
+  deletePublicationById(id: string) {
+    return this.http.delete(
+      this.baseUrl + 'profile/publication?publication_id=' + id
+    );
+  }
+
+  deleteCertificationById(id: string) {
+    return this.http.delete(
+      this.baseUrl + 'profile/certification?certification_id=' + id
+    );
+  }
+
+  deleteSkillById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/skill?skill_id=' + id);
+  }
+
+  deleteTestScoreById(id: string) {
+    return this.http.delete(
+      this.baseUrl + 'profile/test-score?test_score_id=' + id
+    );
+  }
+
   getTestScores(id: string): Observable<any> {
     return this.http.get(this.baseUrl + 'profile/test-score/' + id);
   }
@@ -163,13 +199,15 @@ export class ProfileService {
   }
 
   deleteLanguageById(id: string) {
-    return this.http.delete(this.baseUrl + 'profile/language/', {
-      body: { language_id: id }
-    });
+    return this.http.delete(
+      this.baseUrl + 'profile/language?language_proficiency_id=' + id
+    );
   }
 
   updateBio(bio: any, id: number) {
-    return this.http.patch(this.baseUrl + 'update_bio/' + id, bio);
+    return this.http.patch(this.baseUrl + 'update_bio/' + id, {
+      biography: bio
+    });
   }
 
   updateBasicInfo(basicInfo: any, id: number) {
@@ -191,13 +229,18 @@ export class ProfileService {
   }
 
   getSkillAssessments(skill_id: number) {
-    return this.http.get(this.baseUrl + 'profile/skill_assessments/' + skill_id.toString())
+    return this.http.get(
+      this.baseUrl + 'profile/skill_assessments/' + skill_id.toString()
+    );
   }
 
   assessSkill(skill_assessment: AssessSkillModel) {
-    return this.http.post(
-      this.baseUrl + 'profile/skill/assess',
-      skill_assessment
-    );
+    return this.http.post(this.baseUrl + 'assess_skill', skill_assessment, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    });
+  }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(this.baseUrl + 'user/get-all-users');
   }
 }

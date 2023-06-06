@@ -56,6 +56,13 @@ export class AuthenticationService {
     return user;
   }
 
+  getCurrentUserRole(): string {
+    const userString = localStorage.getItem('user');
+    if (!userString) return '';
+    const user: UserAuthResponseModel = JSON.parse(userString);
+    return user.user.user_role;
+  }
+
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);

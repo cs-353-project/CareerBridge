@@ -38,6 +38,7 @@ from profile.profile import (
     delete_award,
     delete_certification,
     delete_experience,
+    delete_language_proficiency,
     delete_project,
     delete_publication,
     delete_resume,
@@ -61,7 +62,7 @@ from profile.profile import (
     upload_resume,
 )
 
-from fastapi import FastAPI, HTTPException, Response, Security, UploadFile
+from fastapi import Body, FastAPI, HTTPException, Response, Security, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -85,6 +86,7 @@ from job_ad.job_ad import (
 )
 from job_ad.models import (
     JobAdFilterRequestModel,
+    JobAdStatusUpdateRequestModel,
     JobAdvertisementRequestModel,
     JobAdvertisementResponseModel,
     JobApplicationRequestModel,
@@ -258,7 +260,6 @@ def get_profile_main_api(user_id: int):
         profile[0]["resume"] = 1
     else:
         profile[0]["resume"] = 0
-
 
     return JSONResponse(status_code=200, content=jsonable_encoder(profile))
 
@@ -510,7 +511,7 @@ def get_job_ad_detail_api(ad_id: int, profile_id: int):
     return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
 
 
-@app.delete("/api/job_ad/")
+@app.delete("/api/job_ad")
 def delete_job_ad_api(ad_id: int):
     """
     This certification delete API allow you to delete certification data.
@@ -644,7 +645,7 @@ def delete_language_proficiency_api(language_proficiency_id: int):
     """
     This language proficiency delete API allow you to delete language proficiency data.
     """
-    delete_language_proficiency_api(language_proficiency_id)
+    delete_language_proficiency(language_proficiency_id)
 
     return JSONResponse(status_code=200, content={"message": "Language proficiency deleted successfully"})
 
@@ -770,7 +771,7 @@ def delete_comment_api(comment_id: int):
     return JSONResponse(status_code=200, content={"message": "Comment deleted successfully"})
 
 
-@app.post("/api/profile/skill/assess", response_model=AssessSkillResponseModel)
+@app.post("/api/assess_skill", response_model=AssessSkillResponseModel)
 def assess_skill_api(assess_skill_details: AssessSkillRequestModel):
     """
     This skill assess API allow you to assess skill data.
@@ -873,9 +874,9 @@ def get_system_reports_api():
     system_reports = {
         "total_num_of_ads": create_total_num_of_ads_response_model(),
         "num_of_users_each_role": create_num_of_users_each_role_response_model(),
-        'highest_applications_each_domain': create_highest_applications_each_domain_response_model(),
+        "highest_applications_each_domain": create_highest_applications_each_domain_response_model(),
         "average_skill_rating_of_each_skill": create_average_skill_rating_of_each_skill_response_model(),
-        'least_published_ad_type_for_interval': create_least_published_ad_type_for_interval_response_model(),
+        "least_published_ad_type_for_interval": create_least_published_ad_type_for_interval_response_model(),
         "average_number_of_ad_views_for_company": create_average_number_of_ad_views_for_company_response_model(),
         "minimum_and_maximum_pay_averages": create_minimum_and_maximum_pay_averages_response_model(),
     }
@@ -947,6 +948,43 @@ def delete_resume_api(user_id: int):
     delete_resume(user_id)
 
     return JSONResponse(status_code=200, content={"message": "Resume deleted successfully"})
+
+
+@app.get("/api/notifications/{user_id}", response_model=None)
+def get_notification_api(user_id: int):
+    """
+    This get notification API allow you to get notification.
+    """
+    notification = query_get(
+        """
+        SELECT * FROM Notification WHERE user_id = %s
+        """,
+        (user_id,),
+    )
+
+    return JSONResponse(status_code=200, content=jsonable_encoder(notification))
+
+
+@app.patch("/api/change_job_ad_status/{job_ad_id}", response_model=None)
+def change_job_ad_status_api(job_ad_id: int, status: JobAdStatusUpdateRequestModel):
+    if status.is_open is not None:
+        s = status.is_open
+        if s is True:
+            s = 1
+        else:
+            s = 0
+
+        query_put(
+            """
+            UPDATE JobAdvertisement SET is_open = %s WHERE ad_id = %s
+            """,
+            (s, job_ad_id),
+        )
+
+        return JSONResponse(status_code=200, content={"message": "Job ad status updated successfully"})
+
+    else:
+        raise HTTPException(status_code=404, detail="Error while updating job ad status")
 
 
 # Test Endpoints

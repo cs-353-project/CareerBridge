@@ -4,7 +4,7 @@ import {
   CertificationModel,
   EducationalExperienceModel,
   ProfileModel,
-  ProfileUpdateRequestModel,
+  LanguageProficiencyModel,
   ProjectModel,
   PublicationModel,
   SkillModel,
@@ -32,6 +32,7 @@ import { TestScoreDialogComponent } from './test-score-dialog/test-score-dialog.
 import { PublicationDialogComponent } from './publication-dialog/publication-dialog.component';
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component';
 import { AssessSkillDialogComponent } from '../assess-skill-dialog/assess-skill-dialog.component';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -47,6 +48,7 @@ export class ProfileComponent implements OnInit {
   userBasicInfo: ProfileModel | null = null;
 
   profile_name: string;
+  profile_role: string;
   email: string;
 
   workExperiences: WorkExperienceModel[] = [];
@@ -58,6 +60,7 @@ export class ProfileComponent implements OnInit {
   awards: AwardModel[] = [];
   test_scores: TestScoreModel[] = [];
   publications: PublicationModel[] = [];
+  languages: LanguageProficiencyModel[] = [];
 
   selectedFile: File | null = null;
   selectedFileURL: string | ArrayBuffer | null = null;
@@ -105,8 +108,10 @@ export class ProfileComponent implements OnInit {
       .getUserById(+this.visited_id)
       .toPromise()
       .then(response => {
+        console.log(response);
         response.forEach(element => {
           this.profile_name = element.first_name + ' ' + element.last_name;
+          this.profile_role = element.user_role;
           this.email = element.email;
         });
       });
@@ -161,7 +166,7 @@ export class ProfileComponent implements OnInit {
       });
 
     this.profileService
-      .getWorkExperiences(this.visited_id)
+      .getVoluntaryExperiences(this.visited_id)
       .toPromise()
       .then(data => {
         data.forEach(element => {
@@ -188,7 +193,9 @@ export class ProfileComponent implements OnInit {
       .toPromise()
       .then(data => {
         data.forEach(element => {
+          console.log(element);
           let temp: SkillModel = {
+            rating: element.rating,
             skill_id: element.skill_id,
             profile_id: element.profile_id,
             name: element.name,
@@ -272,6 +279,20 @@ export class ProfileComponent implements OnInit {
         this.publications.push(temp);
       });
     });
+
+    this.profileService
+      .getLanguagesByProfileId(this.visited_id)
+      .subscribe(data => {
+        data.forEach(element => {
+          let temp: LanguageProficiencyModel = {
+            language_id: element.language_id,
+            profile_id: element.profile_id,
+            language_name: element.language_name,
+            proficiency: element.proficiency
+          };
+          this.languages.push(temp);
+        });
+      });
   }
 
   setActiveElement(element) {
@@ -299,12 +320,16 @@ export class ProfileComponent implements OnInit {
       WorkExperienceDialogComponent,
       dialogConfig
     );
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.workExperiences.push(result);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding work experience!');
       }
-    });
+    );
   }
 
   addEducationalExperience() {
@@ -331,6 +356,16 @@ export class ProfileComponent implements OnInit {
       EducationalExperienceDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding educational experience!');
+      }
+    );
   }
 
   addSkill() {
@@ -344,6 +379,16 @@ export class ProfileComponent implements OnInit {
       is_master_skill: false
     };
     const dialogRef = this.dialog.open(SkillDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding skill!');
+      }
+    );
   }
 
   uploadResume(event: Event): void {
@@ -356,6 +401,7 @@ export class ProfileComponent implements OnInit {
 
     this.profileService.uploadResume(formData, +this.id).subscribe(
       response => {
+        this.userBasicInfo.resume = 1;
         this.toastr.success('Resume uploaded successfully!');
       },
       error => {
@@ -379,6 +425,7 @@ export class ProfileComponent implements OnInit {
     this.profileService.deleteResume(+this.id).subscribe(
       response => {
         this.toastr.success('Resume deleted successfully!');
+        this.userBasicInfo.resume = 0;
       },
       error => {
         this.toastr.error('Error deleting resume!');
@@ -423,7 +470,7 @@ export class ProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userBasicInfo.biography = result.biography;
+        this.userBasicInfo.biography = result;
       }
     });
   }
@@ -448,6 +495,16 @@ export class ProfileComponent implements OnInit {
       VoluntaryExperienceDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding voluntary experience!');
+      }
+    );
   }
 
   addProject() {
@@ -463,6 +520,16 @@ export class ProfileComponent implements OnInit {
       project_url: ''
     };
     const dialogRef = this.dialog.open(ProjectDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding project!');
+      }
+    );
   }
 
   addCertificate() {
@@ -482,6 +549,16 @@ export class ProfileComponent implements OnInit {
       CertificationDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding certificate!');
+      }
+    );
   }
 
   addAward() {
@@ -496,6 +573,16 @@ export class ProfileComponent implements OnInit {
       description: ''
     };
     const dialogRef = this.dialog.open(AwardDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding award!');
+      }
+    );
   }
 
   addTestScore() {
@@ -510,6 +597,16 @@ export class ProfileComponent implements OnInit {
       description: ''
     };
     const dialogRef = this.dialog.open(TestScoreDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding test score!');
+      }
+    );
   }
 
   addPublication() {
@@ -528,6 +625,16 @@ export class ProfileComponent implements OnInit {
       PublicationDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding publication!');
+      }
+    );
   }
 
   addLanguage() {
@@ -540,6 +647,16 @@ export class ProfileComponent implements OnInit {
       proficiency: ''
     };
     const dialogRef = this.dialog.open(LanguageDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding language!');
+      }
+    );
   }
 
   assessSkill(skill: SkillModel) {
@@ -556,5 +673,312 @@ export class ProfileComponent implements OnInit {
       AssessSkillDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding skill!');
+      }
+    );
+  }
+
+  deleteExperience(experience: any, experience_list: any[]) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text:
+        'Are you sure you want to delete ' + experience.experience.title + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService
+            .deleteExperienceById(experience.experience.experience_id)
+            .subscribe(
+              response => {
+                this.toastr.success('Experience deleted successfully!');
+                experience_list.splice(experience_list.indexOf(experience), 1);
+              },
+              error => {
+                this.toastr.error('Error deleting experience!');
+              }
+            );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting experience!');
+      }
+    );
+  }
+
+  deleteProject(project: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete ' + project?.title + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService.deleteProjectById(project?.project_id).subscribe(
+            response => {
+              if (response) {
+                this.toastr.success('Project deleted successfully!');
+                this.projects.splice(this.projects.indexOf(project), 1);
+              }
+            },
+            error => {
+              this.toastr.error('Error deleting project!');
+            }
+          );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting project!');
+      }
+    );
+  }
+
+  deleteCertification(certification: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text:
+        'Are you sure you want to delete ' +
+        certification?.certification_name +
+        '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService
+            .deleteCertificationById(certification?.certification_id)
+            .subscribe(
+              response => {
+                if (response) {
+                  this.toastr.success('Certificate deleted successfully!');
+                  this.certifications.splice(
+                    this.certifications.indexOf(certification),
+                    1
+                  );
+                }
+              },
+              error => {
+                this.toastr.error('Error deleting certificate!');
+              }
+            );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting certificate!');
+      }
+    );
+  }
+
+  deleteAward(award: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete ' + award?.title + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService.deleteAwardById(award?.award_id).subscribe(
+            response => {
+              if (response) {
+                this.toastr.success('Award deleted successfully!');
+                this.awards.splice(this.awards.indexOf(award), 1);
+              }
+            },
+            error => {
+              this.toastr.error('Error deleting award!');
+            }
+          );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting award!');
+      }
+    );
+  }
+
+  deleteTestScore(test_score: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete ' + test_score?.test_name + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService
+            .deleteTestScoreById(test_score?.test_score_id)
+            .subscribe(
+              response => {
+                if (response) {
+                  this.toastr.success('Test score deleted successfully!');
+                  this.test_scores.splice(
+                    this.test_scores.indexOf(test_score),
+                    1
+                  );
+                }
+              },
+              error => {
+                this.toastr.error('Error deleting test score!');
+              }
+            );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting test score!');
+      }
+    );
+  }
+
+  deletePublication(publication: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete ' + publication?.title + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService
+            .deletePublicationById(publication?.publication_id)
+            .subscribe(
+              response => {
+                if (response) {
+                  this.toastr.success('Publication deleted successfully!');
+                  this.publications.splice(
+                    this.publications.indexOf(publication),
+                    1
+                  );
+                }
+              },
+              error => {
+                this.toastr.error('Error deleting publication!');
+              }
+            );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting publication!');
+      }
+    );
+  }
+
+  deleteSkill(skill: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete ' + skill?.name + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService.deleteSkillById(skill?.skill_id).subscribe(
+            response => {
+              if (response) {
+                this.toastr.success('Skill deleted successfully!');
+                this.skills.splice(this.skills.indexOf(skill));
+              }
+            },
+            error => {
+              this.toastr.error('Error deleting skill!');
+            }
+          );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting skill!');
+      }
+    );
+  }
+
+  deleteLanguage(language: any) {
+    console.log(language);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete ' + language?.language_name + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService
+            .deleteLanguageById(language?.language_id)
+            .subscribe(
+              response => {
+                if (response) {
+                  this.toastr.success('Language deleted successfully!');
+                  this.languages.splice(this.languages.indexOf(language));
+                }
+              },
+              error => {
+                this.toastr.error('Error deleting language!');
+              }
+            );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting language!');
+      }
+    );
+  }
+
+  refresh() {
+    window.location.reload();
+  }
+
+  range(n: number): number[] {
+    return Array(n)
+      .fill(0)
+      .map((_, index) => index);
   }
 }

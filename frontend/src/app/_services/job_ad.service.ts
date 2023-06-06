@@ -9,7 +9,8 @@ import {
   JobAdvertisementResponseModel,
   JobApplicationResponseModel,
   JobApplicationRequestModel,
-  JobApplicationUpdateRequestModel
+  JobApplicationUpdateRequestModel,
+  JobAdStatusUpdateRequestModel
 } from '../_models/job_ad_models';
 
 @Injectable({
@@ -21,7 +22,7 @@ export class JobAdService {
   constructor(private http: HttpClient) {}
 
   getAllJobAds(): Observable<any> {
-    return this.http.get(this.baseUrl + 'job_ad');
+    return this.http.get(this.baseUrl + 'job_ad/');
   }
 
   getJobAds(id: number): Observable<any> {
@@ -33,7 +34,7 @@ export class JobAdService {
   }
 
   deleteJobAd(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'job_ad/', { body: { ad_id: id } });
+    return this.http.delete(this.baseUrl + 'job_ad?ad_id=' + id.toString());
   }
 
   filterJobAds(filter: JobAdFilterRequestModel): Observable<any> {
@@ -101,5 +102,12 @@ export class JobAdService {
       this.baseUrl + 'jobapplications/update/' + id.toString(),
       response
     );
+  }
+
+  updateJobAdStatus(
+    id: string,
+    status: JobAdStatusUpdateRequestModel
+  ): Observable<any> {
+    return this.http.patch(this.baseUrl + 'change_job_ad_status/' + id, status);
   }
 }

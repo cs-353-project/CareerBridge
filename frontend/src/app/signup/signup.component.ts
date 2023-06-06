@@ -22,6 +22,7 @@ export class SignupComponent implements OnInit {
   requiredForm: FormGroup;
   hidePassword = true;
   hidePasswordConfirm: boolean = true;
+  confirm_policy: boolean = false;
 
   constructor(
     private router: Router,

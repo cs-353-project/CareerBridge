@@ -14,10 +14,25 @@
         flex-direction: row;
         justify-content: space-between;
       ">
-      <button mat-raised-button color="primary" (click)="filterChange()">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="filterChange()"
+        *ngIf="!showFilters">
         Show Filter Options
       </button>
-      <button mat-raised-button color="primary" (click)="createAd()">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="filterChange()"
+        *ngIf="showFilters">
+        Hide Filter Options
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="createAd()"
+        *ngIf="user_role === 'Recruiter'">
         Create New Ad
       </button>
     </div>
@@ -32,9 +47,11 @@
           <mat-radio-button value="Remote">Remote</mat-radio-button>
         </mat-radio-group>
         <mat-label class="font-weight-bold mt-1">Status</mat-label>
-        <mat-radio-group [(ngModel)]="jobAdFilter.is_open">
-          <mat-radio-button value="1">Open</mat-radio-button>
-          <mat-radio-button value="0" class="mx-2">Closed</mat-radio-button>
+        <mat-radio-group [(ngModel)]="is_open">
+          <mat-radio-button value="Open">Open</mat-radio-button>
+          <mat-radio-button value="Closed" class="mx-2"
+            >Closed</mat-radio-button
+          >
         </mat-radio-group>
       </div>
       <div class="d-flex flex-column mx-5" style="width: 250px">
@@ -109,7 +126,12 @@
                 <img src="assets/images/company.png" alt="placeholder" />
               </div>
               <div class="text-center">
-                <span style="font-size: 10px; color: green">Open</span>
+                <span style="font-size: 10px; color: green" *ngIf="afy.is_open"
+                  >Open</span
+                >
+                <span style="font-size: 10px; color: red" *ngIf="!afy.is_open"
+                  >Closed</span
+                >
               </div>
             </div>
             <div class="h-100" style="width: 175px">
@@ -145,11 +167,11 @@
                     <span class="mx-1">&#183;</span>
                     <span>{{ afy.setting }}</span>
                   </div>
-                  <div>
+                  <!-- <div>
                     <span style="font-size: 10px; color: darkgray"
                       >{{ afy.timedelta }} days ago</span
                     >
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -214,7 +236,14 @@
                 <img src="assets/images/company.png" alt="placeholder" />
               </div>
               <div class="text-center">
-                <span style="font-size: 10px; color: green">Open</span>
+                <span
+                  style="font-size: 10px; color: green"
+                  *ngIf="appad.is_open"
+                  >Open</span
+                >
+                <span style="font-size: 10px; color: red" *ngIf="!appad.is_open"
+                  >Closed</span
+                >
               </div>
             </div>
             <div class="h-100" style="width: 175px">
@@ -250,11 +279,11 @@
                     <span class="mx-1">&#183;</span>
                     <span>{{ appad.setting }}</span>
                   </div>
-                  <div>
+                  <!-- <div>
                     <span style="font-size: 10px; color: darkgray"
                       >{{ appad.timedelta }} days ago</span
                     >
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -316,7 +345,7 @@
       <div>
         <mat-divider class="w-100"></mat-divider>
       </div>
-      <mat-tab label="Your Ads">
+      <mat-tab label="Your Ads" *ngIf="user_role == 'Recruiter'">
         <div *ngFor="let yads of this.your_ads; index as i">
           <div
             class="w-100 d-flex flex-row align-items-center"
@@ -326,7 +355,12 @@
                 <img src="assets/images/company.png" alt="placeholder" />
               </div>
               <div class="text-center">
-                <span style="font-size: 10px; color: green">Open</span>
+                <span style="font-size: 10px; color: green" *ngIf="yads.is_open"
+                  >Open</span
+                >
+                <span style="font-size: 10px; color: red" *ngIf="!yads.is_open"
+                  >Closed</span
+                >
               </div>
             </div>
             <div class="h-100" style="width: 175px">
@@ -362,11 +396,11 @@
                     <span class="mx-1">&#183;</span>
                     <span>{{ yads.setting }}</span>
                   </div>
-                  <div>
+                  <!-- <div>
                     <span style="font-size: 10px; color: darkgray"
                       >{{ yads.timedelta }} days ago</span
                     >
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

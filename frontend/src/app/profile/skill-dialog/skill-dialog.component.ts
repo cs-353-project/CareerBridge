@@ -27,7 +27,7 @@ export class SkillDialogComponent implements OnInit {
     this.profileService.addSkill(this.data).subscribe(
       response => {
         this.toastr.success('Skill added successfully');
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       },
       error => {
         this.toastr.clear();

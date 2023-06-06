@@ -21,18 +21,14 @@ export class AdsComponent implements OnInit {
   ads_for_you: JobAdvertisementResponseModel[];
   applied_ads: JobAdvertisementResponseModel[];
   your_ads: JobAdvertisementResponseModel[];
-  colors: string[] = [
-    'blue',
-    'red',
-    'green',
-    'yellow',
-    'purple',
-    'orange',
-    'pink',
-    'brown',
-    'grey',
-    'black'
-  ];
+
+  colors = {
+    0: '#6913ec',
+    1: '#e51a5b',
+    2: '#1c4ee3',
+    3: '#007403',
+    4: '#44001f'
+  };
 
   user_role: string;
 

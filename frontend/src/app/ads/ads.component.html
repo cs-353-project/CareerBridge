@@ -180,10 +180,12 @@
                 class="d-flex flex-column justify-content-center align-items-center h-100">
                 <div
                   *ngFor="let skill of afy.skills; index as j; first as isFirst"
-                  class="bg-danger py-1 px-2"
+                  class="py-1 px-2"
                   style="border-radius: 10px"
                   [ngClass]="{ 'mt-1': !isFirst }"
-                  [ngStyle]="{ color: this.colors[j] }">
+                  [style.background-color]="
+                    colors[(5 - j) % afy?.skills.length]
+                  ">
                   <span class="text-light">{{ skill.skill_name }}</span>
                 </div>
               </div>
@@ -296,10 +298,12 @@
                     index as j;
                     first as isFirst
                   "
-                  class="bg-danger py-1 px-2"
+                  class="py-1 px-2"
                   style="border-radius: 10px"
                   [ngClass]="{ 'mt-1': !isFirst }"
-                  [ngStyle]="{ color: this.colors[j] }">
+                  [style.background-color]="
+                    colors[(5 - j) % appad?.skills.length]
+                  ">
                   <span class="text-light">{{ skill.skill_name }}</span>
                 </div>
               </div>
@@ -413,10 +417,12 @@
                     index as j;
                     first as isFirst
                   "
-                  class="bg-danger py-1 px-2"
+                  class="py-1 px-2"
                   style="border-radius: 10px"
                   [ngClass]="{ 'mt-1': !isFirst }"
-                  [ngStyle]="{ 'background-color': this.colors[j] }">
+                  [style.background-color]="
+                    colors[(5 - j) % yads?.skills.length]
+                  ">
                   <span class="text-light">{{ skill.skill_name }}</span>
                 </div>
               </div>

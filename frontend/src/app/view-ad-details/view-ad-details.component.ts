@@ -19,6 +19,14 @@ export class ViewAdDetailsComponent implements OnInit {
   is_applied: boolean = false;
   is_creator: boolean = false;
 
+  colors = {
+    0: '#6913ec',
+    1: '#e51a5b',
+    2: '#1c4ee3',
+    3: '#007403',
+    4: '#44001f'
+  };
+
   status: string;
   ad_id: number = +this.route.snapshot.paramMap.get('id');
   candidates: Candidate[] = [];

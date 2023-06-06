@@ -25,13 +25,19 @@ export class NewAdDialogComponent implements OnInit {
 
   postAd() {
     if (!this.isErrorExists()) {
-      const skillsList = this.skills.split(',');
-      const degreesList = this.degrees.split(',');
-      for (let i = 0; i < skillsList.length; i++) {
-        this.data.skills.push({ skill_name: skillsList[i].trim() });
+      if (!!this.skills) {
+        const skillsList = this.skills.split(',');
+        for (let i = 0; i < skillsList.length; i++) {
+          this.data.skills.push({ skill_name: skillsList[i].trim() });
+        }
       }
-      for (let i = 0; i < degreesList.length; i++) {
-        this.data.required_degrees.push({ degree_name: degreesList[i].trim() });
+      if (!!this.degrees) {
+        const degreesList = this.degrees.split(',');
+        for (let i = 0; i < degreesList.length; i++) {
+          this.data.required_degrees.push({
+            degree_name: degreesList[i].trim()
+          });
+        }
       }
 
       this.data.is_open = true;
@@ -73,14 +79,6 @@ export class NewAdDialogComponent implements OnInit {
     }
     if (!this.data.location) {
       this.toastr.error('Type is required');
-      flag = true;
-    }
-    if (!this.data.pay_range_max) {
-      this.toastr.error('Max Pay Range is required');
-      flag = true;
-    }
-    if (!this.data.pay_range_min) {
-      this.toastr.error('Min Pay Range is required');
       flag = true;
     }
 

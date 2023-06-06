@@ -536,7 +536,7 @@
                           mat-raised-button
                           class="btn-danger"
                           *ngIf="this.id == this.visited_id"
-                          (click)="deleteProject()">
+                          (click)="deleteProject(project)">
                           Delete
                         </button>
                       </div>
@@ -630,6 +630,7 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
+                          (click)="deleteCertification(certificate)"
                           *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
@@ -706,6 +707,7 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
+                          (click)="deleteAward(award)"
                           *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
@@ -783,6 +785,7 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
+                          (click)="deleteTestScore(test)"
                           *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
@@ -875,6 +878,7 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
+                          (click)="deletePublication(publication)"
                           *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
@@ -903,7 +907,7 @@
         <div class="main-content-top">
           <div class="main-content-top-inner">
             <mat-icon>language</mat-icon>
-            <h2 class="main-content-header">Publications</h2>
+            <h2 class="main-content-header">Language</h2>
           </div>
           <button
             mat-button
@@ -913,40 +917,51 @@
             Add Language
           </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>speaker_notes</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
+        <div class="mt-2" *ngIf="languages?.length == 0">
+          <span>No Language yet.</span>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>speaker_notes</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+        <div
+          *ngIf="languages?.length > 0"
+          style="width: calc(100% - 35px)"
+          class="mt-2">
+          <div class="w-100" *ngFor="let lang of languages">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
+                  <div>
+                    <mat-icon class="item-icon">g_translate</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ lang?.language_name }}</span
+                        >
+                      </div>
+                      <div class="mt-1">
+                        <span style="font-size: 14px">{{
+                          lang?.proficiency
+                        }}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        mat-raised-button
+                        class="btn-danger mr-1"
+                        (click)="deleteLanguage(lang)"
+                        *ngIf="this.id == this.visited_id">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -1035,6 +1050,7 @@
                       <button
                         mat-raised-button
                         class="btn-danger mr-1"
+                        (click)="deleteSkill(skill)"
                         *ngIf="this.id == this.visited_id">
                         Delete
                       </button>

@@ -37,6 +37,7 @@ from profile.profile import (
     add_work_experience,
     delete_award,
     delete_certification,
+    delete_language_proficiency,
     delete_experience,
     delete_project,
     delete_publication,
@@ -644,7 +645,7 @@ def delete_language_proficiency_api(language_proficiency_id: int):
     """
     This language proficiency delete API allow you to delete language proficiency data.
     """
-    delete_language_proficiency_api(language_proficiency_id)
+    delete_language_proficiency(language_proficiency_id)
 
     return JSONResponse(status_code=200, content={"message": "Language proficiency deleted successfully"})
 

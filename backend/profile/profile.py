@@ -569,7 +569,7 @@ def delete_award(award_id: int):
 def add_language_proficiency(language_proficiency_request: LanguageProficiencyRequestModel):
     language_proficiency_id = query_put(
         """
-            INSERT INTO LanguageProficiency (profile_id, language, proficiency)
+            INSERT INTO LanguageProficiency (profile_id, language_name, proficiency)
             VALUES (%s, %s, %s);
 
             """,
@@ -582,9 +582,9 @@ def add_language_proficiency(language_proficiency_request: LanguageProficiencyRe
 
     # construct response
     response: LanguageProficiencyResponseModel = LanguageProficiencyResponseModel(
-        language_proficiency_id=language_proficiency_id,
+        language_id=language_proficiency_id,
         profile_id=language_proficiency_request.profile_id,
-        language=language_proficiency_request.language_name,
+        language_name=language_proficiency_request.language_name,
         proficiency=language_proficiency_request.proficiency,
     )
 

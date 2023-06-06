@@ -7,7 +7,7 @@ import { NotificationModel } from '../_models/notification_models';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class NotificationService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}

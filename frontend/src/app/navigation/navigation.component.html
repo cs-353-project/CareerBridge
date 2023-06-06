@@ -44,10 +44,9 @@
       mat-stroked-button
       class="mx-1"
       routerLink="/notifications"
-      routerLinkActive="active-button">
-      <mat-icon matBadgeColor="warn" [matMenuTriggerFor]="notificationsMenu"
-        >notifications</mat-icon
-      >
+      routerLinkActive="active-button"
+      [matMenuTriggerFor]="notificationsMenu">
+      <mat-icon matBadgeColor="warn">notifications</mat-icon>
       <span>Notifications</span>
     </button>
     <button
@@ -127,4 +126,22 @@
 </mat-sidenav-container>
 -->
 
-<mat-menu #notificationsMenu="matMenu" xPosition="before"> </mat-menu>
+<mat-menu #notificationsMenu="matMenu" xPosition="before">
+  <div
+    style="
+      display: flex;
+      width: 250px;
+      justify-content: space-between;
+      align-items: center;
+    ">
+    <span class="mat-h3 m-3"> <b>Notifications</b> </span>
+  </div>
+  <mat-divider></mat-divider>
+  <span mat-menu-item *ngIf="notifications.length === 0" class="mt-2"
+    >No Notifications yet.</span
+  >
+  <ng-container *ngFor="let notification of notifications; let last = last">
+    <button mat-menu-item>{{ notification.details }}</button>
+    <mat-divider class="w-100 my-1" *ngIf="!last"></mat-divider>
+  </ng-container>
+</mat-menu>

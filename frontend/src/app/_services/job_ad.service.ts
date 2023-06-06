@@ -30,7 +30,7 @@ export class JobAdService {
   }
 
   addJobAd(jobAd: JobAdvertisementRequestModel): Observable<any> {
-    return this.http.post(this.baseUrl + 'job_ad', jobAd);
+    return this.http.post(this.baseUrl + 'job_ad/', jobAd);
   }
 
   deleteJobAd(id: number): Observable<any> {

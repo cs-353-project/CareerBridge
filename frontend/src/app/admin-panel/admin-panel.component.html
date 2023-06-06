@@ -52,7 +52,9 @@
         </div>
       </div>
       <mat-divider class="w-100 my-4"> </mat-divider>
-      <span class="text-center" style="font-size: 14pt;">Number of Users in Each Role</span>
+      <span class="text-center" style="font-size: 14pt"
+        >Number of Users in Each Role</span
+      >
       <div class="h-100 d-flex justify-content-center">
         <table
           mat-table
@@ -98,7 +100,7 @@
       <div class="h-100 d-flex justify-content-center flex-column">
         <div class="text-center h-100">
           <span style="font-size: 14pt"
-            >Highest Number of Applications For Each Domain</span
+            >Domain with Highest Number of Applications</span
           >
         </div>
 
@@ -176,7 +178,9 @@
         </div>
       </div>
       <mat-divider class="w-100 my-4"> </mat-divider>
-      <span class="text-center" style="font-size: 14pt;">Averages of Skill Ratings For Each Skill</span>
+      <span class="text-center" style="font-size: 14pt"
+        >Averages of Skill Ratings For Each Skill</span
+      >
       <div class="h-100 d-flex justify-content-center">
         <table
           mat-table
@@ -226,12 +230,16 @@
       <mat-divider class="w-100 my-4"> </mat-divider>
       <div class="d-flex justify-content-center flex-column mb-2 text-center">
         <span style="font-size: 14pt"
-          >The Least Published Ad Type For a Time Interval => {{ ad_type }}:
-          {{ ad_type_count }} times</span
+          >The Least Published Ad Type(s)
+          <p class="mt-1" *ngFor="let ad_t of ad_type">
+            {{ ad_t.ad_type }}: {{ ad_t.num_of_ad }} times
+          </p></span
         >
       </div>
       <mat-divider class="w-100 my-4"> </mat-divider>
-      <span class="text-center" style="font-size: 14pt;">Average Number of Ad Views For Each Company</span>
+      <span class="text-center" style="font-size: 14pt"
+        >Average Number of Ad Views For Each Company</span
+      >
       <div class="h-100 d-flex justify-content-center">
         <table
           mat-table
@@ -279,7 +287,9 @@
         </table>
       </div>
       <mat-divider class="w-100 my-4"> </mat-divider>
-      <span class="text-center" style="font-size: 14pt;">Average Minimum and Maximum Pay For Each Company</span>
+      <span class="text-center" style="font-size: 14pt"
+        >Average Minimum and Maximum Pay For Each Company</span
+      >
       <div class="h-100 d-flex justify-content-center">
         <table
           mat-table

@@ -80,8 +80,8 @@ export class AdminPanelComponent implements OnInit {
 
   systemReport: SystemReportResponseModel;
 
-  ad_type: string;
-  ad_type_count: number;
+  ad_type: string[];
+  ad_type_count: number[];
 
   constructor(private systemReportService: SystemReportService) {}
 
@@ -141,9 +141,7 @@ export class AdminPanelComponent implements OnInit {
       this.skillAverageRatingTable.dataSource = this.skillAverageRatingSource;
       this.skillAverageRatingTable.renderRows();
 
-      this.ad_type = response.least_published_ad_type_for_interval[0].ad_type;
-      this.ad_type_count =
-        response.least_published_ad_type_for_interval[0].num_of_ad;
+      this.ad_type = response.least_published_ad_type_for_interval;
 
       for (
         let i = 0;

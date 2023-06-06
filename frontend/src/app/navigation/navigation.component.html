@@ -54,8 +54,8 @@
       class="mr-2"
       routerLink="/admin-panel"
       routerLinkActive="active-button">
-      <mat-icon>settings</mat-icon>
-      <span>Settings</span>
+      <mat-icon>admin_panel_settings</mat-icon>
+      <span>Admin Panel</span>
     </button>
     <button
       type="button"
@@ -74,6 +74,14 @@
           {{ this.user.user.user_role }}
         </span>
       </div>
+    </button>
+    <button
+      mat-stroked-button
+      class="ml-2"
+      routerLinkActive="active-button"
+      (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>

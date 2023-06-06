@@ -8,6 +8,7 @@ import {
 } from '../_models/job_ad_models';
 import { AuthenticationService } from '../_services/authentication.service';
 import { JobAdService } from '../_services/job_ad.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-ads',
   templateUrl: './ads.component.html',
@@ -43,7 +44,7 @@ export class AdsComponent implements OnInit {
   jobAdFilter: JobAdFilterRequestModel = {
     pay_range_min: 0,
     pay_range_max: 10000000,
-    type: '',
+    type: 'Any',
     location: '',
     setting: 'On-site',
     domain: '',
@@ -57,7 +58,8 @@ export class AdsComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
-    private adService: JobAdService
+    private adService: JobAdService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -194,6 +196,16 @@ export class AdsComponent implements OnInit {
     };
 
     const dialogRef = this.dialog.open(NewAdDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding advertisement!');
+      }
+    );
   }
 
   filterChange() {
@@ -256,5 +268,8 @@ export class AdsComponent implements OnInit {
         this.ads_for_you.push(ad);
       });
     });
+  }
+  refresh() {
+    window.location.reload();
   }
 }

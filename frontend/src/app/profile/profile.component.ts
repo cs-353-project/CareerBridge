@@ -300,12 +300,16 @@ export class ProfileComponent implements OnInit {
       WorkExperienceDialogComponent,
       dialogConfig
     );
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.workExperiences.push(result);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding work experience!');
       }
-    });
+    );
   }
 
   addEducationalExperience() {
@@ -331,6 +335,16 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(
       EducationalExperienceDialogComponent,
       dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding educational experience!');
+      }
     );
   }
 
@@ -424,7 +438,7 @@ export class ProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userBasicInfo.biography = result.biography;
+        this.userBasicInfo.biography = result;
       }
     });
   }
@@ -449,6 +463,16 @@ export class ProfileComponent implements OnInit {
       VoluntaryExperienceDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding voluntary experience!');
+      }
+    );
   }
 
   addProject() {
@@ -464,6 +488,16 @@ export class ProfileComponent implements OnInit {
       project_url: ''
     };
     const dialogRef = this.dialog.open(ProjectDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding project!');
+      }
+    );
   }
 
   addCertificate() {
@@ -483,6 +517,16 @@ export class ProfileComponent implements OnInit {
       CertificationDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding certificate!');
+      }
+    );
   }
 
   addAward() {
@@ -497,6 +541,16 @@ export class ProfileComponent implements OnInit {
       description: ''
     };
     const dialogRef = this.dialog.open(AwardDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding award!');
+      }
+    );
   }
 
   addTestScore() {
@@ -511,6 +565,16 @@ export class ProfileComponent implements OnInit {
       description: ''
     };
     const dialogRef = this.dialog.open(TestScoreDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding test score!');
+      }
+    );
   }
 
   addPublication() {
@@ -529,6 +593,16 @@ export class ProfileComponent implements OnInit {
       PublicationDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding publication!');
+      }
+    );
   }
 
   addLanguage() {
@@ -541,6 +615,16 @@ export class ProfileComponent implements OnInit {
       proficiency: ''
     };
     const dialogRef = this.dialog.open(LanguageDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding language!');
+      }
+    );
   }
 
   assessSkill(skill: SkillModel) {
@@ -556,6 +640,16 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(
       AssessSkillDialogComponent,
       dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.refresh();
+        }
+      },
+      error => {
+        this.toastr.error('Error adding skill!');
+      }
     );
   }
 
@@ -592,5 +686,9 @@ export class ProfileComponent implements OnInit {
         this.toastr.error('Error deleting experience!');
       }
     );
+  }
+
+  refresh() {
+    window.location.reload();
   }
 }

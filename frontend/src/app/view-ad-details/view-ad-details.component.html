@@ -191,13 +191,6 @@
         <mat-tab label="Candidates" *ngIf="is_creator">
           <div class="mt-2 d-flex flex-column justify-content-center">
             <table mat-table #CandidatesTable [dataSource]="dataSource">
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>ID</th>
-                <td mat-cell *matCellDef="let row">
-                  {{ row.id }}
-                </td>
-              </ng-container>
-
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Name</th>
                 <td mat-cell *matCellDef="let row">

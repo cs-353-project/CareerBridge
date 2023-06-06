@@ -44,7 +44,7 @@ export class AdsComponent implements OnInit {
   jobAdFilter: JobAdFilterRequestModel = {
     pay_range_min: 0,
     pay_range_max: 10000000,
-    type: '',
+    type: 'Any',
     location: '',
     setting: 'On-site',
     domain: '',

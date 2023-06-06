@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS Profile(
     address VARCHAR(300),
     biography TEXT,
     is_private BOOLEAN NOT NULL,
-    resume BLOB,
+    resume MEDIUMBLOB,
     phone_number VARCHAR(50),
     is_application_specific BOOLEAN NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

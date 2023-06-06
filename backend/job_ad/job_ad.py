@@ -470,6 +470,24 @@ def get_applications_by_profile_id(profile_id: int):
         )
         application["ad_details"] = job_ad
 
+        # Also get the skills
+        skills = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (application["ad_id"]),
+        )
+        application["ad_details"][0]["skills"] = skills
+
+        # Also get the degrees
+        degrees = query_get(
+            """
+                SELECT * FROM DegreeInJobAdvertisement WHERE ad_id = %s
+            """,
+            (application["ad_id"]),
+        )
+        application["ad_details"][0]["degrees"] = degrees
+
     return applications
 
 

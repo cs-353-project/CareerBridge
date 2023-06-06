@@ -218,7 +218,8 @@
                           <span class="mx-1">&#183;</span>
                           <span style="font-size: 12px">{{ exp.setting }}</span>
                         </div>
-                        <div *ngIf="exp.experience.current_status != 'Working'">
+                        <div
+                          *ngIf="exp.experience.current_status !== 'Working'">
                           <span style="font-size: 12px"
                             >{{
                               exp.experience.start_date | date : "mediumDate"
@@ -229,7 +230,8 @@
                             }}</span
                           >
                         </div>
-                        <div *ngIf="exp.experience.current_status == 'Working'">
+                        <div
+                          *ngIf="exp.experience.current_status === 'Working'">
                           <span style="font-size: 12px"
                             >{{
                               exp.experience.start_date | date : "mediumDate"
@@ -327,7 +329,8 @@
                             exp.grade
                           }}</span>
                         </div>
-                        <div *ngIf="exp.experience.current_status != 'Working'">
+                        <div
+                          *ngIf="exp.experience.current_status !== 'Working'">
                           <span style="font-size: 12px"
                             >{{
                               exp.experience.start_date | date : "mediumDate"
@@ -338,7 +341,8 @@
                             }}</span
                           >
                         </div>
-                        <div *ngIf="exp.experience.current_status == 'Working'">
+                        <div
+                          *ngIf="exp.experience.current_status === 'Working'">
                           <span style="font-size: 12px"
                             >{{
                               exp.experience.start_date | date : "mediumDate"
@@ -430,7 +434,8 @@
                             exp.responsibility
                           }}</span>
                         </div>
-                        <div *ngIf="exp.experience.current_status != 'Working'">
+                        <div
+                          *ngIf="exp.experience.current_status !== 'Working'">
                           <span style="font-size: 12px"
                             >{{
                               exp.experience.start_date | date : "mediumDate"
@@ -441,7 +446,8 @@
                             }}</span
                           >
                         </div>
-                        <div *ngIf="exp.experience.current_status == 'Working'">
+                        <div
+                          *ngIf="exp.experience.current_status === 'Working'">
                           <span style="font-size: 12px"
                             >{{
                               exp.experience.start_date | date : "mediumDate"

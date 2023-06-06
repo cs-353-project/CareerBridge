@@ -162,7 +162,7 @@ export class ProfileComponent implements OnInit {
       });
 
     this.profileService
-      .getWorkExperiences(this.visited_id)
+      .getVoluntaryExperiences(this.visited_id)
       .toPromise()
       .then(data => {
         data.forEach(element => {

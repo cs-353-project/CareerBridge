@@ -19,16 +19,31 @@ export class LanguageDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   addLanguage() {
-    console.log(this.data);
-    this.profileService.addLanguage(this.data).subscribe(
-      response => {
-        this.toastr.success('Language added successfully');
-        this.dialogRef.close(this.data);
-      },
-      error => {
-        this.toastr.clear();
-        this.toastr.error('Error adding language');
-      }
-    );
+    if (!this.isErrorExists()) {
+      this.profileService.addLanguage(this.data).subscribe(
+        response => {
+          this.toastr.success('Language added successfully');
+          this.dialogRef.close(this.data);
+        },
+        error => {
+          this.toastr.clear();
+          this.toastr.error('Error adding language');
+        }
+      );
+    }
+  }
+
+  isErrorExists() {
+    let flag = false;
+    if (!this.data.language_name) {
+      this.toastr.error('Language Name is required');
+      flag = true;
+    }
+    if (!this.data.proficiency) {
+      this.toastr.error('Proficiency is required');
+      flag = true;
+    }
+
+    return flag;
   }
 }

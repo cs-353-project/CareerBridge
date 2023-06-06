@@ -28,7 +28,11 @@
         *ngIf="showFilters">
         Hide Filter Options
       </button>
-      <button mat-raised-button color="primary" (click)="createAd()">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="createAd()"
+        *ngIf="user_role === 'Recruiter'">
         Create New Ad
       </button>
     </div>
@@ -329,7 +333,7 @@
       <div>
         <mat-divider class="w-100"></mat-divider>
       </div>
-      <mat-tab label="Your Ads">
+      <mat-tab label="Your Ads" *ngIf="user_role == 'Recruiter'">
         <div *ngFor="let yads of this.your_ads; index as i">
           <div
             class="w-100 d-flex flex-row align-items-center"

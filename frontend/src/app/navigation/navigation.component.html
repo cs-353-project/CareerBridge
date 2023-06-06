@@ -7,7 +7,7 @@
       class="mt-2 mb-2"
       style="height: 60px" />
     <p class="h4 font-weight-bold mt-2 mb-2" style="color: #0143ad">
-      Career Bridge
+      CareerBridge
     </p>
     <!-- <mat-form-field
       class="w-25 ml-3"
@@ -50,12 +50,13 @@
       <span>Notifications</span>
     </button>
     <button
+      *ngIf="user.user.user_role === 'Admin'"
       mat-stroked-button
       class="mr-2"
       routerLink="/admin-panel"
       routerLinkActive="active-button">
-      <mat-icon>settings</mat-icon>
-      <span>Settings</span>
+      <mat-icon>admin_panel_settings</mat-icon>
+      <span>Admin Panel</span>
     </button>
     <button
       type="button"
@@ -74,6 +75,14 @@
           {{ this.user.user.user_role }}
         </span>
       </div>
+    </button>
+    <button
+      mat-stroked-button
+      class="ml-2"
+      routerLinkActive="active-button"
+      (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -141,7 +150,7 @@
     >No Notifications yet.</span
   >
   <ng-container *ngFor="let notification of notifications; let last = last">
-    <button mat-menu-item>{{ notification.details }}</button>
+    <button mat-menu-item>{{ notification?.details }}</button>
     <mat-divider class="w-100 my-1" *ngIf="!last"></mat-divider>
   </ng-container>
 </mat-menu>

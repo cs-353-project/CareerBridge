@@ -198,6 +198,7 @@ def get_job_details(ad_id: int, profile_id: int):
 
         if application:
             job_ad["has_applied"] = True
+            job_ad["status"] = application[0]["response"]
         else:
             job_ad["has_applied"] = False
 
@@ -468,6 +469,24 @@ def get_applications_by_profile_id(profile_id: int):
             (application["ad_id"]),
         )
         application["ad_details"] = job_ad
+
+        # Also get the skills
+        skills = query_get(
+            """
+                SELECT * FROM SkillInJobAdvertisement WHERE ad_id = %s
+            """,
+            (application["ad_id"]),
+        )
+        application["ad_details"][0]["skills"] = skills
+
+        # Also get the degrees
+        degrees = query_get(
+            """
+                SELECT * FROM DegreeInJobAdvertisement WHERE ad_id = %s
+            """,
+            (application["ad_id"]),
+        )
+        application["ad_details"][0]["degrees"] = degrees
 
     return applications
 

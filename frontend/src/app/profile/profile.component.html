@@ -2,23 +2,14 @@
   <div id="top-card">
     <div id="top-icon"><mat-icon>account_circle</mat-icon></div>
     <div id="top-inner">
-      <div id="top-inner-1">
-        <mat-icon>verified_user</mat-icon>
-        <div id="top-inner-1-1">
-          <p>Verified Master Skill: <b>Python</b></p>
-          <p>Rating: <b>4/5</b></p>
+      <div class="d-flex flex-column justify-content-center h-100">
+        <div>
+          <span style="font-size: 20pt" class="font-weight-bold">{{
+            profile_name
+          }}</span>
         </div>
-      </div>
-      <div id="top-inner-2">
-        <h1>
-          {{ profile_name }}
-        </h1>
-
-        <div id="top-inner-2-buttons">
-          <button mat-button>
-            <mat-icon>share</mat-icon>
-          </button>
-          <button mat-button><mat-icon>more_horiz</mat-icon></button>
+        <div class="mt-2">
+          <span style="font-size: 12pt">{{ profile_role }}</span>
         </div>
       </div>
     </div>
@@ -548,7 +539,8 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
-                          *ngIf="this.id == this.visited_id">
+                          *ngIf="this.id == this.visited_id"
+                          (click)="deleteProject(project)">
                           Delete
                         </button>
                       </div>
@@ -642,6 +634,7 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
+                          (click)="deleteCertification(certificate)"
                           *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
@@ -718,6 +711,7 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
+                          (click)="deleteAward(award)"
                           *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
@@ -795,6 +789,7 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
+                          (click)="deleteTestScore(test)"
                           *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
@@ -887,6 +882,7 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
+                          (click)="deletePublication(publication)"
                           *ngIf="this.id == this.visited_id">
                           Delete
                         </button>
@@ -915,7 +911,7 @@
         <div class="main-content-top">
           <div class="main-content-top-inner">
             <mat-icon>language</mat-icon>
-            <h2 class="main-content-header">Publications</h2>
+            <h2 class="main-content-header">Language</h2>
           </div>
           <button
             mat-button
@@ -925,40 +921,51 @@
             Add Language
           </button>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>speaker_notes</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
-              </div>
-            </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
-          </div>
+        <div class="mt-2" *ngIf="languages?.length == 0">
+          <span>No Language yet.</span>
         </div>
-        <div class="main-content-item">
-          <div class="main-content-top">
-            <div class="main-content-top-inner">
-              <mat-icon>speaker_notes</mat-icon>
-              <div>
-                <h3>DevOps Engineering Intern</h3>
-                <p>Amazon</p>
-                <p><small>17 June 2021 - 21 July 2022</small></p>
+        <div
+          *ngIf="languages?.length > 0"
+          style="width: calc(100% - 35px)"
+          class="mt-2">
+          <div class="w-100" *ngFor="let lang of languages">
+            <div
+              class="w-100 mt-2 p-2"
+              style="background-color: #f6f6f6; border-radius: 15px">
+              <div class="d-flex flex-column w-100">
+                <div class="d-flex flex-row w-100 align-items-center">
+                  <div>
+                    <mat-icon class="item-icon">g_translate</mat-icon>
+                  </div>
+                  <div
+                    class="d-flex flex-row ml-3 w-100 justify-content-between">
+                    <div class="d-flex flex-column">
+                      <div>
+                        <span
+                          style="font-size: 18px"
+                          class="font-weight-bold"
+                          >{{ lang?.language_name }}</span
+                        >
+                      </div>
+                      <div class="mt-1">
+                        <span style="font-size: 14px">{{
+                          lang?.proficiency
+                        }}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        mat-raised-button
+                        class="btn-danger mr-1"
+                        (click)="deleteLanguage(lang)"
+                        *ngIf="this.id == this.visited_id">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            During my Amazon DevOps Engineering Internship, I gained valuable
-            experience in cloud computing technologies, including AWS services
-            such as EC2, S3, and CloudFormation. I worked on automation projects
-            using tools such...
           </div>
         </div>
       </div>
@@ -1006,16 +1013,22 @@
                           >{{ skill.name }}</span
                         >
                       </div>
-                      <div>
-                        <span
-                          style="font-size: 14px; color: green"
-                          *ngIf="skill.is_verified == 1"
-                          >Verified</span
-                        >
-                        <span
-                          style="font-size: 14px; color: red"
-                          *ngIf="skill.is_verified != 1"
-                          >Not Verified</span
+                      <div
+                        class="d-flex flex-row mt-1"
+                        *ngIf="skill.rating > 0">
+                        <div class="mr-2">
+                          <span style="font-size: 14px">Rating:</span>
+                        </div>
+                        <div *ngFor="let i of range(+skill.rating)">
+                          <span style="font-size: 16pt">&#9733;</span>
+                        </div>
+                        <div *ngFor="let i of range(5 - skill.rating)">
+                          <span style="font-size: 16pt">&#9734;</span>
+                        </div>
+                      </div>
+                      <div *ngIf="skill.rating == 0">
+                        <span style="font-size: 14px"
+                          >Rating: Not rated yet.</span
                         >
                       </div>
                       <div>
@@ -1041,6 +1054,7 @@
                       <button
                         mat-raised-button
                         class="btn-danger mr-1"
+                        (click)="deleteSkill(skill)"
                         *ngIf="this.id == this.visited_id">
                         Delete
                       </button>

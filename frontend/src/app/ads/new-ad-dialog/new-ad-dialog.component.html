@@ -16,7 +16,6 @@
           matInput
           class="ml-3"
           style="width: 90%"
-          required
           [(ngModel)]="data.title" />
       </mat-form-field>
       <mat-form-field
@@ -29,7 +28,6 @@
           matInput
           class="ml-3"
           style="width: 90%"
-          required
           [(ngModel)]="data.organization" />
       </mat-form-field>
     </div>
@@ -44,7 +42,6 @@
           matInput
           class="ml-3"
           style="width: 90%"
-          required
           [(ngModel)]="data.location" />
       </mat-form-field>
       <mat-form-field
@@ -57,7 +54,6 @@
           matInput
           class="ml-3"
           style="width: 90%"
-          required
           [(ngModel)]="data.domain" />
       </mat-form-field>
     </div>
@@ -126,12 +122,7 @@
         name="degrees"
         ngDefaultControl>
         <mat-label>Degrees Required</mat-label>
-        <input
-          matInput
-          class="ml-3"
-          style="width: 90%"
-          required
-          [(ngModel)]="degrees" />
+        <input matInput class="ml-3" style="width: 90%" [(ngModel)]="degrees" />
       </mat-form-field>
       <mat-form-field
         class="w-100"
@@ -139,12 +130,7 @@
         name="skills"
         ngDefaultControl>
         <mat-label>Skills Required</mat-label>
-        <input
-          matInput
-          class="ml-3"
-          style="width: 90%"
-          required
-          [(ngModel)]="skills" />
+        <input matInput class="ml-3" style="width: 90%" [(ngModel)]="skills" />
       </mat-form-field>
     </div>
     <div>

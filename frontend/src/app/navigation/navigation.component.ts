@@ -21,14 +21,18 @@ export class NavigationComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.populateNotifications();
+  }
 
   ngOnInit(): void {}
 
   populateNotifications() {
+    console.log('buradayız');
     this.notificationService
       .getAllNotifications(this.user.user.user_id.toString())
       .subscribe(response => {
+        console.log(response);
         response.forEach(element => {
           let temp = {
             notification_id: element.notification_id,

@@ -198,6 +198,7 @@ def get_job_details(ad_id: int, profile_id: int):
 
         if application:
             job_ad["has_applied"] = True
+            job_ad["status"] = application[0]["response"]
         else:
             job_ad["has_applied"] = False
 

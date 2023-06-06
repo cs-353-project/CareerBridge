@@ -33,7 +33,7 @@ export class AssessSkillDialogComponent implements OnInit {
     this.profileService.assessSkill(temp).subscribe(
       response => {
         this.toastr.success('Skill assessed successfully');
-        this.dialogRef.close();
+        this.dialogRef.close(this.data.rating);
       },
       error => {
         console.log(error);

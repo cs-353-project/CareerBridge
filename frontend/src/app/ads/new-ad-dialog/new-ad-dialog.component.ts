@@ -39,7 +39,7 @@ export class NewAdDialogComponent implements OnInit {
       this.jobAdService.addJobAd(this.data).subscribe(
         res => {
           this.toastr.success('Job Ad Posted Successfully');
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         },
         err => {
           this.toastr.error('Error Occured');

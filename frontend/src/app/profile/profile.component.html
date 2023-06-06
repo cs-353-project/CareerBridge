@@ -1006,16 +1006,22 @@
                           >{{ skill.name }}</span
                         >
                       </div>
-                      <div>
-                        <span
-                          style="font-size: 14px; color: green"
-                          *ngIf="skill.is_verified == 1"
-                          >Verified</span
-                        >
-                        <span
-                          style="font-size: 14px; color: red"
-                          *ngIf="skill.is_verified != 1"
-                          >Not Verified</span
+                      <div
+                        class="d-flex flex-row mt-1"
+                        *ngIf="skill.rating > 0">
+                        <div class="mr-2">
+                          <span style="font-size: 14px">Rating:</span>
+                        </div>
+                        <div *ngFor="let i of range(+skill.rating)">
+                          <span style="font-size: 16pt">&#9733;</span>
+                        </div>
+                        <div *ngFor="let i of range(5 - skill.rating)">
+                          <span style="font-size: 16pt">&#9734;</span>
+                        </div>
+                      </div>
+                      <div *ngIf="skill.rating == 0">
+                        <span style="font-size: 14px; color: red"
+                          >Not Rated yet</span
                         >
                       </div>
                       <div>

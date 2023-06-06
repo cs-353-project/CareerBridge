@@ -189,7 +189,9 @@ export class ProfileComponent implements OnInit {
       .toPromise()
       .then(data => {
         data.forEach(element => {
+          console.log(element);
           let temp: SkillModel = {
+            rating: element.rating,
             skill_id: element.skill_id,
             profile_id: element.profile_id,
             name: element.name,
@@ -690,5 +692,11 @@ export class ProfileComponent implements OnInit {
 
   refresh() {
     window.location.reload();
+  }
+
+  range(n: number): number[] {
+    return Array(n)
+      .fill(0)
+      .map((_, index) => index);
   }
 }

@@ -12,6 +12,7 @@ import { ViewAdDetailsComponent } from './view-ad-details/view-ad-details.compon
 import { CandidatesComponent } from './candidates/candidates.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { AllUsersComponent } from './all-users/all-users.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -29,7 +30,8 @@ const routes: Routes = [
       { path: 'profile/:id', component: ProfileComponent },
       { path: 'view-ad/:id', component: ViewAdDetailsComponent },
       { path: 'candidates/:id', component: CandidatesComponent },
-      { path: 'admin-panel', component: AdminPanelComponent }
+      { path: 'admin-panel', component: AdminPanelComponent },
+      { path: 'all-users', component: AllUsersComponent }
     ]
   }
 ];

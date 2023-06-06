@@ -239,4 +239,8 @@ export class ProfileService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(this.baseUrl + 'user/get-all-users');
+  }
 }

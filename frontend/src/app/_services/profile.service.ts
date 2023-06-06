@@ -82,6 +82,12 @@ export class ProfileService {
     return this.http.get(this.baseUrl + 'profile/voluntary-experience/' + id);
   }
 
+  deleteExperienceById(id: string) {
+    return this.http.delete(
+      this.baseUrl + 'profile/experience?experience_id=' + id
+    );
+  }
+
   getTestScores(id: string): Observable<any> {
     return this.http.get(this.baseUrl + 'profile/test-score/' + id);
   }
@@ -191,7 +197,9 @@ export class ProfileService {
   }
 
   getSkillAssessments(skill_id: number) {
-    return this.http.get(this.baseUrl + 'profile/skill_assessments/' + skill_id.toString())
+    return this.http.get(
+      this.baseUrl + 'profile/skill_assessments/' + skill_id.toString()
+    );
   }
 
   assessSkill(skill_assessment: AssessSkillModel) {

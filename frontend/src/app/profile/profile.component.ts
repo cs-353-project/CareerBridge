@@ -32,6 +32,7 @@ import { TestScoreDialogComponent } from './test-score-dialog/test-score-dialog.
 import { PublicationDialogComponent } from './publication-dialog/publication-dialog.component';
 import { LanguageDialogComponent } from './language-dialog/language-dialog.component';
 import { AssessSkillDialogComponent } from '../assess-skill-dialog/assess-skill-dialog.component';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -555,6 +556,41 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(
       AssessSkillDialogComponent,
       dialogConfig
+    );
+  }
+
+  deleteExperience(experience: any, experience_list: any[]) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text:
+        'Are you sure you want to delete ' + experience.experience.title + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService
+            .deleteExperienceById(experience.experience.experience_id)
+            .subscribe(
+              response => {
+                this.toastr.success('Experience deleted successfully!');
+                experience_list.splice(experience_list.indexOf(experience), 1);
+              },
+              error => {
+                this.toastr.error('Error deleting experience!');
+              }
+            );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting experience!');
+      }
     );
   }
 }

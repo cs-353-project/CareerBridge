@@ -37,8 +37,8 @@ from profile.profile import (
     add_work_experience,
     delete_award,
     delete_certification,
-    delete_language_proficiency,
     delete_experience,
+    delete_language_proficiency,
     delete_project,
     delete_publication,
     delete_resume,
@@ -62,7 +62,7 @@ from profile.profile import (
     upload_resume,
 )
 
-from fastapi import FastAPI, HTTPException, Response, Security, UploadFile
+from fastapi import Body, FastAPI, HTTPException, Response, Security, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -86,6 +86,7 @@ from job_ad.job_ad import (
 )
 from job_ad.models import (
     JobAdFilterRequestModel,
+    JobAdStatusUpdateRequestModel,
     JobAdvertisementRequestModel,
     JobAdvertisementResponseModel,
     JobApplicationRequestModel,
@@ -143,7 +144,6 @@ from user import (
     update_user,
 )
 
-from fastapi import Body
 
 app = FastAPI()
 
@@ -511,7 +511,7 @@ def get_job_ad_detail_api(ad_id: int, profile_id: int):
     return JSONResponse(status_code=200, content=jsonable_encoder(job_ad))
 
 
-@app.delete("/api/job_ad/")
+@app.delete("/api/job_ad")
 def delete_job_ad_api(ad_id: int):
     """
     This certification delete API allow you to delete certification data.
@@ -963,6 +963,28 @@ def get_notification_api(user_id: int):
     )
 
     return JSONResponse(status_code=200, content=jsonable_encoder(notification))
+
+
+@app.patch("/api/change_job_ad_status/{job_ad_id}", response_model=None)
+def change_job_ad_status_api(job_ad_id: int, status: JobAdStatusUpdateRequestModel):
+    if status.is_open is not None:
+        s = status.is_open
+        if s is True:
+            s = 1
+        else:
+            s = 0
+
+        query_put(
+            """
+            UPDATE JobAdvertisement SET is_open = %s WHERE job_ad_id = %s
+            """,
+            (s, job_ad_id),
+        )
+
+        return JSONResponse(status_code=200, content={"message": "Job ad status updated successfully"})
+
+    else:
+        raise HTTPException(status_code=404, detail="Error while updating job ad status")
 
 
 # Test Endpoints

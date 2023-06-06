@@ -149,3 +149,7 @@ class JobDetailsResponseModel(BaseModel):
     skills: list[SkillInJobResponseModel]
     required_degrees: list[DegreeInJobResponseModel]
     creator: ProfileResponseModel
+
+
+class JobAdStatusUpdateRequestModel(BaseModel):
+    is_open: Optional[bool] = None

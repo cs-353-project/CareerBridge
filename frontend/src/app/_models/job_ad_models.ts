@@ -115,3 +115,7 @@ export interface JobDetailResponseModel {
   required_degrees: DegreeModel[];
   creator: ProfileModel;
 }
+
+export interface JobAdStatusUpdateRequestModel {
+  is_open: boolean;
+}

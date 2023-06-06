@@ -9,7 +9,8 @@ import {
   JobAdvertisementResponseModel,
   JobApplicationResponseModel,
   JobApplicationRequestModel,
-  JobApplicationUpdateRequestModel
+  JobApplicationUpdateRequestModel,
+  JobAdStatusUpdateRequestModel
 } from '../_models/job_ad_models';
 
 @Injectable({
@@ -101,5 +102,12 @@ export class JobAdService {
       this.baseUrl + 'jobapplications/update/' + id.toString(),
       response
     );
+  }
+
+  updateJobAdStatus(
+    id: string,
+    status: JobAdStatusUpdateRequestModel
+  ): Observable<any> {
+    return this.http.patch(this.baseUrl + 'change_job_ad_status/' + id, status);
   }
 }

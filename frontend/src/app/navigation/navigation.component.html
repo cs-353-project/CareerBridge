@@ -50,6 +50,7 @@
       <span>Notifications</span>
     </button>
     <button
+      *ngIf="user.user.user_role === 'Admin'"
       mat-stroked-button
       class="mr-2"
       routerLink="/admin-panel"
@@ -149,7 +150,7 @@
     >No Notifications yet.</span
   >
   <ng-container *ngFor="let notification of notifications; let last = last">
-    <button mat-menu-item>{{ notification.details }}</button>
+    <button mat-menu-item>{{ notification?.details }}</button>
     <mat-divider class="w-100 my-1" *ngIf="!last"></mat-divider>
   </ng-container>
 </mat-menu>

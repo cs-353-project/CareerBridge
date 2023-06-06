@@ -34,6 +34,8 @@ export class AdsComponent implements OnInit {
     'black'
   ];
 
+  user_role: string;
+
   is_open = 'Open';
 
   options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -64,6 +66,7 @@ export class AdsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.authService.getCurrentUser().user.user_id;
+    this.user_role = this.authService.getCurrentUserRole();
     this.ads_for_you = [];
     this.adService
       .getAllJobAds()

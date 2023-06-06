@@ -119,7 +119,9 @@
             </div>
           </div>
           <mat-divider class="w-100 my-1"></mat-divider>
-          <div class="mt-2 w-100 d-flex flex-row align-items-center">
+          <div
+            class="mt-2 w-100 d-flex flex-row align-items-center"
+            *ngIf="!is_creator">
             <button
               mat-raised-button
               color="primary"
@@ -186,7 +188,7 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Candidates">
+        <mat-tab label="Candidates" *ngIf="is_creator">
           <div class="mt-2 d-flex flex-column justify-content-center">
             <table mat-table #CandidatesTable [dataSource]="dataSource">
               <ng-container matColumnDef="id">

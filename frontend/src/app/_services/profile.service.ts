@@ -88,6 +88,30 @@ export class ProfileService {
     );
   }
 
+  deleteProjectById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/project?project_id=' + id);
+  }
+
+  deleteAwardById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/award?award_id=' + id);
+  }
+
+  deletePublicationById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/publication?publication_id=' + id);
+  }
+
+  deleteCertificationById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/certification?certification_id=' + id);
+  }
+
+  deleteSkillById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/skill?skill_id=' + id);
+  }
+
+  deleteTestScoreById(id: string) {
+    return this.http.delete(this.baseUrl + 'profile/test-score?test_score_id=' + id);
+  }
+
   getTestScores(id: string): Observable<any> {
     return this.http.get(this.baseUrl + 'profile/test-score/' + id);
   }

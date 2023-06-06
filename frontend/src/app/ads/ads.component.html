@@ -14,8 +14,19 @@
         flex-direction: row;
         justify-content: space-between;
       ">
-      <button mat-raised-button color="primary" (click)="filterChange()">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="filterChange()"
+        *ngIf="!showFilters">
         Show Filter Options
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="filterChange()"
+        *ngIf="showFilters">
+        Hide Filter Options
       </button>
       <button mat-raised-button color="primary" (click)="createAd()">
         Create New Ad

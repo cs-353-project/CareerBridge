@@ -3,6 +3,8 @@ import { UserAuthResponseModel } from '../_models/user_models';
 import { AuthenticationService } from '../_services/authentication.service';
 import { NotificationService } from '../_services/notification.service';
 import { NotificationModel } from '../_models/notification_models';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -16,7 +18,9 @@ export class NavigationComponent implements OnInit {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.populateNotifications();
   }
@@ -37,5 +41,11 @@ export class NavigationComponent implements OnInit {
           this.notifications.push(temp);
         });
       });
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+    this.toastr.success('Logout successful');
   }
 }

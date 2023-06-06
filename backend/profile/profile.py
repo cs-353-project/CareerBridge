@@ -621,6 +621,20 @@ def get_skills_by_profile_id(profile_id: int):
         (profile_id),
     )
 
+    # Also get the ratings from SkillAssessment table
+    for skill in skills:
+        skill_assessments = query_get(
+            """
+                SELECT * FROM SkillAssessment WHERE skill_id = %s;
+                """,
+            (skill["skill_id"]),
+        )
+
+        if len(skill_assessments) == 0:
+            skill["rating"] = "0"
+        else:
+            skill["rating"] = skill_assessments[0]["rating"]
+
     # if len(skills) == 0:
     #     raise HTTPException(status_code=404, detail="Skills not found")
 

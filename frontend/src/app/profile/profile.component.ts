@@ -690,6 +690,39 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  deleteProject(project: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete ' + project?.title + '?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.profileService.deleteProjectById(project?.project_id).subscribe(
+            response => {
+              if (response) {
+                this.toastr.success('Project deleted successfully!');
+                this.projects.splice(this.projects.indexOf(project), 1);
+              }
+            },
+            error => {
+              this.toastr.error('Error deleting project!');
+            }
+          );
+        }
+      },
+      error => {
+        this.toastr.error('Error deleting project!');
+      }
+    );
+  }
+
   refresh() {
     window.location.reload();
   }

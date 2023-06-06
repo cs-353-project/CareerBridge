@@ -548,7 +548,8 @@
                         <button
                           mat-raised-button
                           class="btn-danger"
-                          *ngIf="this.id == this.visited_id">
+                          *ngIf="this.id == this.visited_id"
+                          (click)="deleteProject()">
                           Delete
                         </button>
                       </div>

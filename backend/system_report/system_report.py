@@ -137,15 +137,11 @@ def create_average_skill_rating_of_each_skill_response_model():
     skill_names = []
     average_ratings = []
     for data in list_of_data:
-        skill_names.append(data[0]["skill_name"])
-        average_ratings.append(data[0]["average_rating"])
+        skill_names.append(data["skill_name"])
+        average_ratings.append(data["average_rating"])
 
-    
-    response: AverageSkillRatingOfEachSkillResponseModel = AverageSkillRatingOfEachSkillResponseModel(
-        skill_names=skill_names, average_ratings=average_ratings
-    )
 
-    return response
+    return {"skill_names": skill_names, "average_ratings": average_ratings}
     # return "Skill Names: " + str(skill_names) + "\nAverage Ratings: " + str(average_ratings)
 
 

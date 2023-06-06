@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -175,7 +175,7 @@ export class ProfileService {
   }
 
   updateBio(bio: any, id: number) {
-    return this.http.patch(this.baseUrl + 'update_bio/' + id, bio);
+    return this.http.patch(this.baseUrl + 'update_bio/' + id, { biography: bio });
   }
 
   updateBasicInfo(basicInfo: any, id: number) {
@@ -204,8 +204,8 @@ export class ProfileService {
 
   assessSkill(skill_assessment: AssessSkillModel) {
     return this.http.post(
-      this.baseUrl + 'profile/skill/assess',
-      skill_assessment
+      this.baseUrl + 'assess_skill',
+      skill_assessment, {headers: new HttpHeaders({'Content-Type': 'application/json'})}
     );
   }
 }

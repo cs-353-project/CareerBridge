@@ -142,6 +142,7 @@ from user import (
     update_user,
 )
 
+from fastapi import Body
 
 app = FastAPI()
 
@@ -769,7 +770,7 @@ def delete_comment_api(comment_id: int):
     return JSONResponse(status_code=200, content={"message": "Comment deleted successfully"})
 
 
-@app.post("/api/profile/skill/assess", response_model=AssessSkillResponseModel)
+@app.post("/api/assess_skill", response_model=AssessSkillResponseModel)
 def assess_skill_api(assess_skill_details: AssessSkillRequestModel):
     """
     This skill assess API allow you to assess skill data.

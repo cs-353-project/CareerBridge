@@ -27,19 +27,19 @@ def assess_skill(assess_skill_request: AssessSkillRequestModel):
 
     get_master_skill = None
 
-    for s in assessor_skills:
-        if s["is_master_skill"] == 1:
-            get_master_skill = s
-            break
+    # for s in assessor_skills:
+    #     if s["is_master_skill"] == 1:
+    #         get_master_skill = s
+    #         break
 
-    if get_master_skill is None:
-        raise HTTPException(status_code=404, detail="Master skill not found.")
+    # if get_master_skill is None:
+    #     raise HTTPException(status_code=404, detail="Master skill not found.")
 
-    if get_master_skill["name"] != skill[0]["name"]:
-        raise HTTPException(status_code=404, detail="You are not allowed to assess this skill.")
+    # if get_master_skill["name"] != skill[0]["name"]:
+    #     raise HTTPException(status_code=404, detail="You are not allowed to assess this skill.")
 
-    if skill[0]["is_master_skill"] is True or skill[0]["is_verified"] is True:
-        raise HTTPException(status_code=404, detail="The skill is already verified.")
+    # if skill[0]["is_master_skill"] is True or skill[0]["is_verified"] is True:
+    #     raise HTTPException(status_code=404, detail="The skill is already verified.")
 
     query_put(
         """

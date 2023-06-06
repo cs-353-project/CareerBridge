@@ -126,7 +126,12 @@
                 <img src="assets/images/company.png" alt="placeholder" />
               </div>
               <div class="text-center">
-                <span style="font-size: 10px; color: green">Open</span>
+                <span style="font-size: 10px; color: green" *ngIf="afy.is_open"
+                  >Open</span
+                >
+                <span style="font-size: 10px; color: red" *ngIf="!afy.is_open"
+                  >Closed</span
+                >
               </div>
             </div>
             <div class="h-100" style="width: 175px">
@@ -231,7 +236,14 @@
                 <img src="assets/images/company.png" alt="placeholder" />
               </div>
               <div class="text-center">
-                <span style="font-size: 10px; color: green">Open</span>
+                <span
+                  style="font-size: 10px; color: green"
+                  *ngIf="appad.is_open"
+                  >Open</span
+                >
+                <span style="font-size: 10px; color: red" *ngIf="!appad.is_open"
+                  >Closed</span
+                >
               </div>
             </div>
             <div class="h-100" style="width: 175px">
@@ -343,7 +355,12 @@
                 <img src="assets/images/company.png" alt="placeholder" />
               </div>
               <div class="text-center">
-                <span style="font-size: 10px; color: green">Open</span>
+                <span style="font-size: 10px; color: green" *ngIf="yads.is_open"
+                  >Open</span
+                >
+                <span style="font-size: 10px; color: red" *ngIf="!yads.is_open"
+                  >Closed</span
+                >
               </div>
             </div>
             <div class="h-100" style="width: 175px">

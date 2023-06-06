@@ -976,7 +976,7 @@ def change_job_ad_status_api(job_ad_id: int, status: JobAdStatusUpdateRequestMod
 
         query_put(
             """
-            UPDATE JobAdvertisement SET is_open = %s WHERE job_ad_id = %s
+            UPDATE JobAdvertisement SET is_open = %s WHERE ad_id = %s
             """,
             (s, job_ad_id),
         )

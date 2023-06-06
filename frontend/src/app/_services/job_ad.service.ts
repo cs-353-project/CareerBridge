@@ -22,7 +22,7 @@ export class JobAdService {
   constructor(private http: HttpClient) {}
 
   getAllJobAds(): Observable<any> {
-    return this.http.get(this.baseUrl + 'job_ad');
+    return this.http.get(this.baseUrl + 'job_ad/');
   }
 
   getJobAds(id: number): Observable<any> {
@@ -34,7 +34,7 @@ export class JobAdService {
   }
 
   deleteJobAd(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + 'job_ad/', { body: { ad_id: id } });
+    return this.http.delete(this.baseUrl + 'job_ad?ad_id=' + id.toString());
   }
 
   filterJobAds(filter: JobAdFilterRequestModel): Observable<any> {

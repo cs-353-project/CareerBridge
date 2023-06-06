@@ -72,6 +72,7 @@ export class AdsComponent implements OnInit {
       .getAllJobAds()
       .toPromise()
       .then(response => {
+        console.log(response);
         response.forEach(element => {
           let date = new Date();
           let create_at = new Date(element.created_at);

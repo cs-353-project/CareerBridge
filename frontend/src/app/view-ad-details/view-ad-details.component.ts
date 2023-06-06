@@ -149,6 +149,74 @@ export class ViewAdDetailsComponent implements OnInit {
       }
     });
   }
+
+  changeAdStatus() {
+    let text: string;
+    if (this.ad.is_open) {
+      text = 'close this job?';
+    } else {
+      text = 'open this job?';
+    }
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to ' + text
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.adService
+          .updateJobAdStatus(this.ad.ad_id.toString(), {
+            is_open: !this.ad.is_open
+          })
+          .subscribe(
+            res => {
+              if (res) {
+                this.ad.is_open = !this.ad.is_open;
+                this.toastr.success('Status Changed Successfully');
+              }
+            },
+            err => {
+              this.toastr.error('Error Occured');
+            }
+          );
+      }
+    });
+  }
+
+  deleteAd() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: 'Are you sure you want to delete this job?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.adService.deleteJobAd(this.ad.ad_id).subscribe(
+          res => {
+            if (res) {
+              this.toastr.success('Deleted Successfully');
+              this.router.navigate(['/ads']);
+            }
+          },
+          err => {
+            this.toastr.error('Error Occured');
+          }
+        );
+      }
+    });
+  }
 }
 
 export interface Candidate {

@@ -12,6 +12,7 @@
               matInput
               placeholder="First Name"
               class="form-control"
+              autofocus
               formControlName="first_name" />
             <mat-error
               *ngIf="
@@ -114,7 +115,11 @@
           </div>
           <div
             class="d-flex flex-row align-items-center justify-content-center">
-            <mat-checkbox [disableRipple]="true" class="mr-2"></mat-checkbox>
+            <mat-checkbox
+              [disableRipple]="true"
+              class="mr-2"
+              (change)="this.confirm_policy = !this.confirm_policy">
+            </mat-checkbox>
             <span style="margin-bottom: 8px">
               I have read the
               <a class="link" (click)="openPolicy()">Users & Poles Policy</a> of
@@ -125,7 +130,8 @@
             (click)="signUp()"
             mat-raised-button
             color="primary"
-            class="w-100 mt-3">
+            class="w-100 mt-3"
+            [disabled]="!confirm_policy || requiredForm.invalid">
             Create Account
           </button>
           <div class="d-flex justify-content-center align-items-start">
